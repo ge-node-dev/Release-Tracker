@@ -1,0 +1,4 @@
+@mixin font-geist($weight: 400) {
+   font-family: var(--font-geist-sans), sans-serif;
+   font-weight: $weight;
+}

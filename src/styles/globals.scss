@@ -1,0 +1,77 @@
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
+
+html {
+   scroll-behavior: smooth;
+   -webkit-text-size-adjust: 100%;
+}
+
+body {
+   min-height: 100vh;
+   margin: 0;
+   line-height: $base-line-height;
+   font-family: $font-main;
+   text-rendering: optimizeSpeed;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+   margin: 0;
+}
+
+a {
+   text-decoration-skip-ink: auto;
+   color: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+   display: block;
+   max-width: 100%;
+   height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+   font: inherit;
+}
+
+button {
+   cursor: pointer;
+   background: none;
+   border: none;
+   padding: 0;
+}
+
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+   *,
+   *::before,
+   *::after {
+      animation-duration: $reduced-motion-duration !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: $reduced-motion-duration !important;
+      scroll-behavior: auto !important;
+   }
+}
