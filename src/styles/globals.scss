@@ -6,15 +6,17 @@
 
 html {
    scroll-behavior: smooth;
-   -webkit-text-size-adjust: 100%;
+   text-size-adjust: 100%;
 }
 
 body {
    min-height: 100vh;
    margin: 0;
+   padding: 24px;
    line-height: $base-line-height;
    font-family: $font-main;
-   text-rendering: optimizeSpeed;
+   background-color: $color-dark;
+   text-rendering: optimizespeed;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
 }

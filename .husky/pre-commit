@@ -13,4 +13,7 @@ npm run format || { echo -e "${RED}❌ Ошибка форматирования
 echo -e "\n${YELLOW}🔹 Запуск ESLint...${NC}\n"
 npm run lint || { echo -e "${RED}❌ Ошибка линтинга${NC}"; exit 1; }
 
+echo -e "\n${YELLOW}🔹 Запуск Stylelint...${NC}\n"
+npm run lint:styles || { echo -e "${RED}❌ Ошибка линтинга стилей${NC}"; exit 1; }
+
 echo -e "\n${GREEN}✅ Pre-commit успешно завершён!${NC}\n"
