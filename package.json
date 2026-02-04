@@ -6,6 +6,7 @@
       "dev": "next dev",
       "build": "next build",
       "start": "next start",
+      "db:export-types": "npx supabase db export --schema public --types-only --out ./types/Database.ts",
       "db:pull": "npx supabase db pull --schema public",
       "db:dump": "npx supabase db dump -f mock_data.sql --data-only --schema public",
       "db:push": "npx supabase db push",
