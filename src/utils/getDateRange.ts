@@ -1,8 +1,8 @@
-import { ReleasePeriod } from '@/types/releases';
+import { ReleasePeriods } from '@/types/releases';
 
 type DateRange = { to: string; from: string };
 
-export const getDateRange = (period: ReleasePeriod): DateRange => {
+export const getDateRange = (period: ReleasePeriods): DateRange => {
    const now = new Date();
    const start = new Date(now);
    const end = new Date(now);

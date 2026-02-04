@@ -1,13 +1,13 @@
-export type ReleasePeriod = 'all_time' | 'this_week' | 'this_month';
+export enum RELEASES_PERIODS_LIMITS {
+   this_week = 15,
+   this_month = 25,
+   all_time = 45,
+}
 
-export const RELEASES_PERIODS_LIMITS: Record<ReleasePeriod, number> = {
-   all_time: 45,
-   this_week: 15,
-   this_month: 25,
-} as const;
+export type ReleasePeriods = keyof typeof RELEASES_PERIODS_LIMITS;
 
 export interface ReleaseQueryParams {
    page: number;
-   period: ReleasePeriod;
+   period: ReleasePeriods;
    sortOrder?: 'asc' | 'desc';
 }
