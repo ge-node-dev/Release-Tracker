@@ -1,4 +1,5 @@
-import type { Database } from '@db/types/database';
+import type { Database } from '@db/types/database.ts';
+
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
