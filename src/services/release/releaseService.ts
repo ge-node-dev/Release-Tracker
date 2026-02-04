@@ -4,7 +4,7 @@ import { getDateRange } from '@/utils/getDateRange';
 
 import { RELEASE_BY_ID_QUERY, RELEASES_QUERY } from './query';
 
-export const getReleasesList = async ({ period, page = 1, sortOrder = 'asc' }: ReleaseQueryParams) => {
+export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    const supabase = await createSupabaseServerClient();
    const limit = RELEASES_PERIODS_LIMITS[period];
 
@@ -28,7 +28,6 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'asc' }: R
 
    return {
       page,
-      limit,
       data: data ?? [],
       totalCount: count ?? 0,
       hasMore: count ? toIndex < count - 1 : false,
