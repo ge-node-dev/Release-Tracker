@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import localFont from 'next/font/local';
 
-import '@/styles/globals.scss';
+import '@/shared/styles/globals.scss';
 
 const geistSans = localFont({
    variable: '--font-geist-sans',

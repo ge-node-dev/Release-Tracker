@@ -1,6 +1,6 @@
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/types/releases';
-import { getDateRange } from '@/utils/getDateRange';
+import { ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
+import { getDateRange } from '@/shared/utils/getDateRange';
 
 import { RELEASE_BY_ID_QUERY, RELEASES_QUERY } from './query';
 
