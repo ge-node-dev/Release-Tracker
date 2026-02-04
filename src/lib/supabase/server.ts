@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 
 import { Database } from '@/types/Database';
 
-export const createSupabaseClient = async () => {
+export const createSupabaseServerClient = async () => {
    const cookieStore = await cookies();
 
    return createServerClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
@@ -12,13 +12,7 @@ export const createSupabaseClient = async () => {
             return cookieStore.getAll();
          },
          setAll(cookiesToSet) {
-            try {
-               cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
-            } catch {
-               // The `setAll` method was called from a Server Component.
-               // This can be ignored if you have middleware refreshing
-               // user sessions.
-            }
+            cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
          },
       },
    });

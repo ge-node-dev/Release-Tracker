@@ -1,37 +1,44 @@
 {
-  "name": "code-learn",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\"",
-    "lint": "set NODE_ENV=production&& eslint \"**/*.{ts,tsx,js,jsx}\" --fix --max-warnings=0",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "@supabase/ssr": "^0.8.0",
-    "@supabase/supabase-js": "^2.89.0",
-    "next": "16.1.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "9.39.2",
-    "eslint-config-next": "16.1.6",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-perfectionist": "5.4.0",
-    "eslint-plugin-prettier": "5.5.5",
-    "husky": "^9.1.7",
-    "pinst": "^3.0.0",
-    "prettier": "^3.8.1",
-    "sass": "^1.97.3",
-    "supabase": "^2.74.5",
-    "typescript": "^5"
-  }
+   "name": "code-learn",
+   "version": "0.1.0",
+   "private": true,
+   "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "db:pull": "npx supabase db pull --schema public",
+      "db:dump": "npx supabase db dump -f mock_data.sql --data-only --schema public",
+      "db:push": "npx supabase db push",
+      "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\"",
+      "lint": "set NODE_ENV=production&& eslint \"**/*.{ts,tsx,js,jsx}\" --fix --max-warnings=0",
+      "lint:styles": "stylelint \"**/*.{scss,sass,css}\"",
+      "prepare": "husky"
+   },
+   "dependencies": {
+      "@supabase/ssr": "^0.8.0",
+      "@supabase/supabase-js": "^2.89.0",
+      "next": "16.1.6",
+      "react": "19.2.4",
+      "react-dom": "19.2.4"
+   },
+   "devDependencies": {
+      "@types/node": "^20",
+      "@types/react": "^19",
+      "@types/react-dom": "^19",
+      "babel-plugin-react-compiler": "1.0.0",
+      "eslint": "9.39.2",
+      "eslint-config-next": "16.1.6",
+      "eslint-config-prettier": "10.1.8",
+      "eslint-plugin-perfectionist": "5.4.0",
+      "eslint-plugin-prettier": "5.5.5",
+      "husky": "^9.1.7",
+      "pinst": "^3.0.0",
+      "prettier": "^3.8.1",
+      "sass": "^1.97.3",
+      "stylelint": "^17.1.1",
+      "stylelint-config-standard-scss": "^17.0.0",
+      "stylelint-scss": "^7.0.0",
+      "supabase": "^2.75.3",
+      "typescript": "^5"
+   }
 }
