@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { createSupabaseClient } from '@/lib/supabase/server';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 
 export const proxy = async (request: NextRequest) => {
    const response = NextResponse.next({
@@ -9,7 +9,7 @@ export const proxy = async (request: NextRequest) => {
       },
    });
 
-   const supabase = await createSupabaseClient();
+   const supabase = await createSupabaseServerClient();
    const { data } = await supabase.auth.getUser();
 
    const isAuthRoute = request.nextUrl.pathname.includes('/auth');
