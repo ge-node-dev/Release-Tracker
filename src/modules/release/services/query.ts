@@ -5,6 +5,7 @@ export const RELEASES_QUERY = `
   fans_number,
   rating_avg,
   release_date,
+  external_key,
   release_artists (
     artists (
       id,

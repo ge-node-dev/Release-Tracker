@@ -1,5 +1,11 @@
-const Home = () => {
-   return <div>...</div>;
+import ReleasesList from '@/modules/release/components/ReleasesList';
+
+const HomePage = () => {
+   return (
+      <div>
+         <ReleasesList />
+      </div>
+   );
 };
 
-export default Home;
+export default HomePage;
