@@ -1,4 +1,4 @@
-import { ReleasePeriods } from '@/types/releases';
+import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
 
 type DateRange = { to: string; from: string };
 
