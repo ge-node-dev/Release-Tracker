@@ -5,9 +5,9 @@ const HomePage = async ({ searchParams }: { searchParams: Promise<{ [key: string
    const { page } = paramsData;
 
    return (
-      <div>
+      <>
          <ReleasesList page={page} />
-      </div>
+      </>
    );
 };
 

@@ -1,12 +1,17 @@
 .pagination {
+   width: fit-content;
+   margin: 0px auto;
+
    display: flex;
    align-items: center;
-   gap: 8px;
-   padding: 12px 6px;
-   background-color: #1a1a1a;
-   border-radius: 8px;
-   width: fit-content;
-   align-self: center;
+   gap: 10px;
+   padding: 10px 20px;
+
+   background: $bg-card;
+   backdrop-filter: blur(30px);
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   border-radius: 50px;
+   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
 .pageButton {
@@ -18,19 +23,19 @@
    background-color: transparent;
    border: none;
    border-radius: 50%;
-   color: $color-light-gray;
-   font-size: 16px;
+   color: $text-tertiary;
+   font-size: 17px;
    font-weight: 500;
    cursor: pointer;
    user-select: none;
 
    &:hover:not(.disabled, .active) {
-      background-color: #2a2a2a;
-      color: #fff;
+      background-color: $button-border-light;
+      color: $text-primary;
    }
 
    &:active:not(.disabled) {
-      transform: scale(0.95);
+      transform: scale(0.98);
    }
 }
 
@@ -38,12 +43,12 @@
    font-family: $font-main;
 
    &.active {
-      background-color: $button-bg-gray;
-      border: 1px solid $button-border-gray;
-      color: #fff;
+      background-color: $button-bg-transparent;
+      border: 1px solid $button-border-light;
+      color: $text-primary;
 
       &:hover {
-         background-color: $button-bg-gray;
+         background-color: $button-bg-transparent;
       }
    }
 }
@@ -52,7 +57,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
-   color: #6b7280;
+   color: $text-tertiary;
    font-size: 19px;
    font-weight: 500;
    padding: 0;

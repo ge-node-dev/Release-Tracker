@@ -13,6 +13,7 @@
       "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\"",
       "lint": "set NODE_ENV=production&& eslint \"**/*.{ts,tsx,js,jsx}\" --fix --max-warnings=0",
       "lint:styles": "stylelint \"**/*.{scss,sass,css}\" --fix",
+      "test:queries": "tsx --env-file=.env.local src/tests/releaseServices.test.ts",
       "prepare": "husky"
    },
    "dependencies": {
@@ -40,6 +41,7 @@
       "stylelint-config-standard-scss": "^17.0.0",
       "stylelint-scss": "^7.0.0",
       "supabase": "^2.75.3",
+      "tsx": "^4.21.0",
       "typescript": "^5"
    }
 }

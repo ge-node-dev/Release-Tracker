@@ -2,7 +2,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
 import { getDateRange } from '@/shared/utils/getDateRange';
 
-import { RELEASE_BY_ID_QUERY, RELEASES_QUERY } from './query';
+import { RELEASE_BY_EXTERNAL_KEY_QUERY, RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
 
 export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    const supabase = await createSupabaseServerClient();
@@ -49,29 +49,21 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
    };
 };
 
-export const getReleaseById = async (id: string) => {
+export const getReleaseByExternalKey = async (externalKey: string) => {
    const supabase = await createSupabaseServerClient();
 
    const { data, error } = await supabase
       .from('releases')
-      .select(RELEASE_BY_ID_QUERY)
-      .eq('id', id)
-      .order('position', {
-         ascending: true,
-         referencedTable: 'release_tracks',
-      })
-      .order('created_at', {
-         ascending: false,
-         referencedTable: 'comments',
-      })
+      .select(RELEASE_BY_EXTERNAL_KEY_QUERY)
+      .eq('external_key', externalKey)
       .maybeSingle();
 
    if (error) {
-      throw new Error(`Failed to fetch release with id: ${id}`, { cause: error });
+      throw new Error(`Failed to fetch release with external key: ${externalKey}`, { cause: error });
    }
 
    if (!data) {
-      throw new Error(`Release with id ${id} not found`);
+      throw new Error(`Release with external key ${externalKey} not found`);
    }
 
    return data;
@@ -82,7 +74,7 @@ export const getReleaseOfTheWeek = async () => {
 
    const { data, error } = await supabase
       .from('releases')
-      .select(RELEASES_QUERY)
+      .select(RELEASES_OF_THE_WEEK_QUERY)
       .order('fans_number', { ascending: false })
       .limit(1)
       .maybeSingle();

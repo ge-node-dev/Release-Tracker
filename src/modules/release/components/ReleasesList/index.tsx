@@ -35,7 +35,9 @@ const ReleasesList = async ({ page }: { page: string }) => {
                   <ReleaseCard key={release.id} release={release} />
                ))}
             </div>
-            <Pagination totalPages={totalPages} currentPage={currentPage || 1} />
+            <div className={styles.paginationWrapper}>
+               <Pagination totalPages={totalPages} currentPage={currentPage || 1} />
+            </div>
          </section>
       </>
    );
