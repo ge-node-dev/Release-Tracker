@@ -2,6 +2,15 @@ import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
 
 type DateRange = { to: string; from: string };
 
+const toLocalISOString = (date: Date, type: 'end' | 'start') => {
+   const pad = (n: number) => String(n).padStart(2, '0');
+   const yyyy = date.getFullYear();
+   const mm = pad(date.getMonth() + 1);
+   const dd = pad(date.getDate());
+
+   return type === 'start' ? `${yyyy}-${mm}-${dd}T00:00:00.000` : `${yyyy}-${mm}-${dd}T23:59:59.999`;
+};
+
 export const getDateRange = (period: ReleasePeriods): DateRange => {
    const now = new Date();
    const start = new Date(now);
@@ -10,22 +19,15 @@ export const getDateRange = (period: ReleasePeriods): DateRange => {
    if (period === 'this_week') {
       const day = now.getDay();
       const diff = now.getDate() - (day === 0 ? 6 : day - 1);
-
       start.setDate(diff);
-      start.setHours(0, 0, 0, 0);
-
       end.setDate(start.getDate() + 6);
-      end.setHours(23, 59, 59, 999);
    } else if (period === 'this_month') {
-      start.setFullYear(now.getFullYear(), now.getMonth(), 1);
-      start.setHours(0, 0, 0, 0);
-
+      start.setDate(1);
       end.setFullYear(now.getFullYear(), now.getMonth() + 1, 0);
-      end.setHours(23, 59, 59, 999);
    }
 
    return {
-      to: end.toISOString(),
-      from: start.toISOString(),
+      to: toLocalISOString(end, 'end'),
+      from: toLocalISOString(start, 'start'),
    };
 };

@@ -1,0 +1,23 @@
+.arrow {
+   min-width: 40px;
+   min-height: 40px;
+   padding: 0;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   &:hover:not(.disabled, .active) {
+      background-color: #2a2a2a;
+      color: #fff;
+   }
+
+   &:active:not(.disabled) {
+      transform: scale(0.95);
+   }
+
+   &.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+   }
+}

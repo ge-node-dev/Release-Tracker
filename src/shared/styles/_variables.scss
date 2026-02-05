@@ -2,9 +2,19 @@ $font-main: var(--font-geist-sans), sans-serif;
 $base-line-height: 1.5;
 $reduced-motion-duration: 0.01ms;
 
-// colors
-$color-dark: #121212;
-$color-gray: #6b7280;
-$color-light-gray: #9ca3af;
-$color-dark-gray: #191919;
-$color-border: #242424;
+// Background colors
+$bg-primary: #121212; // Main page background
+$bg-card: #191919; // Card background
+
+// Text colors
+$text-primary: #fff; // Main text
+$text-secondary: #6b7280; // Secondary text
+$text-tertiary: #9ca3af; // Tertiary text
+
+// Border colors
+$border-primary: #242424; // Main borders
+$border-dark: #303030; // Dark borders
+
+// Button colors
+$button-bg-transparent: #ffffff1a; // Transparent button background (10% white)
+$button-border-light: #ffffff26; // Light button border (15% white)
