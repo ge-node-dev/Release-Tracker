@@ -24,9 +24,9 @@
    cursor: pointer;
    user-select: none;
 
-   &:hover:not(.disabled):not(.active) {
+   &:hover:not(.disabled, .active) {
       background-color: #2a2a2a;
-      color: #ffffff;
+      color: #fff;
    }
 
    &:active:not(.disabled) {
@@ -40,7 +40,7 @@
    &.active {
       background-color: $button-bg-gray;
       border: 1px solid $button-border-gray;
-      color: #ffffff;
+      color: #fff;
 
       &:hover {
          background-color: $button-bg-gray;
