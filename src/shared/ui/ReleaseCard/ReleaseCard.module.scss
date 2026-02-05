@@ -7,7 +7,6 @@
    border: 1px solid $color-border;
    transition: all 0.3s ease;
    display: flex;
-   gap: 16px;
    flex-direction: column;
 
    &:hover {
@@ -71,21 +70,21 @@
 .cardInfo {
    display: flex;
    flex-direction: column;
-   gap: 4px;
+   gap: 2px;
 }
 
 .cardTitle {
-   font-size: 16px;
+   font-size: 18px;
    font-weight: 700;
    color: #fff;
 }
 
 .cardArtistName {
-   font-size: 14px;
+   font-size: 16px;
    color: $color-light-gray;
 }
 
 .cardDate {
-   font-size: 12px;
+   font-size: 14px;
    color: $color-gray;
 }

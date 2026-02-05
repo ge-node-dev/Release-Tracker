@@ -1,14 +1,14 @@
 import { getReleasesList } from '../services/releaseServices';
 
 export enum RELEASES_PERIODS_LIMITS {
-   this_week = 15,
-   this_month = 25,
-   all_time = 45,
+   this_week = 10,
+   this_month = 20,
+   all_time = 30,
 }
 
 export type ReleasePeriods = keyof typeof RELEASES_PERIODS_LIMITS;
 
-export type ReleaseWithArtists = Awaited<ReturnType<typeof getReleasesList>>['data'][number];
+export type ReleaseWithArtists = NonNullable<Awaited<ReturnType<typeof getReleasesList>>['data']>[number];
 
 export interface ReleaseQueryParams {
    page: number;

@@ -1,9 +1,12 @@
 import ReleasesList from '@/modules/release/components/ReleasesList';
 
-const HomePage = () => {
+const HomePage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
+   const paramsData = await searchParams;
+   const { page } = paramsData;
+
    return (
       <div>
-         <ReleasesList />
+         <ReleasesList page={page} />
       </div>
    );
 };

@@ -6,21 +6,35 @@ import { RELEASE_BY_ID_QUERY, RELEASES_QUERY } from './query';
 
 export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    const supabase = await createSupabaseServerClient();
+
    const limit = RELEASES_PERIODS_LIMITS[period];
 
    const fromIndex = (page - 1) * limit;
-   const toIndex = page * limit - 1;
+   const toIndex = fromIndex + limit - 1;
 
-   let query = supabase.from('releases').select(RELEASES_QUERY, { count: 'exact' });
+   let releasesQuery = supabase.from('releases').select(RELEASES_QUERY);
+
+   let totalCountQuery = supabase.from('releases').select('id', { head: true, count: 'exact' });
 
    if (period !== 'all_time') {
       const { to, from } = getDateRange(period);
-      query = query.gte('release_date', from).lte('release_date', to);
+
+      releasesQuery = releasesQuery.gte('release_date', from).lte('release_date', to);
+      totalCountQuery = totalCountQuery.gte('release_date', from).lte('release_date', to);
    }
 
-   const { data, count, error } = await query
-      .range(fromIndex, toIndex)
-      .order('release_date', { ascending: sortOrder === 'asc' });
+   const { count: totalCount, error: totalCountError } = await totalCountQuery;
+
+   if (totalCountError) {
+      return {
+         error: { totalCountError: true },
+      };
+   }
+
+   const { data, error } = await releasesQuery
+      .order('release_date', { ascending: sortOrder === 'asc' })
+      .order('id', { ascending: sortOrder === 'asc' })
+      .range(fromIndex, toIndex);
 
    if (error) {
       throw new Error('Failed to fetch releases list', { cause: error });
@@ -29,8 +43,9 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
    return {
       page,
       data: data ?? [],
-      totalCount: count ?? 0,
-      hasMore: count ? toIndex < count - 1 : false,
+      totalCount: totalCount ?? 0,
+      hasMore: totalCount !== null && toIndex < totalCount - 1,
+      totalPages: totalCount === null ? 0 : Math.ceil(totalCount / limit),
    };
 };
 
