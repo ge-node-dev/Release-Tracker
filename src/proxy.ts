@@ -10,9 +10,9 @@ export const proxy = async (request: NextRequest) => {
       const url = request.nextUrl.clone();
       const validatedSearchParams = validateUrlSearchParams(url.searchParams);
 
-      if (validatedSearchParams.toString() !== searchParams.toString()) {
+      if (validatedSearchParams.toString() !== url.searchParams.toString()) {
          url.search = validatedSearchParams.toString();
-         return NextResponse.redirect(url);
+         return NextResponse.redirect(url, { status: 307 });
       }
    }
 
