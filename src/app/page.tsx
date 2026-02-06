@@ -1,3 +1,4 @@
+import { ReleaseOfTheWeek } from '@/modules/release/components/ReleaseOfTheWeek';
 import ReleasesList from '@/modules/release/components/ReleasesList';
 import { SearchParams } from '@/shared/types';
 
@@ -7,6 +8,7 @@ const HomePage = async ({ searchParams }: { searchParams: SearchParams }) => {
 
    return (
       <>
+         <ReleaseOfTheWeek />
          <ReleasesList page={page} />
       </>
    );

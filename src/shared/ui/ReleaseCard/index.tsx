@@ -22,7 +22,13 @@ const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
                src={release.cover_url || ''}
             />
             <div className={styles.cardImageOverlay}>
-               <img width={40} alt="Play" height={40} src={'/assets/icons/play.svg'} className={styles.cardPlayIcon} />
+               <img
+                  width={40}
+                  alt="Play"
+                  height={40}
+                  className={styles.cardPlayIcon}
+                  src={'/assets/icons/playCircle.svg'}
+               />
             </div>
          </div>
          <div className={styles.cardInfo}>

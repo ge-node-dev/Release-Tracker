@@ -43,7 +43,7 @@ export default function RootLayout({
    return (
       <html lang="en">
          <body className={`${geistSans.variable} antialiased`}>
-            <main className="main-container">{children}</main>
+            <main className="mainContainer">{children}</main>
          </body>
       </html>
    );
