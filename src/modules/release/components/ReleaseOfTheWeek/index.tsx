@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { getReleaseOfTheWeek } from '@/modules/release/services/releaseServices';
 import { getGlowColorFromImage } from '@/modules/release/utils/color';
+import BlurImage from '@/shared/HOC/withBlur';
 import { Badge } from '@/shared/ui/Badge';
 
 import styles from './ReleaseOfTheWeek.module.scss';
@@ -44,18 +44,17 @@ export const ReleaseOfTheWeek = async () => {
                ))}
             </div>
             <Link aria-label={'Listen now'} className={styles.listenNowBtn} href={`/release/${external_key}`}>
-               <img width={24} height={24} alt={'Play'} src={'/assets/icons/play.svg'} />
+               <BlurImage width={24} height={24} alt={'Play'} src={'/assets/icons/play.svg'} />
                <span>Listen now</span>
             </Link>
          </div>
          <div className={styles.coverScene}>
             <div className={styles.coverContainer}>
                <div style={glowStyle} className={styles.glow} />
-               <Image
+               <BlurImage
                   width={500}
                   height={500}
                   src={cover_url}
-                  priority={true}
                   loading={'eager'}
                   draggable={false}
                   alt={'Release cover'}

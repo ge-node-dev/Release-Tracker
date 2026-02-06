@@ -71,10 +71,13 @@ export const getReleaseByExternalKey = async (externalKey: string) => {
 
 export const getReleaseOfTheWeek = async () => {
    const supabase = await createSupabaseServerClient();
+   const { to, from } = getDateRange('this_week');
 
    const { data, error } = await supabase
       .from('releases')
       .select(RELEASES_OF_THE_WEEK_QUERY)
+      .gte('release_date', from)
+      .lte('release_date', to)
       .order('fans_number', { ascending: false })
       .limit(1)
       .maybeSingle();
