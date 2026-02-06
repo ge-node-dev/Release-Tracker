@@ -1,5 +1,4 @@
-import Image from 'next/image';
-
+import BlurImage from '@/shared/HOC/withBlur';
 import LinkButton from '@/shared/ui/LinkButton';
 import { getPageHref, getVisiblePages } from '@/shared/utils/pagination';
 
@@ -21,7 +20,7 @@ const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: Pagination
    return (
       <div className={styles.pagination}>
          <LinkButton ariaLabel="Previous page" ariaDisabled={isFirstPage} href={getPageHref(currentPage - 1)}>
-            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+            <BlurImage width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
 
          {visiblePages.map((page, index) => {
@@ -51,7 +50,7 @@ const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: Pagination
             ariaDisabled={isLastPage}
             href={getPageHref(currentPage + 1)}
          >
-            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+            <BlurImage width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
       </div>
    );

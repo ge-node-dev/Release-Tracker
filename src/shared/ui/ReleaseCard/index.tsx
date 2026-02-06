@@ -1,8 +1,8 @@
 import type { ReleaseWithArtists } from '@/modules/release/types/releaseTypes';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
+import BlurImage from '@/shared/HOC/withBlur';
 import { formatReleaseDate } from '@/shared/utils/formatDate';
 
 import styles from './ReleaseCard.module.scss';
@@ -13,7 +13,7 @@ const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
    return (
       <Link className={styles.card} href={`/release/${release.external_key}`}>
          <div className={styles.cardImageWrapper}>
-            <Image
+            <BlurImage
                width={311}
                height={311}
                sizes="311px"
@@ -22,7 +22,13 @@ const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
                src={release.cover_url || ''}
             />
             <div className={styles.cardImageOverlay}>
-               <img width={40} alt="Play" height={40} src={'/assets/icons/play.svg'} className={styles.cardPlayIcon} />
+               <BlurImage
+                  width={40}
+                  alt="Play"
+                  height={40}
+                  src={'/assets/icons/play.svg'}
+                  className={styles.cardPlayIcon}
+               />
             </div>
          </div>
          <div className={styles.cardInfo}>
