@@ -16,7 +16,7 @@ export const ReleaseOfTheWeek = async () => {
 
    const { title, cover_url, external_key, release_genres, release_artists } = releaseOfTheWeek;
 
-   const artists = release_artists?.map(({ artists }) => artists.name);
+   const artists = release_artists?.map(({ artists }) => artists.name).join(', ');
 
    if (!cover_url) {
       throw new Error('No image URL provided');
@@ -29,13 +29,13 @@ export const ReleaseOfTheWeek = async () => {
    };
 
    return (
-      <div className={styles.grid}>
+      <section className={styles.grid}>
          <div className={styles.infoContainer}>
             <Badge>
                <span>RELEASE OF THE WEEK</span>
             </Badge>
             <h1 className={styles.title}>{`${title.toUpperCase()}`}</h1>
-            <h3 className={styles.artist}>{artists?.map((name) => name).join(', ')}</h3>
+            <h3 className={styles.artist}>{artists}</h3>
             <div className={styles.genres}>
                {release_genres?.map(({ genres }) => (
                   <Badge key={genres.id}>
@@ -63,6 +63,6 @@ export const ReleaseOfTheWeek = async () => {
                />
             </div>
          </div>
-      </div>
+      </section>
    );
 };
