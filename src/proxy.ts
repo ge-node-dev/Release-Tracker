@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { validateUrlSearchParams } from '@/shared/utils/validateUrlSearchParams';
+import { validateUrlSearchParams } from '@/shared/utils/browser/validateUrlSearchParams';
 
 export const proxy = async (request: NextRequest) => {
    const searchParams = await request.nextUrl.searchParams;

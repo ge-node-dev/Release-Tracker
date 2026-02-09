@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 
-import { formatReleaseDate } from '@/shared/utils/formatDate';
+import { formatReleaseDate } from '@/shared/utils/date/formatReleaseDate';
 
 import styles from './ReleaseCard.module.scss';
 

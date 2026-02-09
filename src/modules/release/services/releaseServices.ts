@@ -2,13 +2,14 @@ import { cacheLife, cacheTag } from 'next/cache';
 
 import { createSupabaseStaticClient } from '@/lib/supabase/client';
 import { ReleasePeriods, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
-import { getDateRange } from '@/shared/utils/getDateRange';
+import { CACHE_12H } from '@/shared/utils/constants';
+import { getReleaseDateRange } from '@/shared/utils/date/getReleaseDateRange';
 
 import { RELEASE_BY_EXTERNAL_KEY_QUERY, RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
 
 export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    'use cache';
-   cacheLife({ stale: 3600 * 12, revalidate: 4000 * 12 });
+   cacheLife(CACHE_12H);
    cacheTag(`releases-page-${page}`);
 
    const supabase = createSupabaseStaticClient();
@@ -21,7 +22,7 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
    let releasesQuery = supabase.from('releases').select(RELEASES_QUERY);
 
    if (period !== 'all_time') {
-      const { to, from } = getDateRange(period);
+      const { to, from } = getReleaseDateRange(period);
 
       releasesQuery = releasesQuery.gte('release_date', from).lte('release_date', to);
    }
@@ -63,7 +64,7 @@ export const getReleaseByExternalKey = async (externalKey: string) => {
 
 export const getReleaseOfTheWeek = async () => {
    const supabase = createSupabaseStaticClient();
-   const { to, from } = getDateRange('this_week');
+   const { to, from } = getReleaseDateRange('this_week');
 
    const { data, error } = await supabase
       .from('releases')
@@ -87,7 +88,7 @@ export const getPaginationCount = async (period: ReleasePeriods) => {
    let totalCountQuery = supabase.from('releases').select('id', { head: true, count: 'exact' });
 
    if (period !== 'all_time') {
-      const { to, from } = getDateRange(period);
+      const { to, from } = getReleaseDateRange(period);
       totalCountQuery = totalCountQuery.gte('release_date', from).lte('release_date', to);
    }
 

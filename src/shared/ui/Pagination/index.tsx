@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
 import LinkButton from '@/shared/ui/LinkButton';
-import { getPageHref, getVisiblePages } from '@/shared/utils/pagination';
+import { CACHE_12H } from '@/shared/utils/constants';
+import { getPageHref, getVisiblePages } from '@/shared/utils/data/pagination';
 
 import styles from './Pagination.module.scss';
 
@@ -16,7 +17,7 @@ interface PaginationProps {
 
 const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: PaginationProps) => {
    'use cache';
-   cacheLife({ stale: 3600 * 12, revalidate: 4000 * 12 });
+   cacheLife(CACHE_12H);
    cacheTag(`releases-count-${period}`);
 
    const { totalPages } = await getPaginationCount(period);
