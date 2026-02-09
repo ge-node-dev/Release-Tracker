@@ -1,16 +1,26 @@
-import BlurImage from '@/shared/HOC/withBlur';
+import { cacheLife, cacheTag } from 'next/cache';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { getPaginationCount } from '@/modules/release/services/releaseServices';
+import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
 import LinkButton from '@/shared/ui/LinkButton';
 import { getPageHref, getVisiblePages } from '@/shared/utils/pagination';
 
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
-   totalPages: number;
    currentPage: number;
+   period: ReleasePeriods;
    maxVisiblePages?: number;
 }
 
-const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: PaginationProps) => {
+const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: PaginationProps) => {
+   'use cache';
+   cacheLife({ stale: 3600 * 12, revalidate: 4000 * 12 });
+   cacheTag(`releases-count-${period}`);
+
+   const { totalPages } = await getPaginationCount(period);
    if (!totalPages || totalPages < 2) return null;
 
    const isFirstPage = currentPage === 1;
@@ -19,8 +29,13 @@ const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: Pagination
 
    return (
       <div className={styles.pagination}>
-         <LinkButton ariaLabel="Previous page" ariaDisabled={isFirstPage} href={getPageHref(currentPage - 1)}>
-            <BlurImage width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+         <LinkButton
+            prefetch={false}
+            ariaLabel="Previous page"
+            ariaDisabled={isFirstPage}
+            href={getPageHref(currentPage - 1)}
+         >
+            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
 
          {visiblePages.map((page, index) => {
@@ -33,24 +48,25 @@ const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: Pagination
             }
 
             return (
-               <LinkButton
+               <Link
                   key={page}
+                  prefetch={false}
                   href={getPageHref(+page)}
-                  ariaLabel={`Page ${page}`}
                   className={`${styles.pageButton} ${currentPage === page ? styles.active : ''}`}
                >
                   {page}
-               </LinkButton>
+               </Link>
             );
          })}
 
          <LinkButton
+            prefetch={false}
             rotate={'180deg'}
             ariaLabel="Next page"
             ariaDisabled={isLastPage}
             href={getPageHref(currentPage + 1)}
          >
-            <BlurImage width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
       </div>
    );

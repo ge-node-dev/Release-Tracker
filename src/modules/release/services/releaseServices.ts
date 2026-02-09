@@ -1,11 +1,17 @@
-import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
+import { cacheLife, cacheTag } from 'next/cache';
+
+import { createSupabaseStaticClient } from '@/lib/supabase/client';
+import { ReleasePeriods, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
 import { getDateRange } from '@/shared/utils/getDateRange';
 
 import { RELEASE_BY_EXTERNAL_KEY_QUERY, RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
 
 export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
-   const supabase = await createSupabaseServerClient();
+   'use cache';
+   cacheLife({ stale: 3600 * 12, revalidate: 4000 * 12 });
+   cacheTag(`releases-page-${page}`);
+
+   const supabase = createSupabaseStaticClient();
 
    const limit = RELEASES_PERIODS_LIMITS[period];
 
@@ -14,21 +20,10 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
 
    let releasesQuery = supabase.from('releases').select(RELEASES_QUERY);
 
-   let totalCountQuery = supabase.from('releases').select('id', { head: true, count: 'exact' });
-
    if (period !== 'all_time') {
       const { to, from } = getDateRange(period);
 
       releasesQuery = releasesQuery.gte('release_date', from).lte('release_date', to);
-      totalCountQuery = totalCountQuery.gte('release_date', from).lte('release_date', to);
-   }
-
-   const { count: totalCount, error: totalCountError } = await totalCountQuery;
-
-   if (totalCountError) {
-      return {
-         error: { totalCountError: true },
-      };
    }
 
    const { data, error } = await releasesQuery
@@ -43,14 +38,11 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
    return {
       page,
       data: data ?? [],
-      totalCount: totalCount ?? 0,
-      hasMore: totalCount !== null && toIndex < totalCount - 1,
-      totalPages: totalCount === null ? 0 : Math.ceil(totalCount / limit),
    };
 };
 
 export const getReleaseByExternalKey = async (externalKey: string) => {
-   const supabase = await createSupabaseServerClient();
+   const supabase = createSupabaseStaticClient();
 
    const { data, error } = await supabase
       .from('releases')
@@ -70,7 +62,7 @@ export const getReleaseByExternalKey = async (externalKey: string) => {
 };
 
 export const getReleaseOfTheWeek = async () => {
-   const supabase = await createSupabaseServerClient();
+   const supabase = createSupabaseStaticClient();
    const { to, from } = getDateRange('this_week');
 
    const { data, error } = await supabase
@@ -87,4 +79,28 @@ export const getReleaseOfTheWeek = async () => {
    }
 
    return data;
+};
+
+export const getPaginationCount = async (period: ReleasePeriods) => {
+   const supabase = createSupabaseStaticClient();
+
+   let totalCountQuery = supabase.from('releases').select('id', { head: true, count: 'exact' });
+
+   if (period !== 'all_time') {
+      const { to, from } = getDateRange(period);
+      totalCountQuery = totalCountQuery.gte('release_date', from).lte('release_date', to);
+   }
+
+   const { count, error } = await totalCountQuery;
+
+   if (error) {
+      throw new Error('Failed to fetch releases count', { cause: error });
+   }
+
+   const limit = RELEASES_PERIODS_LIMITS[period];
+
+   return {
+      totalCount: count ?? 0,
+      totalPages: count === null ? 0 : Math.ceil(count / limit),
+   };
 };

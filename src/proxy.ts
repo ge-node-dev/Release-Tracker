@@ -8,7 +8,7 @@ export const proxy = async (request: NextRequest) => {
 
    if (searchParams.size > 0) {
       const url = request.nextUrl.clone();
-      const validatedSearchParams = validateUrlSearchParams(url.searchParams);
+      const validatedSearchParams = validateUrlSearchParams(searchParams);
 
       if (validatedSearchParams.toString() !== searchParams.toString()) {
          url.search = validatedSearchParams.toString();

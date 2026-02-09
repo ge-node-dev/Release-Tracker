@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation';
-
 import Pagination from '@/shared/ui/Pagination';
 import ReleaseCard from '@/shared/ui/ReleaseCard';
 
@@ -7,25 +5,15 @@ import { getReleasesList } from '../../services/releaseServices';
 
 import styles from './ReleasesList.module.scss';
 
+const PERIOD = 'all_time';
+
 const ReleasesList = async ({ page }: { page: string }) => {
-   const currentPage = Number(page);
+   const currentPage = Number(page) || 1;
 
-   if (currentPage === 1) {
-      redirect('/');
-   }
-
-   const { data, error, totalPages } = await getReleasesList({
-      period: 'all_time',
-      page: currentPage || 1,
+   const { data } = await getReleasesList({
+      period: PERIOD,
+      page: currentPage,
    });
-
-   // FIXME: fix totalCountError - https://github.com/supabase/supabase-js/issues/1571
-   const hasError = error?.totalCountError;
-   const isOutOfBounds = !totalPages || currentPage > totalPages;
-
-   if (hasError || isOutOfBounds) {
-      redirect('/');
-   }
 
    return (
       <>
@@ -36,7 +24,7 @@ const ReleasesList = async ({ page }: { page: string }) => {
                ))}
             </div>
             <div className={styles.paginationWrapper}>
-               <Pagination totalPages={totalPages} currentPage={currentPage || 1} />
+               <Pagination period={PERIOD} currentPage={currentPage} />
             </div>
          </section>
       </>

@@ -5,11 +5,7 @@ const HomePage = async ({ searchParams }: { searchParams: SearchParams }) => {
    const paramsData = await searchParams;
    const { page } = paramsData;
 
-   return (
-      <>
-         <ReleasesList page={page} />
-      </>
-   );
+   return <ReleasesList page={page} />;
 };
 
 export default HomePage;

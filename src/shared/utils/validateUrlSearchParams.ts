@@ -1,13 +1,16 @@
 const isNumeric = (value: string) => /^-?\d+$/.test(value);
 
 export const validateUrlSearchParams = (searchParams: URLSearchParams) => {
-   if (searchParams.has('page')) {
-      const pageValue = searchParams.get('page');
+   const copiedSearchParams = new URLSearchParams(searchParams);
 
-      if (pageValue && (!isNumeric(pageValue) || Number(pageValue) < 1)) {
-         searchParams.delete('page');
+   if (copiedSearchParams.has('page')) {
+      const pageValue = copiedSearchParams.get('page');
+      const pageNum = Number(pageValue);
+
+      if (!pageValue || !isNumeric(pageValue) || pageNum < 2) {
+         copiedSearchParams.delete('page');
       }
    }
 
-   return searchParams;
+   return copiedSearchParams;
 };

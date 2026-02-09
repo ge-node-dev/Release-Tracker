@@ -2,6 +2,10 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
    reactCompiler: true,
+   cacheComponents: true,
+   experimental: {
+      viewTransition: true,
+   },
    sassOptions: {
       prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *;`,
    },
