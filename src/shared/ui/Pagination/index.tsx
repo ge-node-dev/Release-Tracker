@@ -1,6 +1,5 @@
 import { cacheLife, cacheTag } from 'next/cache';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
@@ -41,21 +40,23 @@ const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: Paginati
          {visiblePages.map((page, index) => {
             if (page === '...') {
                return (
-                  <span key={`ellipsis-${index}`} className={styles.ellipsis}>
+                  <span aria-hidden="true" key={`ellipsis-${index}`} className={styles.ellipsis}>
                      {page}
                   </span>
                );
             }
 
             return (
-               <Link
+               <LinkButton
                   key={page}
                   prefetch={false}
                   href={getPageHref(+page)}
+                  ariaLabel={`Page ${page}`}
+                  ariaCurrent={currentPage === page}
                   className={`${styles.pageButton} ${currentPage === page ? styles.active : ''}`}
                >
                   {page}
-               </Link>
+               </LinkButton>
             );
          })}
 
