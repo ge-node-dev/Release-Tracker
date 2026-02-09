@@ -1,14 +1,14 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { validateUrlSearchParams } from '@/shared/utils/validateUrlSearchParams';
+import { validateUrlSearchParams } from '@/shared/utils/browser/validateUrlSearchParams';
 
 export const proxy = async (request: NextRequest) => {
    const searchParams = await request.nextUrl.searchParams;
 
    if (searchParams.size > 0) {
       const url = request.nextUrl.clone();
-      const validatedSearchParams = validateUrlSearchParams(url.searchParams);
+      const validatedSearchParams = validateUrlSearchParams(searchParams);
 
       if (validatedSearchParams.toString() !== searchParams.toString()) {
          url.search = validatedSearchParams.toString();
