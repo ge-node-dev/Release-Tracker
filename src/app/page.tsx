@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { ReleaseOfTheWeek } from '@/modules/release/components/ReleaseOfTheWeek';
+import ReleaseOfTheWeek from '@/modules/release/components/ReleaseOfTheWeek';
 import ReleasesList from '@/modules/release/components/ReleasesList';
 import { SearchParams } from '@/shared/types';
 

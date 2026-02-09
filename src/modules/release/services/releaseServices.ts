@@ -63,6 +63,9 @@ export const getReleaseByExternalKey = async (externalKey: string) => {
 };
 
 export const getReleaseOfTheWeek = async () => {
+   'use cache';
+   cacheLife(CACHE_12H);
+
    const supabase = createSupabaseStaticClient();
    const { to, from } = getReleaseDateRange('this_week');
 

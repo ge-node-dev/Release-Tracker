@@ -81,7 +81,7 @@ const getGlowColorByHsl = (h: number, s: number, l: number): string => {
    //    return 'rgba(0, 0, 0, 0.6)';
    // }
 
-   return 'rgba(112,112,112,0.6)';
+   return 'rgba(192,191,191,0.6)';
 };
 
 export const getGlowColorFromImage = async (buffer: Buffer): Promise<string> => {

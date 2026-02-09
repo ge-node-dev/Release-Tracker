@@ -1,3 +1,4 @@
+import { ReleaseOfTheWeekSkeleton } from '@/modules/release/components/ReleaseOfTheWeek';
 import { ReleaseCardSkeleton } from '@/shared/ui/ReleaseCard';
 import SkeletonWrapper from '@/shared/ui/SkeletonWrapper';
 
@@ -7,6 +8,7 @@ const Loading = () => {
    return (
       <section className={styles.wrapper}>
          <SkeletonWrapper>
+            <ReleaseOfTheWeekSkeleton />
             <div className={styles.releasesGrid}>
                {Array.from({ length: 10 }).map((_, index) => (
                   <ReleaseCardSkeleton key={index} />
