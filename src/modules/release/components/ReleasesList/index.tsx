@@ -16,18 +16,16 @@ const ReleasesList = async ({ page }: { page: string }) => {
    });
 
    return (
-      <>
-         <section className={styles.wrapper}>
-            <div className={styles.releasesGrid}>
-               {data.map((release) => (
-                  <ReleaseCard key={release.id} release={release} />
-               ))}
-            </div>
-            <div className={styles.paginationWrapper}>
-               <Pagination period={PERIOD} currentPage={currentPage} />
-            </div>
-         </section>
-      </>
+      <section className={styles.wrapper}>
+         <div className={styles.releasesGrid}>
+            {data.map((release) => (
+               <ReleaseCard key={release.id} release={release} />
+            ))}
+         </div>
+         <div className={styles.paginationWrapper}>
+            <Pagination period={PERIOD} currentPage={currentPage} />
+         </div>
+      </section>
    );
 };
 
