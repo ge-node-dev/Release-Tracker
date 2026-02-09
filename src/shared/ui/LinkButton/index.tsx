@@ -10,15 +10,26 @@ interface LinkButtonProps extends LinkProps {
    ariaLabel: string;
    className?: string;
    children: ReactNode;
+   ariaCurrent?: boolean;
    ariaDisabled?: boolean;
 }
 
-const LinkButton = ({ href, rotate, children, ariaLabel, className, ariaDisabled, ...props }: LinkButtonProps) => {
+const LinkButton = ({
+   href,
+   rotate,
+   children,
+   ariaLabel,
+   className,
+   ariaCurrent,
+   ariaDisabled,
+   ...props
+}: LinkButtonProps) => {
    return (
       <Link
          {...props}
          href={href}
          aria-label={ariaLabel}
+         aria-current={ariaCurrent}
          aria-disabled={ariaDisabled}
          style={{ transform: `rotate(${rotate})` }}
          onClick={(e) => {

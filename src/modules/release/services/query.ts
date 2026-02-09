@@ -28,7 +28,6 @@ const BASE_RELEASE_FIELDS = `
   id,
   title,
   cover_url,
-  rating_avg,
   release_date,
   external_key,
   ${ARTIST_FRAGMENT}
@@ -40,6 +39,7 @@ export const RELEASES_QUERY = `
 ` as const;
 
 export const RELEASES_OF_THE_WEEK_QUERY = `
+  rating_avg,
   ${BASE_RELEASE_FIELDS},
   ${GENRE_FRAGMENT}
 ` as const;

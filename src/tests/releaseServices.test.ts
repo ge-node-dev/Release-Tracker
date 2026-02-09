@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { createSupabaseBrowserClient } from '@/lib/supabase/client';
+import { createSupabaseStaticClient } from '@/lib/supabase/client';
 import {
    RELEASE_BY_EXTERNAL_KEY_QUERY,
    RELEASES_OF_THE_WEEK_QUERY,
@@ -13,7 +13,7 @@ interface TestResult {
    duration: number;
 }
 
-const supabase = createSupabaseBrowserClient;
+const supabase = createSupabaseStaticClient();
 
 const runTest = async (name: string, testFn: () => Promise<void>): Promise<TestResult> => {
    const startTime = performance.now();
@@ -41,7 +41,6 @@ const testReleasesQuery = async () => {
 };
 
 const testReleaseByExternalKeyQuery = async () => {
-   const supabase = createSupabaseBrowserClient;
    const { error } = await supabase.from('releases').select(RELEASE_BY_EXTERNAL_KEY_QUERY).limit(1).maybeSingle();
 
    if (error) {

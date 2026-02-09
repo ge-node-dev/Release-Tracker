@@ -1,16 +1,26 @@
-import BlurImage from '@/shared/HOC/withBlur';
+import { cacheLife, cacheTag } from 'next/cache';
+import Image from 'next/image';
+
+import { getPaginationCount } from '@/modules/release/services/releaseServices';
+import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
 import LinkButton from '@/shared/ui/LinkButton';
-import { getPageHref, getVisiblePages } from '@/shared/utils/pagination';
+import { CACHE_12H } from '@/shared/utils/constants';
+import { getPageHref, getVisiblePages } from '@/shared/utils/data/pagination';
 
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
-   totalPages: number;
    currentPage: number;
+   period: ReleasePeriods;
    maxVisiblePages?: number;
 }
 
-const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: PaginationProps) => {
+const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: PaginationProps) => {
+   'use cache';
+   cacheLife(CACHE_12H);
+   cacheTag(`releases-count-${period}`);
+
+   const { totalPages } = await getPaginationCount(period);
    if (!totalPages || totalPages < 2) return null;
 
    const isFirstPage = currentPage === 1;
@@ -19,14 +29,19 @@ const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: Pagination
 
    return (
       <div className={styles.pagination}>
-         <LinkButton ariaLabel="Previous page" ariaDisabled={isFirstPage} href={getPageHref(currentPage - 1)}>
-            <BlurImage width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+         <LinkButton
+            prefetch={false}
+            ariaLabel="Previous page"
+            ariaDisabled={isFirstPage}
+            href={getPageHref(currentPage - 1)}
+         >
+            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
 
          {visiblePages.map((page, index) => {
             if (page === '...') {
                return (
-                  <span key={`ellipsis-${index}`} className={styles.ellipsis}>
+                  <span aria-hidden="true" key={`ellipsis-${index}`} className={styles.ellipsis}>
                      {page}
                   </span>
                );
@@ -35,8 +50,10 @@ const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: Pagination
             return (
                <LinkButton
                   key={page}
+                  prefetch={false}
                   href={getPageHref(+page)}
                   ariaLabel={`Page ${page}`}
+                  ariaCurrent={currentPage === page}
                   className={`${styles.pageButton} ${currentPage === page ? styles.active : ''}`}
                >
                   {page}
@@ -45,12 +62,13 @@ const Pagination = ({ totalPages, currentPage, maxVisiblePages = 5 }: Pagination
          })}
 
          <LinkButton
+            prefetch={false}
             rotate={'180deg'}
             ariaLabel="Next page"
             ariaDisabled={isLastPage}
             href={getPageHref(currentPage + 1)}
          >
-            <BlurImage width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
       </div>
    );

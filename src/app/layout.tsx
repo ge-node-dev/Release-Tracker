@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import '@/shared/styles/globals.scss';
+import { ViewTransition } from 'react';
 
 const geistSans = localFont({
    variable: '--font-geist-sans',
@@ -41,10 +42,12 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en">
-         <body className={`${geistSans.variable} antialiased`}>
-            <main className="main-container">{children}</main>
-         </body>
-      </html>
+      <ViewTransition>
+         <html lang="en">
+            <body className={`${geistSans.variable} antialiased`}>
+               <main className="main-container">{children}</main>
+            </body>
+         </html>
+      </ViewTransition>
    );
 }
