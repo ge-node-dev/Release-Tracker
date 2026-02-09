@@ -8,7 +8,7 @@ const Loading = () => {
       <section className={styles.wrapper}>
          <SkeletonWrapper>
             <div className={styles.releasesGrid}>
-               {Array.from({ length: 15 }).map((_, index) => (
+               {Array.from({ length: 10 }).map((_, index) => (
                   <ReleaseCardSkeleton key={index} />
                ))}
             </div>
