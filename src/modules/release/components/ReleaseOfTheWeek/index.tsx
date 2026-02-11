@@ -73,9 +73,7 @@ export const ReleaseOfTheWeekSkeleton = () => {
    return (
       <section className={styles.grid}>
          <div className={styles.infoContainer}>
-            <Badge>
-               <span>RELEASE OF THE WEEK</span>
-            </Badge>
+            <Skeleton height={32} width={180} />
             <Skeleton height={82} width={'90%'} />
             <Skeleton height={36} width={'40%'} />
             <Skeleton height={32} width={150} className={styles.genres} />
