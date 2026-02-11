@@ -1,0 +1,15 @@
+.badge {
+   background-color: #373637;
+   border-radius: 100px;
+   padding: 4px 16px;
+   width: fit-content;
+   border: 1px solid $border-light;
+   display: flex;
+   align-items: center;
+
+   span {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+   }
+}

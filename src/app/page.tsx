@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import ReleaseOfTheWeek from '@/modules/release/components/ReleaseOfTheWeek';
 import ReleasesList from '@/modules/release/components/ReleasesList';
 import { SearchParams } from '@/shared/types';
 
@@ -11,6 +12,7 @@ const HomePage = async ({ searchParams }: { searchParams: SearchParams }) => {
 
    return (
       <Suspense key={page} fallback={<Loading />}>
+         <ReleaseOfTheWeek />
          <ReleasesList page={page} />
       </Suspense>
    );

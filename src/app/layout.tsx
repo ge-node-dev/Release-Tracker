@@ -45,7 +45,7 @@ export default function RootLayout({
       <ViewTransition>
          <html lang="en">
             <body className={`${geistSans.variable} antialiased`}>
-               <main className="main-container">{children}</main>
+               <main className="mainContainer">{children}</main>
             </body>
          </html>
       </ViewTransition>

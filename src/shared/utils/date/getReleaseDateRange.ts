@@ -18,9 +18,10 @@ export const getReleaseDateRange = (period: ReleasePeriods): DateRange => {
 
    if (period === 'this_week') {
       const day = now.getDay();
-      const diff = now.getDate() - (day === 0 ? 6 : day - 1);
-      start.setDate(diff);
-      end.setDate(start.getDate() + 6);
+      const diffToFriday = 5 - day;
+
+      end.setDate(now.getDate() + diffToFriday);
+      start.setDate(end.getDate() - 7);
    } else if (period === 'this_month') {
       start.setDate(1);
       end.setFullYear(now.getFullYear(), now.getMonth() + 1, 0);

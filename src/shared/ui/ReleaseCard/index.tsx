@@ -26,8 +26,8 @@ const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
                   width={40}
                   alt="Play"
                   height={40}
-                  src={'/assets/icons/play.svg'}
                   className={styles.cardPlayIcon}
+                  src={'/assets/icons/playCircle.svg'}
                />
             </div>
          </div>
