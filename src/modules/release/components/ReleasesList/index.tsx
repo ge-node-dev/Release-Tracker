@@ -1,3 +1,4 @@
+import { SearchParams } from '@/shared/types';
 import Pagination from '@/shared/ui/Pagination';
 import ReleaseCard from '@/shared/ui/ReleaseCard';
 
@@ -5,14 +6,14 @@ import { getReleasesList } from '../../services/releaseServices';
 
 import styles from './ReleasesList.module.scss';
 
-const PERIOD = 'all_time';
-
-const ReleasesList = async ({ page }: { page: string }) => {
+const ReleasesList = async ({ searchParams }: { searchParams: Awaited<SearchParams> }) => {
+   const { page, period } = searchParams;
    const currentPage = Number(page) || 1;
+   const currentPeriod = period || 'this_week';
 
    const { data } = await getReleasesList({
-      period: PERIOD,
       page: currentPage,
+      period: currentPeriod,
    });
 
    return (
@@ -23,7 +24,7 @@ const ReleasesList = async ({ page }: { page: string }) => {
             ))}
          </div>
          <div className={styles.paginationWrapper}>
-            <Pagination period={PERIOD} currentPage={currentPage} />
+            <Pagination currentPage={currentPage} searchParams={searchParams} currentPeriod={currentPeriod} />
          </div>
       </section>
    );

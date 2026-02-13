@@ -1,0 +1,78 @@
+.container {
+   width: 100%;
+   height: 4rem;
+   display: flex;
+   color: $text-primary;
+   align-items: center;
+   border-bottom: 1px solid $border-primary;
+   padding: 0 4px 16px;
+   margin-bottom: 2rem;
+   justify-content: space-between;
+}
+
+.titleContainer {
+   display: flex;
+   align-items: center;
+   height: 100%;
+}
+
+.line {
+   border-left: 5px solid $border-light;
+   border-radius: 100px;
+   height: 60%;
+   margin-right: 12px;
+}
+
+.title {
+   font-size: 28px;
+}
+
+.tabs {
+   width: fit-content;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   padding: 4px;
+   background: $bg-card;
+   backdrop-filter: blur(30px);
+   border: 1px solid rgb(255 255 255 / 30%);
+   border-radius: 100px;
+}
+
+.tabButton {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 40px;
+   background-color: transparent;
+   border: none;
+   border-radius: 100px;
+   color: $text-tertiary;
+   font-size: 14px;
+   padding: 4px 8px;
+   font-weight: 800;
+   cursor: pointer;
+   user-select: none;
+   transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+   &:hover:not(.disabled, .active) {
+      background-color: $button-border-light;
+      color: $text-primary;
+   }
+
+   &:active:not(.disabled) {
+      transform: scale(0.98);
+   }
+
+   &.active {
+      background-color: $button-bg-transparent;
+      border: 1px solid $button-border-light;
+      color: $text-primary;
+
+      &:hover {
+         background-color: $button-bg-transparent;
+      }
+   }
+}

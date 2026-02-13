@@ -6,12 +6,12 @@ export enum RELEASES_PERIODS_LIMITS {
    all_time = 30,
 }
 
-export type ReleasePeriods = keyof typeof RELEASES_PERIODS_LIMITS;
+export type ReleasePeriod = keyof typeof RELEASES_PERIODS_LIMITS;
 
 export type ReleaseWithArtists = NonNullable<Awaited<ReturnType<typeof getReleasesList>>['data']>[number];
 
 export interface ReleaseQueryParams {
    page: number;
-   period: ReleasePeriods;
+   period: ReleasePeriod;
    sortOrder?: 'asc' | 'desc';
 }

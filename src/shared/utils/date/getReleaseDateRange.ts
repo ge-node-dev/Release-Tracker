@@ -1,4 +1,4 @@
-import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
+import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 
 type DateRange = { to: string; from: string };
 
@@ -11,7 +11,7 @@ const toLocalISOString = (date: Date, type: 'end' | 'start') => {
    return type === 'start' ? `${yyyy}-${mm}-${dd}T00:00:00.000` : `${yyyy}-${mm}-${dd}T23:59:59.999`;
 };
 
-export const getReleaseDateRange = (period: ReleasePeriods): DateRange => {
+export const getReleaseDateRange = (period: ReleasePeriod): DateRange => {
    const now = new Date();
    const start = new Date(now);
    const end = new Date(now);

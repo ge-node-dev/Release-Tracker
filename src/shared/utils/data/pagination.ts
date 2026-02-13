@@ -1,3 +1,7 @@
+import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives';
+
+import { SearchParams } from '@/shared/types';
+
 export const getVisiblePages = (currentPage: number, totalPages: number, maxVisiblePages: number) => {
    if (totalPages <= maxVisiblePages) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -26,4 +30,27 @@ export const getVisiblePages = (currentPage: number, totalPages: number, maxVisi
    return pages;
 };
 
-export const getPageHref = (page: number) => (page === 1 ? '/' : `/?page=${page}`);
+export const buildHrefWithParam = (
+   searchParams: Awaited<SearchParams>,
+   key: string,
+   value: string | number,
+   defaultValue?: string | number,
+) => {
+   const params = new URLSearchParams(searchParams);
+
+   const shouldDelete = value === defaultValue;
+
+   if (shouldDelete) {
+      params.delete(key);
+   } else {
+      if (key !== 'page' && params.has('page')) {
+         params.set('page', '1');
+      }
+
+      params.set(key, String(value));
+   }
+
+   const query = params.toString();
+
+   return query ? `?${query}` : '/';
+};

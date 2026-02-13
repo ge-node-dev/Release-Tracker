@@ -1,7 +1,6 @@
 import { getReleaseByExternalKey } from '@/modules/release/services/releaseServices';
-import { SearchParams } from '@/shared/types';
 
-const ReleasePage = async ({ params }: { params: SearchParams }) => {
+const ReleasePage = async ({ params }: { params: Promise<Record<string, string>> }) => {
    const { url } = await params;
    const release = await getReleaseByExternalKey(url);
 
