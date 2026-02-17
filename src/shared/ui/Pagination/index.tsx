@@ -29,11 +29,16 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
    const isLastPage = currentPage === totalPages;
    const visiblePages = getVisiblePages(currentPage, totalPages, maxVisiblePages);
 
-   const to = (newPage: number) => buildHrefWithParam(searchParams, 'page', newPage, 1);
+   const navigateTo = (newPage: number) => buildHrefWithParam(searchParams, 'page', newPage, 1);
 
    return (
       <div className={styles.pagination}>
-         <LinkButton prefetch={false} ariaLabel="Previous page" ariaDisabled={isFirstPage} href={to(currentPage - 1)}>
+         <LinkButton
+            prefetch={false}
+            ariaLabel="Previous page"
+            ariaDisabled={isFirstPage}
+            href={navigateTo(currentPage - 1)}
+         >
             <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
 
@@ -50,7 +55,7 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
                <LinkButton
                   key={page}
                   prefetch={false}
-                  href={to(+page)}
+                  href={navigateTo(+page)}
                   ariaLabel={`Page ${page}`}
                   ariaCurrent={currentPage === page}
                   className={`${styles.pageButton} ${currentPage === page ? styles.active : ''}`}
@@ -65,7 +70,7 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
             rotate={'180deg'}
             ariaLabel="Next page"
             ariaDisabled={isLastPage}
-            href={to(currentPage + 1)}
+            href={buildHrefWithParam(searchParams, 'page', currentPage + 1, 1)}
          >
             <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>

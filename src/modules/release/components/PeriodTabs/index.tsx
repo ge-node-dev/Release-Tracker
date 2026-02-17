@@ -9,7 +9,8 @@ const periods: ReleasePeriod[] = ['this_week', 'this_month', 'all_time'];
 
 const PeriodTabs = ({ searchParams }: { searchParams: Awaited<SearchParams> }) => {
    const currentPeriod = searchParams.period || 'this_week';
-   const to = (item: ReleasePeriod) => buildHrefWithParam(searchParams, 'period', item, 'this_week');
+
+   const navigateTo = (item: ReleasePeriod) => buildHrefWithParam(searchParams, 'period', item, 'this_week');
 
    return (
       <section className={styles.container}>
@@ -17,15 +18,15 @@ const PeriodTabs = ({ searchParams }: { searchParams: Awaited<SearchParams> }) =
             <div className={styles.line} />
             <h1 className={styles.title}>New Releases</h1>
          </div>
-         <div className={styles.tabs}>
-            {periods.map((item) => (
+         <div className={styles.tabsContainer}>
+            {periods.map((period) => (
                <LinkButton
-                  key={item}
-                  href={to(item)}
-                  ariaLabel={`Period-${item}`}
-                  className={`${styles.tabButton} ${item === currentPeriod ? styles.active : ''}`}
+                  key={period}
+                  href={navigateTo(period)}
+                  ariaLabel={`Period-${period}`}
+                  className={`${styles.tabButton} ${period === currentPeriod ? styles.active : ''}`}
                >
-                  {item.replace('_', ' ').toUpperCase()}
+                  {period.replace('_', ' ')}
                </LinkButton>
             ))}
          </div>

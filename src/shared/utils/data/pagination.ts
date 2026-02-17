@@ -1,5 +1,3 @@
-import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives';
-
 import { SearchParams } from '@/shared/types';
 
 export const getVisiblePages = (currentPage: number, totalPages: number, maxVisiblePages: number) => {

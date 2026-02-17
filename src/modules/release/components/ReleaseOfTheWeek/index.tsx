@@ -29,6 +29,8 @@ const ReleaseOfTheWeek = async () => {
       background: `radial-gradient(circle, ${glowColor} 5%, transparent 90%)`,
    };
 
+   const releaseHref = `/release/${external_key}`;
+
    return (
       <section className={styles.grid}>
          <div className={styles.infoContainer}>
@@ -44,7 +46,7 @@ const ReleaseOfTheWeek = async () => {
                   </Badge>
                ))}
             </div>
-            <Link aria-label={'Listen now'} className={styles.listenNowBtn} href={`/release/${external_key}`}>
+            <Link href={releaseHref} aria-label={'Listen now'} className={styles.listenNowBtn}>
                <Image width={24} height={24} alt={'Play'} src={'/assets/icons/play.svg'} />
                <span>Listen now</span>
             </Link>
@@ -52,17 +54,19 @@ const ReleaseOfTheWeek = async () => {
          <div className={styles.coverScene}>
             <div className={styles.coverContainer}>
                <div style={glowStyle} className={styles.glow} />
-               <Image
-                  width={500}
-                  height={500}
-                  src={cover_url}
-                  priority={true}
-                  loading={'eager'}
-                  draggable={false}
-                  alt={'Release cover'}
-                  sizes={'500px, 300px'}
-                  className={styles.coverImage}
-               />
+               <Link href={releaseHref} aria-label={'To release'}>
+                  <Image
+                     width={500}
+                     height={500}
+                     src={cover_url}
+                     priority={true}
+                     loading={'eager'}
+                     draggable={false}
+                     alt={'Release cover'}
+                     sizes={'500px, 300px'}
+                     className={styles.coverImage}
+                  />
+               </Link>
             </div>
          </div>
       </section>
