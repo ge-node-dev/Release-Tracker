@@ -1,7 +1,7 @@
 import { cacheLife, cacheTag } from 'next/cache';
 
 import { createSupabaseStaticClient } from '@/lib/supabase/client';
-import { ReleasePeriods, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
+import { ReleasePeriod, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
 import { CACHE_12H } from '@/shared/utils/constants';
 import { getReleaseDateRange } from '@/shared/utils/date/getReleaseDateRange';
 
@@ -85,7 +85,7 @@ export const getReleaseOfTheWeek = async () => {
    return data;
 };
 
-export const getPaginationCount = async (period: ReleasePeriods) => {
+export const getPaginationCount = async (period: ReleasePeriod) => {
    const supabase = createSupabaseStaticClient();
 
    let totalCountQuery = supabase.from('releases').select('id', { head: true, count: 'exact' });

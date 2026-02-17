@@ -2,30 +2,34 @@ import { cacheLife, cacheTag } from 'next/cache';
 import Image from 'next/image';
 
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
-import { ReleasePeriods } from '@/modules/release/types/releaseTypes';
+import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
+import { SearchParams } from '@/shared/types';
 import LinkButton from '@/shared/ui/LinkButton';
 import { CACHE_12H } from '@/shared/utils/constants';
-import { getPageHref, getVisiblePages } from '@/shared/utils/data/pagination';
+import { buildHrefWithParam, getVisiblePages } from '@/shared/utils/data/pagination';
 
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
    currentPage: number;
-   period: ReleasePeriods;
    maxVisiblePages?: number;
+   currentPeriod: ReleasePeriod;
+   searchParams: Awaited<SearchParams>;
 }
 
-const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: PaginationProps) => {
+const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisiblePages = 5 }: PaginationProps) => {
    'use cache';
    cacheLife(CACHE_12H);
-   cacheTag(`releases-count-${period}`);
+   cacheTag(`releases-count-${currentPeriod}`);
 
-   const { totalPages } = await getPaginationCount(period);
+   const { totalPages } = await getPaginationCount(currentPeriod);
    if (!totalPages || totalPages < 2) return null;
 
    const isFirstPage = currentPage === 1;
    const isLastPage = currentPage === totalPages;
    const visiblePages = getVisiblePages(currentPage, totalPages, maxVisiblePages);
+
+   const navigateTo = (newPage: number) => buildHrefWithParam(searchParams, 'page', newPage, 1);
 
    return (
       <div className={styles.pagination}>
@@ -33,7 +37,7 @@ const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: Paginati
             prefetch={false}
             ariaLabel="Previous page"
             ariaDisabled={isFirstPage}
-            href={getPageHref(currentPage - 1)}
+            href={navigateTo(currentPage - 1)}
          >
             <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
@@ -51,7 +55,7 @@ const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: Paginati
                <LinkButton
                   key={page}
                   prefetch={false}
-                  href={getPageHref(+page)}
+                  href={navigateTo(+page)}
                   ariaLabel={`Page ${page}`}
                   ariaCurrent={currentPage === page}
                   className={`${styles.pageButton} ${currentPage === page ? styles.active : ''}`}
@@ -66,7 +70,7 @@ const Pagination = async ({ period, currentPage, maxVisiblePages = 5 }: Paginati
             rotate={'180deg'}
             ariaLabel="Next page"
             ariaDisabled={isLastPage}
-            href={getPageHref(currentPage + 1)}
+            href={buildHrefWithParam(searchParams, 'page', currentPage + 1, 1)}
          >
             <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
          </LinkButton>
