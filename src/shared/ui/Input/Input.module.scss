@@ -1,0 +1,42 @@
+.input {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   background: transparent;
+   position: relative;
+
+   input {
+      background: transparent;
+      color: $text-primary;
+      border-radius: 8px;
+      padding: 14px 14px 14px 40px;
+      width: 100%;
+   }
+
+   label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: $text-secondary;
+   }
+
+   img {
+      position: absolute;
+      width: 24px;
+      bottom: 15;
+      left: 10;
+      height: 24px;
+   }
+}
+
+.error {
+   color: $error;
+   font-size: 0.75rem;
+   position: relative;
+   margin-top: -10;
+}
+
+.required {
+   color: $error;
+   margin-left: 2px;
+}

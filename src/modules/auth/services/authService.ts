@@ -5,12 +5,25 @@ import { redirect } from 'next/navigation';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
-export const createUserAccount = async (formData: FormData) => {
+type FormState = {
+   error: string;
+   email?: string;
+   password?: string;
+   username?: string;
+   confirmPassword?: string;
+};
+
+export const createUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
    const supabase = await createSupabaseServerClient();
    const email = formData.get('email') as string;
    const password = formData.get('password') as string;
+   const userName = formData.get('username') as string;
 
-   const { error } = await supabase.auth.signUp({ email, password });
+   const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { username: userName } },
+   });
 
    if (error) {
       return { error: error.message };
@@ -20,11 +33,11 @@ export const createUserAccount = async (formData: FormData) => {
    redirect('/');
 };
 
-export const loginUserAccount = async (formData: FormData) => {
-   const supabase = await createSupabaseServerClient();
+export const loginUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
    const email = formData.get('email') as string;
    const password = formData.get('password') as string;
 
+   const supabase = await createSupabaseServerClient();
    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
    if (error) {
@@ -33,16 +46,4 @@ export const loginUserAccount = async (formData: FormData) => {
 
    revalidatePath('/');
    redirect('/');
-};
-
-export const logoutUserAccount = async () => {
-   const supabase = await createSupabaseServerClient();
-   const { error } = await supabase.auth.signOut();
-
-   if (error) {
-      return { error: error.message };
-   }
-
-   revalidatePath('/');
-   redirect('/login');
 };

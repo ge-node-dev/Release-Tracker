@@ -1,0 +1,40 @@
+.header {
+   @include fixed-center(20px, 50px);
+
+   top: 0;
+}
+
+.wrapper {
+   @include blur-card;
+}
+
+.divider {
+   @include divider;
+}
+
+.nav {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   flex: 1;
+}
+
+.navLink {
+   font-weight: 700;
+   font-size: 12px;
+   letter-spacing: 1.2px;
+   text-transform: uppercase;
+   color: #999;
+   text-decoration: none;
+   padding: 8px 14px;
+   border-radius: 100px;
+   transition:
+      color 0.2s ease,
+      background 0.2s ease;
+   cursor: pointer;
+
+   &:hover {
+      color: #fff;
+      background: rgb(255 255 255 / 7%);
+   }
+}

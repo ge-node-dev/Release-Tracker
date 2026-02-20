@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 import { SearchParams } from '@/shared/types';
-import LinkButton from '@/shared/ui/LinkButton';
+import LinkButton from '@/shared/ui/Buttons/LinkButton';
 import { CACHE_12H } from '@/shared/utils/constants';
 import { buildHrefWithParam, getVisiblePages } from '@/shared/utils/data/pagination';
 
