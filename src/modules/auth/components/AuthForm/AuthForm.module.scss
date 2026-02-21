@@ -2,6 +2,7 @@
    display: flex;
    gap: 0.5rem;
    flex-direction: column;
+   margin-bottom: 1rem;
 }
 
 .mainText {
@@ -9,7 +10,7 @@
    font-size: 1.5rem;
    line-height: 2rem;
    text-align: center;
-   color: #fff;
+   color: $text-primary;
 }
 
 .secondaryText {
@@ -29,6 +30,7 @@
 
 .error {
    color: $error-color;
+   text-align: center;
 }
 
 .submitButton {

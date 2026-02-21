@@ -1,8 +1,10 @@
 .headerButtons {
    border: 1px solid $border-dark;
-   border-radius: 8px;
-   padding: 4px;
+   border-radius: 10px;
+   padding: 4.5px;
    width: 100%;
    display: flex;
    gap: 6px;
+   margin-bottom: 1.25rem;
+   background: rgba(255, 255, 255, 0.02);
 }

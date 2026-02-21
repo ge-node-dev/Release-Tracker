@@ -1,3 +1,6 @@
+'use client';
+import { useState } from 'react';
+
 import styles from './Input.module.scss';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -11,6 +14,15 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = ({ id, icon, error, label, value, placeholder, type = 'text', ...props }: InputProps) => {
+   const [showPassword, setShowPassword] = useState(false);
+
+   const isPasswordField = type === 'password';
+   const inputType = isPasswordField ? (showPassword ? 'text' : 'password') : type;
+
+   const togglePasswordVisibility = () => {
+      setShowPassword((prev) => !prev);
+   };
+
    return (
       <>
          <div className={styles.input}>
@@ -24,12 +36,28 @@ const Input = ({ id, icon, error, label, value, placeholder, type = 'text', ...p
                )}
                <input
                   id={id}
-                  type={type}
                   value={value}
+                  type={inputType}
                   placeholder={placeholder}
                   style={{ border: error ? '1px solid red' : '1px solid #ffffff33' }}
                   {...props}
                />
+               {isPasswordField && (
+                  <button
+                     type="button"
+                     className={styles.passwordToggle}
+                     onClick={togglePasswordVisibility}
+                     aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                     <img
+                        alt=""
+                        width={24}
+                        height={24}
+                        aria-hidden="true"
+                        src={!showPassword ? '/assets/icons/eye-off.svg' : '/assets/icons/eye-on.svg'}
+                     />
+                  </button>
+               )}
             </div>
          </div>
          {error && <p className={styles.error}>{error}</p>}

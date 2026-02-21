@@ -1,5 +1,5 @@
 'use client';
-import { Activity, useState } from 'react';
+import { Activity, Suspense, useState } from 'react';
 
 import { loginConfig } from '@/modules/auth/utils/loginFormConfig';
 import { registerConfig } from '@/modules/auth/utils/registerFormConfig';
@@ -11,7 +11,7 @@ interface AuthContentProps {
    onSuccessSubmit?: () => void;
 }
 
-const AuthContent = ({ onSuccessSubmit }: AuthContentProps) => {
+const Content = ({ onSuccessSubmit }: AuthContentProps) => {
    const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
    const [isFormPending, setIsFormPending] = useState<boolean>(false);
 
@@ -28,6 +28,14 @@ const AuthContent = ({ onSuccessSubmit }: AuthContentProps) => {
             <AuthForm config={registerConfig} onPending={setIsFormPending} onSuccessSubmit={onSuccessSubmit} />
          </Activity>
       </>
+   );
+};
+
+const AuthContent = ({ onSuccessSubmit }: AuthContentProps) => {
+   return (
+      <Suspense fallback={null}>
+         <Content onSuccessSubmit={onSuccessSubmit} />
+      </Suspense>
    );
 };
 

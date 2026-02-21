@@ -9,7 +9,7 @@
       background: transparent;
       color: $text-primary;
       border-radius: 8px;
-      padding: 14px 14px 14px 40px;
+      padding: 14px 40px 14px 40px;
       width: 100%;
    }
 
@@ -20,12 +20,35 @@
       color: $text-secondary;
    }
 
-   img {
+   .inputIcon {
       position: absolute;
       width: 24px;
-      bottom: 15;
-      left: 10;
+      bottom: 15px;
+      left: 10px;
       height: 24px;
+   }
+
+   .passwordToggle {
+      position: absolute;
+      right: 10px;
+      bottom: 15px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+         position: static;
+         opacity: 0.7;
+         transition: opacity 0.2s;
+
+         &:hover {
+            opacity: 1;
+         }
+      }
    }
 }
 

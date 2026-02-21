@@ -1,0 +1,28 @@
+.container {
+   display: flex;
+   justify-content: center;
+   margin-top: 4rem;
+   align-items: center;
+   height: 80vh;
+}
+
+.content {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 1rem;
+   width: 100%;
+   max-width: 540px;
+}
+
+.authCard {
+   width: 100%;
+   background: $bg-card;
+   border: 1px solid $border-primary;
+   border-radius: 16px;
+   padding: 1.5rem;
+   backdrop-filter: blur(10px);
+   box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+}

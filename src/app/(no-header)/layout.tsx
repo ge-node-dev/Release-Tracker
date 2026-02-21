@@ -3,5 +3,5 @@ export default function NoHeaderLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   return <main className="mainContainer">{children}</main>;
+   return <main>{children}</main>;
 }

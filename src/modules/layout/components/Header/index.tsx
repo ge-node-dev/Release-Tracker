@@ -1,5 +1,7 @@
 'use client';
+
 import { usePathname } from 'next/navigation';
+import { Suspense } from 'react';
 
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
 
@@ -9,7 +11,7 @@ import styles from './Header.module.scss';
 
 const NAV_LINKS = [{ href: '/', label: 'Releases' }];
 
-const Header = () => {
+const HeaderContent = () => {
    const path = usePathname();
 
    return (
@@ -32,6 +34,14 @@ const Header = () => {
             <HeaderAuthButton />
          </div>
       </header>
+   );
+};
+
+const Header = () => {
+   return (
+      <Suspense fallback={null}>
+         <HeaderContent />
+      </Suspense>
    );
 };
 
