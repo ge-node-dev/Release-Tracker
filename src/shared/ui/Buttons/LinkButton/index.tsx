@@ -5,6 +5,8 @@ import { ReactNode } from 'react';
 
 import styles from './LinkButton.module.scss';
 
+type LinkButtonVariant = 'ghost';
+
 interface LinkButtonProps extends LinkProps {
    rotate?: string;
    ariaLabel: string;
@@ -12,6 +14,8 @@ interface LinkButtonProps extends LinkProps {
    children: ReactNode;
    ariaCurrent?: boolean;
    ariaDisabled?: boolean;
+   variant?: LinkButtonVariant;
+   active?: boolean;
 }
 
 const LinkButton = ({
@@ -22,6 +26,8 @@ const LinkButton = ({
    className,
    ariaCurrent,
    ariaDisabled,
+   variant = 'ghost',
+   active,
    ...props
 }: LinkButtonProps) => {
    return (
@@ -35,7 +41,7 @@ const LinkButton = ({
          onClick={(e) => {
             if (ariaDisabled) e.preventDefault();
          }}
-         className={`${styles.arrow} ${ariaDisabled ? styles.disabled : ''} ${className || ''}`}
+         className={`${styles[variant]} ${ariaDisabled ? styles.disabled : ''} ${active ? styles.active : ''} ${className || ''}`}
       >
          {children}
       </Link>

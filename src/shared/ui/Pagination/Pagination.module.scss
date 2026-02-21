@@ -1,43 +1,7 @@
 .pagination {
    @include blur-card;
-}
-
-.pageButton {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   min-width: 40px;
-   height: 40px;
-   background-color: transparent;
-   border: none;
-   border-radius: 50%;
-   color: $text-tertiary;
-   font-size: 17px;
-   font-weight: 500;
-   cursor: pointer;
-   user-select: none;
-
-   &:hover:not(.disabled, .active) {
-      background-color: $button-border-light;
-      color: $text-primary;
-   }
-
-   &:active:not(.disabled) {
-      transform: scale(0.98);
-   }
-}
-
-.pageButton {
-   font-family: $font-main;
-
-   &.active {
-      background-color: $button-bg-transparent;
-      border: 1px solid $button-border-light;
-      color: $text-primary;
-
-      &:hover {
-         background-color: $button-bg-transparent;
-      }
+   a {
+      font-size: 16px;
    }
 }
 

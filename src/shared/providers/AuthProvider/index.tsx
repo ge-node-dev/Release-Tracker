@@ -1,31 +1,50 @@
 'use client';
 
+import type { User } from '@supabase/supabase-js';
+
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { createSupabaseStaticClient } from '@/lib/supabase/client';
 
-const AuthContext = createContext<null | boolean>(null);
+type AuthContextType = {
+   user: User | null;
+   isLoading: boolean;
+   isAuthenticated: boolean;
+};
+
+const AuthContext = createContext<null | AuthContextType>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-   const [isAuthenticated, setIsAuthenticated] = useState<null | boolean>(null);
+   const [user, setUser] = useState<User | null>(null);
+   const [isLoading, setIsLoading] = useState(true);
 
    useEffect(() => {
       const supabase = createSupabaseStaticClient();
 
+      supabase.auth.getSession().then(({ data: { session } }) => {
+         setUser(session?.user ?? null);
+         setIsLoading(false);
+      });
+
       const {
          data: { subscription },
       } = supabase.auth.onAuthStateChange((_event, session) => {
-         setIsAuthenticated(!!session);
-      });
-
-      supabase.auth.getSession().then(({ data: { session } }) => {
-         setIsAuthenticated(!!session);
+         setUser(session?.user ?? null);
+         setIsLoading(false);
       });
 
       return () => subscription.unsubscribe();
    }, []);
 
-   return <AuthContext.Provider value={isAuthenticated}>{children}</AuthContext.Provider>;
+   return <AuthContext.Provider value={{ user, isLoading, isAuthenticated: !!user }}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+   const context = useContext(AuthContext);
+
+   if (!context) {
+      throw new Error('useAuth must be used within an AuthProvider');
+   }
+
+   return context;
+};

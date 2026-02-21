@@ -2,6 +2,8 @@
 
 import styles from './ActionButton.module.scss';
 
+type ActionButtonVariant = 'filled' | 'transparent' | 'ghost';
+
 interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
    disabled?: boolean;
    className?: string;
@@ -9,7 +11,7 @@ interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
    onClick?: () => void;
    disableHover?: boolean;
    children?: React.ReactNode;
-   variant: 'filled' | 'transparent';
+   variant: ActionButtonVariant;
 }
 
 const ActionButton = ({
@@ -26,7 +28,7 @@ const ActionButton = ({
          onClick={onClick}
          disabled={disabled}
          aria-disabled={disabled}
-         className={`${styles.button} ${variant === 'filled' ? styles.filled : styles.transparent} ${disableHover ? styles.disableHover : ''} ${className}`}
+         className={`${styles.button} ${styles[variant]} ${disableHover ? styles.disableHover : ''} ${className}`}
          {...props}
       >
          {children}

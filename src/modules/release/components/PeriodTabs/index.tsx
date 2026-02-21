@@ -24,7 +24,7 @@ const PeriodTabs = ({ searchParams }: { searchParams: Awaited<SearchParams> }) =
                   key={period}
                   href={navigateTo(period)}
                   ariaLabel={`Period-${period}`}
-                  className={`${styles.tabButton} ${period === currentPeriod ? styles.active : ''}`}
+                  active={period === currentPeriod}
                >
                   {period.replace('_', ' ')}
                </LinkButton>

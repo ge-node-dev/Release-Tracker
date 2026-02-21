@@ -58,7 +58,7 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
                   href={navigateTo(+page)}
                   ariaLabel={`Page ${page}`}
                   ariaCurrent={currentPage === page}
-                  className={`${styles.pageButton} ${currentPage === page ? styles.active : ''}`}
+                  active={currentPage === page}
                >
                   {page}
                </LinkButton>

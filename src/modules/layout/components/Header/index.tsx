@@ -1,22 +1,32 @@
+'use client';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
 
 import HeaderAuthButton from '../HeaderAuthButton';
 
 import styles from './Header.module.scss';
+import { usePathname } from 'next/navigation';
+
+const NAV_LINKS = [{ href: '/', label: 'Releases' }];
 
 const Header = () => {
+   const path = usePathname();
+
    return (
       <header className={styles.header}>
          <div className={styles.wrapper}>
-            <nav className={styles.nav}>
-               <LinkButton href="/" ariaLabel="Releases" className={styles.navLink}>
-                  Releases
-               </LinkButton>
-               <div className={styles.divider}></div>
-               <LinkButton href="/" ariaLabel="Artists" className={styles.navLink}>
-                  Artists
-               </LinkButton>
-            </nav>
+            {NAV_LINKS.map((link) => (
+               <nav className={styles.nav} key={link.label}>
+                  <LinkButton
+                     href={link.href}
+                     ariaLabel={link.label}
+                     className={styles.navLink}
+                     active={path === link.href}
+                  >
+                     {link.label}
+                  </LinkButton>
+                  <div className={styles.divider} />
+               </nav>
+            ))}
 
             <HeaderAuthButton />
          </div>

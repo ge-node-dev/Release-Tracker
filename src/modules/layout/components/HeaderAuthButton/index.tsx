@@ -12,20 +12,22 @@ const UserIcon = () => {
 
 const HeaderAuthButton = () => {
    const { handleOpen } = useAuthModal();
-   const isAuthenticated = useAuth();
+   const { isLoading, isAuthenticated } = useAuth();
 
-   if (isAuthenticated) {
+   if (isLoading || !isAuthenticated) {
       return (
-         <LinkButton href="/profile" ariaLabel="Profile">
-            <UserIcon />
-         </LinkButton>
+         <>
+            <ActionButton type="button" onClick={handleOpen} variant="ghost">
+               <UserIcon />
+            </ActionButton>
+         </>
       );
    }
 
    return (
-      <ActionButton type="button" onClick={handleOpen} variant="transparent">
+      <LinkButton href="/profile" ariaLabel="Profile">
          <UserIcon />
-      </ActionButton>
+      </LinkButton>
    );
 };
 

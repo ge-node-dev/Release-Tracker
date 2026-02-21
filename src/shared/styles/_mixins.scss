@@ -5,7 +5,7 @@
    font-weight: $weight;
 }
 
-@mixin divider($h: 20px, $m: 12px) {
+@mixin divider($h: 20px, $m: 8px) {
    width: 1px;
    height: $h;
    background: #333;
@@ -32,4 +32,51 @@
    transform: translateX(-50%);
    z-index: 100;
    padding: $topPadding 50px $bottomPadding;
+}
+
+@mixin ghost-button {
+   min-height: 40px;
+   min-width: 40px;
+   width: fit-content;
+   height: fit-content;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-weight: 700;
+   font-size: 12px;
+   letter-spacing: 1.2px;
+   text-transform: uppercase;
+   color: #999;
+   text-decoration: none;
+   padding: 8px 12px;
+   border-radius: 20px;
+   border: 1px solid transparent;
+   transition:
+      color 0.2s ease,
+      background 0.2s ease;
+   cursor: pointer;
+
+   &:hover:not(.disabled) {
+      background-color: #2a2a2a;
+      color: #fff;
+   }
+
+   &:active:not(.disabled) {
+      transform: scale(0.97);
+   }
+
+   &.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+   }
+
+   &.active {
+      background-color: $button-bg-transparent;
+      border: 1px solid $button-border-light;
+      color: $text-primary;
+
+      &:hover {
+         background-color: $button-bg-transparent;
+      }
+   }
 }

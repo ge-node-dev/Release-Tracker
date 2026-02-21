@@ -21,16 +21,12 @@ const AuthModal = () => {
       <Modal open={isOpen} onClose={handleClose}>
          <AuthHeaderTabs isLoginTab={isLoginTab} setActiveTab={setActiveTab} isFormPending={isFormPending} />
 
-         {isLoginTab && (
-            <Activity mode={isLoginTab ? 'visible' : 'hidden'}>
-               <AuthForm key="login" config={loginConfig} onSuccess={handleClose} onPending={setIsFormPending} />
-            </Activity>
-         )}
-         {!isLoginTab && (
-            <Activity mode={!isLoginTab ? 'visible' : 'hidden'}>
-               <AuthForm key="register" config={registerConfig} onSuccess={handleClose} onPending={setIsFormPending} />
-            </Activity>
-         )}
+         <Activity mode={isLoginTab ? 'visible' : 'hidden'}>
+            <AuthForm config={loginConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+         </Activity>
+         <Activity mode={!isLoginTab ? 'visible' : 'hidden'}>
+            <AuthForm config={registerConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+         </Activity>
       </Modal>
    );
 };
