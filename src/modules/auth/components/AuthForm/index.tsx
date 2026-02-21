@@ -30,8 +30,8 @@ export interface AuthFormConfig {
 }
 
 interface AuthFormProps {
-   onSuccessSubmit?: () => void;
    config: AuthFormConfig;
+   onSuccessSubmit?: () => void;
    onPending: (pending: boolean) => void;
 }
 
