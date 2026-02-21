@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 import { EMAIL_REGEX } from '../utils/constants';
 
@@ -36,19 +36,13 @@ export const useFormValidation = (formType: keyof typeof FORM_FIELDS) => {
 
    const [fields, setFields] = useState<FormFields>(() => createInitialState(fieldNames));
 
-   const validateField = useCallback(
-      (id: string, value: string): string => VALIDATORS[id]?.(value, fields) ?? '',
-      [fields],
-   );
+   const validateField = (id: string, value: string): string => VALIDATORS[id]?.(value, fields) ?? '';
 
-   const updateField = useCallback(
-      (id: string, value: string, customValidator?: Validator) => {
-         const error = customValidator ? customValidator(value) : validateField(id, value);
-         setFields((prev) => ({ ...prev, [id]: { error, value } }));
-         return error;
-      },
-      [validateField],
-   );
+   const updateField = (id: string, value: string, customValidator?: Validator) => {
+      const error = customValidator ? customValidator(value) : validateField(id, value);
+      setFields((prev) => ({ ...prev, [id]: { error, value } }));
+      return error;
+   };
 
    return { fields, updateField, isFormValid: isFormValid(fields) };
 };

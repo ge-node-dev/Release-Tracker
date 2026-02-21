@@ -1,20 +1,16 @@
-'use server';
+import { createSupabaseStaticClient } from '@/lib/supabase/client';
 
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-
-import { createSupabaseServerClient } from '@/lib/supabase/server';
-
-type FormState = {
+export type FormState = {
    error: string;
    email?: string;
+   success: boolean;
    password?: string;
    username?: string;
    confirmPassword?: string;
 };
 
 export const createUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
-   const supabase = await createSupabaseServerClient();
+   const supabase = createSupabaseStaticClient();
    const email = formData.get('email') as string;
    const password = formData.get('password') as string;
    const userName = formData.get('username') as string;
@@ -26,24 +22,22 @@ export const createUserAccount = async (prevData: FormState, formData: FormData)
    });
 
    if (error) {
-      return { error: error.message };
+      return { success: false, error: error.message };
    }
 
-   revalidatePath('/');
-   redirect('/');
+   return { error: '', success: true };
 };
 
 export const loginUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
    const email = formData.get('email') as string;
    const password = formData.get('password') as string;
 
-   const supabase = await createSupabaseServerClient();
+   const supabase = createSupabaseStaticClient();
    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
    if (error) {
-      return { error: error.message };
+      return { success: false, error: error.message };
    }
 
-   revalidatePath('/');
-   redirect('/');
+   return { error: '', success: true };
 };

@@ -23,6 +23,14 @@
 .formContainer {
    display: flex;
    flex-direction: column;
-   gap: 1.25rem;
+   gap: 1rem;
    width: 100%;
+}
+
+.error {
+   color: $error-color;
+}
+
+.submitButton {
+   margin-top: 0.5rem;
 }

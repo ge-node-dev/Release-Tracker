@@ -1,49 +1,34 @@
 'use client';
-import { Activity, useState } from 'react';
+import { useState } from 'react';
 
+import { loginConfig } from '@/modules/auth/utils/loginFormConfig';
+import { registerConfig } from '@/modules/auth/utils/registerFormConfig';
 import { useAuthModal } from '@/shared/providers/AuthModalProvider';
-import ActionButton from '@/shared/ui/Buttons/ActionButton';
 import Modal from '@/shared/ui/Modal';
 
-import Login from '../Login';
-import Register from '../Register';
+import AuthForm from '../AuthForm';
+import AuthHeaderTabs from '../AuthHeaderTabs';
 
-import styles from './AuthModal.module.scss';
-
-const AuthForm = () => {
+const AuthModal = () => {
    const { isOpen, handleClose } = useAuthModal();
    const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
 
-   if (!isOpen) return null;
+   const [isFormPending, setIsFormPending] = useState<boolean>(false);
 
    const isLoginTab = activeTab === 'login';
 
    return (
       <Modal open={isOpen} onClose={handleClose}>
-         <div className={styles.headerButtons}>
-            <ActionButton
-               disableHover={isLoginTab}
-               onClick={() => setActiveTab('login')}
-               variant={isLoginTab ? 'filled' : 'transparent'}
-            >
-               Login
-            </ActionButton>
-            <ActionButton
-               disableHover={!isLoginTab}
-               onClick={() => setActiveTab('register')}
-               variant={!isLoginTab ? 'filled' : 'transparent'}
-            >
-               Register
-            </ActionButton>
-         </div>
-         <Activity mode={isLoginTab ? 'visible' : 'hidden'}>
-            <Login />
-         </Activity>
-         <Activity mode={!isLoginTab ? 'visible' : 'hidden'}>
-            <Register />
-         </Activity>
+         <AuthHeaderTabs isLoginTab={isLoginTab} setActiveTab={setActiveTab} isFormPending={isFormPending} />
+
+         {isLoginTab && (
+            <AuthForm key="login" config={loginConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+         )}
+         {!isLoginTab && (
+            <AuthForm key="register" config={registerConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+         )}
       </Modal>
    );
 };
 
-export default AuthForm;
+export default AuthModal;

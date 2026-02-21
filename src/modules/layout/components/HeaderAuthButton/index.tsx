@@ -23,7 +23,7 @@ const HeaderAuthButton = () => {
    }
 
    return (
-      <ActionButton onClick={handleOpen} variant="transparent">
+      <ActionButton type="button" onClick={handleOpen} variant="transparent">
          <UserIcon />
       </ActionButton>
    );

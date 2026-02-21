@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useEffectEvent } from 'react';
+import { useEffect } from 'react';
 
 import useBodyScrollLock from '@/shared/hooks/useBodyScrollLock';
 
@@ -9,15 +9,14 @@ import styles from './Modal.module.scss';
 const Modal = ({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) => {
    useBodyScrollLock(open);
 
-   const handleCloseEvent = useEffectEvent(() => onClose());
-
    useEffect(() => {
       if (!open) return;
       const handleKeyDown = (e: KeyboardEvent) => {
-         if (e.key === 'Escape') handleCloseEvent();
+         if (e.key === 'Escape') onClose();
       };
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [open]);
 
    if (!open) return null;
