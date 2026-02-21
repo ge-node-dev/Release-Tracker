@@ -1,10 +1,12 @@
 .header {
    @include fixed-center(20px, 50px);
+
    top: 0;
 }
 
 .wrapper {
    @include blur-card;
+
    padding: 8px 15px;
 }
 

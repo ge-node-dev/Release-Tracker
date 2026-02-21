@@ -1,10 +1,11 @@
 'use client';
+import { usePathname } from 'next/navigation';
+
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
 
 import HeaderAuthButton from '../HeaderAuthButton';
 
 import styles from './Header.module.scss';
-import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [{ href: '/', label: 'Releases' }];
 
@@ -15,7 +16,7 @@ const Header = () => {
       <header className={styles.header}>
          <div className={styles.wrapper}>
             {NAV_LINKS.map((link) => (
-               <nav className={styles.nav} key={link.label}>
+               <nav key={link.label} className={styles.nav}>
                   <LinkButton
                      href={link.href}
                      ariaLabel={link.label}

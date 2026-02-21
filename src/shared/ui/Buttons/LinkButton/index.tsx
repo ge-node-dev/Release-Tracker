@@ -9,17 +9,18 @@ type LinkButtonVariant = 'ghost';
 
 interface LinkButtonProps extends LinkProps {
    rotate?: string;
+   active?: boolean;
    ariaLabel: string;
    className?: string;
    children: ReactNode;
    ariaCurrent?: boolean;
    ariaDisabled?: boolean;
    variant?: LinkButtonVariant;
-   active?: boolean;
 }
 
 const LinkButton = ({
    href,
+   active,
    rotate,
    children,
    ariaLabel,
@@ -27,7 +28,6 @@ const LinkButton = ({
    ariaCurrent,
    ariaDisabled,
    variant = 'ghost',
-   active,
    ...props
 }: LinkButtonProps) => {
    return (

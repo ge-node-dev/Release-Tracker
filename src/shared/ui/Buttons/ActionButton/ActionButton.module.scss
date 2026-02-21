@@ -36,6 +36,7 @@
 
    &.ghost {
       @include ghost-button;
+
       padding: 0.35rem;
    }
 

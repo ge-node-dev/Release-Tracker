@@ -2,7 +2,7 @@
 
 import styles from './ActionButton.module.scss';
 
-type ActionButtonVariant = 'filled' | 'transparent' | 'ghost';
+type ActionButtonVariant = 'ghost' | 'filled' | 'transparent';
 
 interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
    disabled?: boolean;

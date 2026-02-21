@@ -17,7 +17,7 @@ const HeaderAuthButton = () => {
    if (isLoading || !isAuthenticated) {
       return (
          <>
-            <ActionButton type="button" onClick={handleOpen} variant="ghost">
+            <ActionButton type="button" variant="ghost" onClick={handleOpen}>
                <UserIcon />
             </ActionButton>
          </>
