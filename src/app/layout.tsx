@@ -5,7 +5,6 @@ import '@/shared/styles/globals.scss';
 import { ViewTransition } from 'react';
 
 import AuthModal from '@/modules/auth/components/AuthModal';
-import Header from '@/modules/layout/components/Header';
 import { AuthModalProvider } from '@/shared/providers/AuthModalProvider';
 import { AuthProvider } from '@/shared/providers/AuthProvider';
 import { geistSans } from '@/shared/utils/integrations/fonts';
@@ -26,8 +25,7 @@ export default function RootLayout({
             <ViewTransition>
                <AuthProvider>
                   <AuthModalProvider>
-                     <Header />
-                     <main className="mainContainer">{children}</main>
+                     {children}
                      <AuthModal />
                   </AuthModalProvider>
                </AuthProvider>

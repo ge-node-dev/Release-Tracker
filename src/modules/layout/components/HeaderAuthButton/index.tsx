@@ -11,13 +11,13 @@ const UserIcon = () => {
 };
 
 const HeaderAuthButton = () => {
-   const { handleOpen } = useAuthModal();
+   const { handleOpenModal } = useAuthModal();
    const { isLoading, isAuthenticated } = useAuth();
 
    if (isLoading || !isAuthenticated) {
       return (
          <>
-            <ActionButton type="button" variant="ghost" onClick={handleOpen}>
+            <ActionButton type="button" variant="ghost" onClick={handleOpenModal}>
                <UserIcon />
             </ActionButton>
          </>

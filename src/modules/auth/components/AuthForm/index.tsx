@@ -30,12 +30,12 @@ export interface AuthFormConfig {
 }
 
 interface AuthFormProps {
-   onSuccess: () => void;
+   onSuccessSubmit?: () => void;
    config: AuthFormConfig;
    onPending: (pending: boolean) => void;
 }
 
-const AuthForm = ({ config, onPending, onSuccess }: AuthFormProps) => {
+const AuthForm = ({ config, onPending, onSuccessSubmit }: AuthFormProps) => {
    const [state, setState] = useState<FormState>({ error: '', success: false });
    const [isPending, setIsPending] = useState(false);
 
@@ -63,7 +63,7 @@ const AuthForm = ({ config, onPending, onSuccess }: AuthFormProps) => {
       }
 
       if (result.success) {
-         onSuccess();
+         onSuccessSubmit?.();
          router.push(path);
       }
       setIsPending(false);
