@@ -12,7 +12,7 @@ html {
 body {
    min-height: 100vh;
    margin: 0;
-   padding: 24px;
+   padding: 0 24px;
    line-height: $base-line-height;
    font-family: $font-main;
    background-color: $bg-primary;
@@ -53,6 +53,17 @@ button,
 textarea,
 select {
    font: inherit;
+   all: unset;
+   box-sizing: border-box;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+   box-shadow: 0 0 0 1000px #121212 inset !important;
+   -webkit-text-fill-color: #fff !important;
+   caret-color: #fff;
 }
 
 button {
@@ -81,4 +92,5 @@ table {
 .mainContainer {
    max-width: 1440px;
    margin: 0 auto;
+   padding-top: 6.5rem;
 }

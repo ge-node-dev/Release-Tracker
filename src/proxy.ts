@@ -17,13 +17,18 @@ export const proxy = async (request: NextRequest) => {
    }
 
    const isAuthRoute = request.nextUrl.pathname.includes('/auth');
+   const isProfileRoute = request.nextUrl.pathname.includes('/profile');
 
-   if (isAuthRoute) {
+   if (isAuthRoute || isProfileRoute) {
       const supabase = await createSupabaseServerClient();
       const { data } = await supabase.auth.getUser();
 
-      if (data.user) {
-         return NextResponse.redirect(new URL('/', request.url));
+      if (isProfileRoute && !data.user) {
+         return NextResponse.redirect(new URL('/auth', request.url));
+      }
+
+      if (isAuthRoute && data.user) {
+         return NextResponse.redirect(new URL('/profile', request.url));
       }
    }
 

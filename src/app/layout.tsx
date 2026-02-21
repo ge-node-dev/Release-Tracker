@@ -1,35 +1,14 @@
 import type { Metadata } from 'next';
 
-import localFont from 'next/font/local';
-
 import '@/shared/styles/globals.scss';
+
 import { ViewTransition } from 'react';
 
-const geistSans = localFont({
-   variable: '--font-geist-sans',
-   src: [
-      {
-         weight: '400',
-         style: 'normal',
-         path: '../fonts/Geist-Regular.woff2',
-      },
-      {
-         weight: '500',
-         style: 'normal',
-         path: '../fonts/Geist-Medium.woff2',
-      },
-      {
-         weight: '600',
-         style: 'normal',
-         path: '../fonts/Geist-SemiBold.woff2',
-      },
-      {
-         weight: '700',
-         style: 'normal',
-         path: '../fonts/Geist-Bold.woff2',
-      },
-   ],
-});
+import AuthModal from '@/modules/auth/components/AuthModal';
+import Header from '@/modules/layout/components/Header';
+import { AuthModalProvider } from '@/shared/providers/AuthModalProvider';
+import { AuthProvider } from '@/shared/providers/AuthProvider';
+import { geistSans } from '@/shared/utils/integrations/fonts';
 
 export const metadata: Metadata = {
    title: 'Release Tracker',
@@ -42,12 +21,18 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <ViewTransition>
-         <html lang="en">
-            <body className={`${geistSans.variable} antialiased`}>
-               <main className="mainContainer">{children}</main>
-            </body>
-         </html>
-      </ViewTransition>
+      <html lang="en">
+         <body className={`${geistSans.variable} antialiased`}>
+            <ViewTransition>
+               <AuthProvider>
+                  <AuthModalProvider>
+                     <Header />
+                     <main className="mainContainer">{children}</main>
+                     <AuthModal />
+                  </AuthModalProvider>
+               </AuthProvider>
+            </ViewTransition>
+         </body>
+      </html>
    );
 }
