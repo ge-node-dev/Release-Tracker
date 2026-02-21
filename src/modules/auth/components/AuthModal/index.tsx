@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { Activity, useState } from 'react';
 
 import { loginConfig } from '@/modules/auth/utils/loginFormConfig';
 import { registerConfig } from '@/modules/auth/utils/registerFormConfig';
@@ -22,10 +22,14 @@ const AuthModal = () => {
          <AuthHeaderTabs isLoginTab={isLoginTab} setActiveTab={setActiveTab} isFormPending={isFormPending} />
 
          {isLoginTab && (
-            <AuthForm key="login" config={loginConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+            <Activity mode={isLoginTab ? 'visible' : 'hidden'}>
+               <AuthForm key="login" config={loginConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+            </Activity>
          )}
          {!isLoginTab && (
-            <AuthForm key="register" config={registerConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+            <Activity mode={!isLoginTab ? 'visible' : 'hidden'}>
+               <AuthForm key="register" config={registerConfig} onSuccess={handleClose} onPending={setIsFormPending} />
+            </Activity>
          )}
       </Modal>
    );
