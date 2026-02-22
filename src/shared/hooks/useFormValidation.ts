@@ -20,7 +20,7 @@ const VALIDATORS: Record<string, Validator> = {
 
    password: (value) => (value.length >= 8 ? '' : 'Password must be at least 8 characters'),
 
-   username: (value) => (value.replaceAll(' ', '').length >= 4 ? '' : 'Username must be at least 4 characters'),
+   username: (value) => (value.trim().length >= 4 ? '' : 'Username must be at least 4 characters'),
 
    confirmPassword: (value, form) =>
       form?.password?.value && value !== form.password.value ? 'Passwords do not match' : '',

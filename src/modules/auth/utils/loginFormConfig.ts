@@ -11,8 +11,8 @@ export const loginConfig: AuthFormConfig = {
    fields: [
       {
          id: 'email',
-         type: 'email',
          name: 'email',
+         type: 'email',
          autoComplete: 'email',
          label: 'Email Address',
          placeholder: 'name@example.com',
