@@ -8,8 +8,6 @@
    align-items: center;
 
    span {
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
+      @include label-text-strong($text-primary);
    }
 }

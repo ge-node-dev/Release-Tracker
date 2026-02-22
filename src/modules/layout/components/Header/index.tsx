@@ -19,12 +19,7 @@ const HeaderContent = () => {
          <div className={styles.wrapper}>
             {NAV_LINKS.map((link) => (
                <nav key={link.label} className={styles.nav}>
-                  <LinkButton
-                     href={link.href}
-                     ariaLabel={link.label}
-                     className={styles.navLink}
-                     active={path === link.href}
-                  >
+                  <LinkButton size="medium" href={link.href} ariaLabel={link.label} active={path === link.href}>
                      {link.label}
                   </LinkButton>
                   <div className={styles.divider} />

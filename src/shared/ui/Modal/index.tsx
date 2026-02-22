@@ -23,7 +23,16 @@ const Modal = ({ open, onClose, children }: { open: boolean; onClose: () => void
 
    return (
       <div className={styles.overlay}>
-         <div onClick={onClose} aria-label="Close modal" className={styles.backdrop} />
+         <div
+            tabIndex={0}
+            role="button"
+            onClick={onClose}
+            aria-label="Close modal"
+            className={styles.backdrop}
+            onKeyDown={(e) => {
+               if (e.key === 'Enter' || e.key === ' ') onClose();
+            }}
+         />
          <div className={styles.content}>
             <button onClick={onClose} aria-label="Close modal" className={styles.closeButton}>
                X

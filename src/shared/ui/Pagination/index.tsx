@@ -45,7 +45,11 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
          {visiblePages.map((page, index) => {
             if (page === '...') {
                return (
-                  <span aria-hidden="true" key={`ellipsis-${index}`} className={styles.ellipsis}>
+                  <span
+                     aria-hidden="true"
+                     className={styles.ellipsis}
+                     key={`ellipsis-after-${visiblePages[index - 1]}`}
+                  >
                      {page}
                   </span>
                );

@@ -6,17 +6,15 @@
 }
 
 .mainText {
-   font-weight: 700;
-   font-size: 1.5rem;
-   line-height: 2rem;
+   @include h3;
+
    text-align: center;
    color: $text-primary;
 }
 
 .secondaryText {
-   font-weight: 400;
-   font-size: 0.875rem;
-   line-height: 1.25rem;
+   @include text-base;
+
    text-align: center;
    color: $text-secondary;
 }

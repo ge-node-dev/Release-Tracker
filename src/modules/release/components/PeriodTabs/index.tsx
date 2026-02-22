@@ -22,6 +22,7 @@ const PeriodTabs = ({ searchParams }: { searchParams: Awaited<SearchParams> }) =
             {periods.map((period) => (
                <LinkButton
                   key={period}
+                  size="medium"
                   href={navigateTo(period)}
                   ariaLabel={`Period-${period}`}
                   active={period === currentPeriod}

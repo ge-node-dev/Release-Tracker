@@ -14,7 +14,6 @@ const AuthHeaderTabs = ({ isLoginTab, setActiveTab, isFormPending }: AuthHeaderT
       <div className={styles.headerButtons}>
          <ActionButton
             disabled={isFormPending}
-            disableHover={isLoginTab}
             onClick={() => setActiveTab('login')}
             variant={isLoginTab ? 'filled' : 'transparent'}
          >
@@ -22,7 +21,6 @@ const AuthHeaderTabs = ({ isLoginTab, setActiveTab, isFormPending }: AuthHeaderT
          </ActionButton>
          <ActionButton
             disabled={isFormPending}
-            disableHover={!isLoginTab}
             onClick={() => setActiveTab('register')}
             variant={!isLoginTab ? 'filled' : 'transparent'}
          >

@@ -23,7 +23,7 @@
 }
 
 .title {
-   font-size: 28px;
+   @include h3;
 }
 
 .tabsContainer {

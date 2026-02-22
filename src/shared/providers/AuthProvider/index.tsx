@@ -14,23 +14,22 @@ type AuthContextType = {
 
 const AuthContext = createContext<null | AuthContextType>(null);
 
+type AuthState = { user: User | null; isLoading: boolean };
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-   const [user, setUser] = useState<User | null>(null);
-   const [isLoading, setIsLoading] = useState(true);
+   const [{ user, isLoading }, setAuthState] = useState<AuthState>({ user: null, isLoading: true });
 
    useEffect(() => {
       const supabase = createSupabaseStaticClient();
 
       supabase.auth.getSession().then(({ data: { session } }) => {
-         setUser(session?.user ?? null);
-         setIsLoading(false);
+         setAuthState({ isLoading: false, user: session?.user ?? null });
       });
 
       const {
          data: { subscription },
       } = supabase.auth.onAuthStateChange((_event, session) => {
-         setUser(session?.user ?? null);
-         setIsLoading(false);
+         setAuthState({ isLoading: false, user: session?.user ?? null });
       });
 
       return () => subscription.unsubscribe();

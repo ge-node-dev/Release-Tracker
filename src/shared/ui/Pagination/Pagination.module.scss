@@ -2,17 +2,17 @@
    @include blur-card;
 
    a {
-      font-size: 16px;
+      @include text-base;
    }
 }
 
 .ellipsis {
+   @include text-base-strong;
+
    display: flex;
    align-items: center;
    justify-content: center;
    color: $text-tertiary;
-   font-size: 19px;
-   font-weight: 500;
    padding: 0;
    letter-spacing: 4px;
    user-select: none;

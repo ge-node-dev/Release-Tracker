@@ -10,11 +10,11 @@ html {
 }
 
 body {
+   @include text-base;
+
    height: 100%;
    margin: 0;
    padding: 0 24px;
-   line-height: $base-line-height;
-   font-family: $font-main;
    background-color: $bg-primary;
    text-rendering: optimizespeed;
    -webkit-font-smoothing: antialiased;

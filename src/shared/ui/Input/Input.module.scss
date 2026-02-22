@@ -14,10 +14,7 @@
    }
 
    label {
-      font-size: 0.875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: $text-secondary;
+      @include input-label-text;
    }
 
    .inputIcon {
@@ -54,7 +51,9 @@
 
 .error {
    color: $error-color;
-   font-size: 0.75rem;
+
+   @include error-text;
+
    position: relative;
    margin-top: -10;
 }

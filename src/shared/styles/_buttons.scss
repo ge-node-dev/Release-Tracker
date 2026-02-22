@@ -1,0 +1,150 @@
+@use '@/shared/styles/variables' as *;
+@use '@/shared/styles/typography' as *;
+@use '@/shared/styles/mixins' as *;
+@use '@/shared/styles/breakpoints' as *;
+
+@mixin button-sizes {
+   @include button-medium-text;
+
+   &.small {
+      padding: 0.5rem;
+   }
+
+   &.medium {
+      padding: 0.75rem;
+   }
+
+   &.large {
+      padding: 1.5rem 2rem;
+   }
+}
+
+@mixin ghost-button {
+   text-transform: capitalize;
+   min-height: 40px;
+   min-width: 40px;
+   width: fit-content;
+   height: fit-content;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 8px 12px;
+   border-radius: 20px;
+   border: 1px solid transparent;
+   color: #999;
+   cursor: pointer;
+   transition:
+      color 0.2s ease,
+      background 0.2s ease;
+
+   &:hover:not(.disabled) {
+      background-color: #2a2a2a;
+      color: #fff;
+   }
+   &:active:not(.disabled) {
+      transform: scale(0.97);
+   }
+
+   &.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+   }
+
+   &.active {
+      background-color: $button-bg-transparent;
+      border-color: $button-border-light;
+      color: $text-primary;
+
+      &:hover {
+         background-color: $button-bg-transparent;
+      }
+   }
+}
+
+@mixin variant-ghost {
+   @include ghost-button;
+   @include button-sizes;
+   padding: 0.35rem;
+}
+
+@mixin variant-filled {
+   @include button-sizes;
+   border-radius: 6px;
+   background-color: $button-light-bg;
+   color: black;
+}
+
+@mixin variant-transparent {
+   @include button-sizes;
+   border-radius: 6px;
+   background-color: transparent;
+   color: $text-secondary;
+}
+
+@mixin hover-filled($selector) {
+   &:hover:not(#{$selector}) {
+      background-color: $button-bg-transparent;
+      color: $button-light-bg;
+   }
+}
+
+@mixin hover-transparent($selector) {
+   &:hover:not(#{$selector}) {
+      background-color: $button-bg-transparent;
+      color: white;
+   }
+}
+
+%interactive-base {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   border: none;
+   gap: 0.5rem;
+   transition:
+      background-color 0.25s ease-in-out,
+      color 0.25s ease-in-out,
+      transform 0.2s ease;
+}
+
+.button {
+   @extend %interactive-base;
+
+   &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+   }
+
+   &.ghost {
+      @include variant-ghost;
+   }
+   &.filled {
+      @include variant-filled;
+      @include hover-filled(':disabled');
+   }
+   &.transparent {
+      @include variant-transparent;
+      @include hover-transparent(':disabled');
+   }
+}
+
+.linkButton {
+   @extend %interactive-base;
+   text-decoration: none;
+   transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+   &.ghost {
+      @include variant-ghost;
+   }
+   &.filled {
+      @include variant-filled;
+      @include hover-filled("[aria-disabled='true']");
+   }
+   &.transparent {
+      @include variant-transparent;
+      @include hover-transparent("[aria-disabled='true']");
+   }
+}

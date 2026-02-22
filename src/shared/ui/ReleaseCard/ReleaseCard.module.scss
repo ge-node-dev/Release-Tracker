@@ -74,17 +74,15 @@
 }
 
 .cardTitle {
-   font-size: 18px;
-   font-weight: 700;
-   color: #fff;
+   @include title-sm;
 }
 
 .cardArtistsNames {
-   font-size: 16px;
+   @include text-base;
+
    color: $text-tertiary;
 }
 
 .cardDate {
-   font-size: 14px;
-   color: $text-secondary;
+   @include label-text;
 }

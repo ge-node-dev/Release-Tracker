@@ -1,34 +1,37 @@
 'use client';
 
-import styles from './ActionButton.module.scss';
+import styles from '../index.module.scss';
 
-type ActionButtonVariant = 'ghost' | 'filled' | 'transparent';
+export type ActionButtonVariant = 'ghost' | 'filled' | 'transparent';
 
-interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-   disabled?: boolean;
-   className?: string;
-   isLoading?: boolean;
-   onClick?: () => void;
-   disableHover?: boolean;
-   children?: React.ReactNode;
-   variant: ActionButtonVariant;
+export interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+   active?: boolean;
+   children: React.ReactNode;
+   variant?: ActionButtonVariant;
+   size?: 'small' | 'large' | 'medium';
 }
 
 const ActionButton = ({
-   onClick,
-   variant,
    children,
-   disabled,
-   className,
-   disableHover,
+   active = false,
+   className = '',
+   size = 'small',
+   disabled = false,
+   variant = 'filled',
    ...props
 }: ActionButtonProps) => {
    return (
       <button
-         onClick={onClick}
+         type="button"
          disabled={disabled}
          aria-disabled={disabled}
-         className={`${styles.button} ${styles[variant]} ${disableHover ? styles.disableHover : ''} ${className}`}
+         className={`
+            ${styles.button}
+            ${styles[variant]}
+            ${styles[size]}
+            ${active ? styles.active : ''}
+            ${className}
+         `}
          {...props}
       >
          {children}

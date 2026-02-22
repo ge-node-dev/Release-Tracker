@@ -32,7 +32,7 @@ const Input = ({ id, icon, error, label, value, placeholder, type = 'text', ...p
             </label>
             <div className={styles.inputWrapper}>
                {icon && (
-                  <img alt="" src={icon} width={24} height={24} aria-hidden="true" className={styles.inputIcon} />
+                  <img alt="" src={icon} width={24} height={24} aria-hidden={true} className={styles.inputIcon} />
                )}
                <input
                   id={id}
@@ -53,7 +53,7 @@ const Input = ({ id, icon, error, label, value, placeholder, type = 'text', ...p
                         alt=""
                         width={24}
                         height={24}
-                        aria-hidden="true"
+                        aria-hidden={true}
                         src={!showPassword ? '/assets/icons/eye-off.svg' : '/assets/icons/eye-on.svg'}
                      />
                   </button>
