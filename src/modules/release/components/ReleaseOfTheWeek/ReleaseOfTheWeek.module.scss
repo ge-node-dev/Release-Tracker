@@ -96,6 +96,7 @@
       filter: brightness(0);
       transition: filter 0.2s ease-in-out;
    }
+
    &:hover img {
       filter: brightness(0) invert(1);
    }
