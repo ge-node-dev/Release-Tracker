@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { FormState } from '@/modules/auth/services/authService';
 import { useFormValidation } from '@/shared/hooks/useFormValidation';
 import useCurrentPagePath from '@/shared/hooks/useRedirctToCurrentPage';
+import { useAuthModal } from '@/shared/providers/AuthModalProvider';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
 import Input from '@/shared/ui/Input';
 
 import styles from './AuthForm.module.scss';
-import { useAuthModal } from '@/shared/providers/AuthModalProvider';
 
 export interface AuthField {
    id: string;

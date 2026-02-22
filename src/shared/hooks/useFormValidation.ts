@@ -16,33 +16,51 @@ const FORM_FIELDS = {
 } as const;
 
 const VALIDATORS: Record<string, Validator> = {
-   email: (value) => (EMAIL_REGEX.test(value) ? '' : 'Invalid email format'),
+   email: (value) => (EMAIL_REGEX.test(value.trim()) ? '' : 'Invalid email format'),
 
    password: (value) => (value.length >= 8 ? '' : 'Password must be at least 8 characters'),
 
-   username: (value) => (value.length >= 4 ? '' : 'Username must be at least 4 characters'),
+   username: (value) => (value.replaceAll(' ', '').length >= 4 ? '' : 'Username must be at least 4 characters'),
 
-   confirmPassword: (value, form) => (form?.password && value !== form.password.value ? 'Passwords do not match' : ''),
+   confirmPassword: (value, form) =>
+      form?.password?.value && value !== form.password.value ? 'Passwords do not match' : '',
 };
 
 const createInitialState = (fields: readonly string[]): FormFields =>
-   fields.reduce((acc, id) => ({ ...acc, [id]: { error: '', value: '' } }), {});
+   Object.fromEntries(fields.map((id) => [id, { error: '', value: '' }]));
+
+const validateField = (id: string, value: string, form: FormFields): string => VALIDATORS[id]?.(value, form) ?? '';
 
 const isFormValid = (fields: FormFields): boolean =>
    Object.values(fields).every(({ error, value }) => !error && value.trim());
 
 export const useFormValidation = (formType: keyof typeof FORM_FIELDS) => {
-   const fieldNames = FORM_FIELDS[formType];
+   const [fields, setFields] = useState<FormFields>(() => createInitialState(FORM_FIELDS[formType]));
 
-   const [fields, setFields] = useState<FormFields>(() => createInitialState(fieldNames));
+   const updateField = (id: string, value: string) => {
+      setFields((prev) => {
+         const updated: FormFields = {
+            ...prev,
+            [id]: { value, error: validateField(id, value, prev) },
+         };
 
-   const validateField = (id: string, value: string): string => VALIDATORS[id]?.(value, fields) ?? '';
+         const shouldRevalidateConfirm = id === 'password' && updated.confirmPassword !== undefined;
 
-   const updateField = (id: string, value: string, customValidator?: Validator) => {
-      const error = customValidator ? customValidator(value) : validateField(id, value);
-      setFields((prev) => ({ ...prev, [id]: { error, value } }));
-      return error;
+         if (shouldRevalidateConfirm) {
+            const { value: confirmValue } = updated.confirmPassword;
+            updated.confirmPassword = {
+               value: confirmValue,
+               error: validateField('confirmPassword', confirmValue, updated),
+            };
+         }
+
+         return updated;
+      });
    };
 
-   return { fields, updateField, isFormValid: isFormValid(fields) };
+   return {
+      fields,
+      updateField,
+      isFormValid: isFormValid(fields),
+   };
 };

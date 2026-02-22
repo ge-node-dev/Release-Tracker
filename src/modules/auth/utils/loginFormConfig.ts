@@ -24,6 +24,7 @@ export const loginConfig: AuthFormConfig = {
          type: 'password',
          label: 'Password',
          placeholder: 'Password',
+         autoComplete: 'current-password',
          icon: '/assets/icons/password-icon.svg',
       },
    ],

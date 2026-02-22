@@ -33,6 +33,7 @@ export const registerConfig: AuthFormConfig = {
          type: 'password',
          label: 'password',
          placeholder: 'Password',
+         autoComplete: 'new-password',
          icon: '/assets/icons/password-icon.svg',
       },
       {
@@ -40,6 +41,7 @@ export const registerConfig: AuthFormConfig = {
          id: 'confirmPassword',
          name: 'confirmPassword',
          label: 'confirm password',
+         autoComplete: 'new-password',
          placeholder: 'Confirm password',
          icon: '/assets/icons/password-icon.svg',
       },

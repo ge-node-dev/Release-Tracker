@@ -11,9 +11,9 @@ export type FormState = {
 
 export const createUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
    const supabase = createSupabaseStaticClient();
-   const email = formData.get('email') as string;
+   const email = formData.get('email')?.toString().trim() as string;
    const password = formData.get('password') as string;
-   const userName = formData.get('username') as string;
+   const userName = formData.get('username')?.toString().trim() as string;
 
    const { error } = await supabase.auth.signUp({
       email,
@@ -29,7 +29,7 @@ export const createUserAccount = async (prevData: FormState, formData: FormData)
 };
 
 export const loginUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
-   const email = formData.get('email') as string;
+   const email = formData.get('email')?.toString().trim() as string;
    const password = formData.get('password') as string;
 
    const supabase = createSupabaseStaticClient();
