@@ -9,7 +9,7 @@ const AuthModal = () => {
 
    return (
       <Modal open={isModalOpen} onClose={handleCloseModal}>
-         <AuthContent onSuccessSubmit={handleCloseModal} />
+         <AuthContent onSuccessLogin={handleCloseModal} />
       </Modal>
    );
 };

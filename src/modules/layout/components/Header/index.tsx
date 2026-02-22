@@ -26,7 +26,7 @@ const HeaderContent = () => {
                </nav>
             ))}
 
-            <HeaderAuthButton />
+            <HeaderAuthButton active={path === '/profile'} />
          </div>
       </header>
    );

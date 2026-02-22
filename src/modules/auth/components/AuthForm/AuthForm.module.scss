@@ -17,6 +17,10 @@
 
    text-align: center;
    color: $text-secondary;
+
+   strong {
+      color: $text-primary;
+   }
 }
 
 .formContainer {
@@ -33,4 +37,11 @@
 
 .submitButton {
    margin-top: 0.5rem;
+}
+
+.successRegisterWrapper {
+   display: flex;
+   gap: 1.5rem;
+   flex-direction: column;
+   margin-bottom: 1rem;
 }

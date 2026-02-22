@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { FormState } from '@/modules/auth/services/authService';
 import { useFormValidation } from '@/shared/hooks/useFormValidation';
@@ -31,43 +31,54 @@ export interface AuthFormConfig {
 
 interface AuthFormProps {
    config: AuthFormConfig;
-   onSuccessSubmit?: () => void;
-   onPending: (pending: boolean) => void;
+   onSuccessLogin?: () => void;
+   onSuccessRegister?: () => void;
+   onFormPending: (pending: boolean) => void;
 }
 
-const AuthForm = ({ config, onPending, onSuccessSubmit }: AuthFormProps) => {
+const AuthForm = ({ config, onFormPending, onSuccessLogin, onSuccessRegister }: AuthFormProps) => {
+   const { formType, headerText, submitLabel, submitAction, headerSubText, fields: configFields } = config;
+
    const [state, setState] = useState<FormState>({ error: '', success: false });
    const [isPending, setIsPending] = useState(false);
 
-   const { formType, headerText, submitLabel, submitAction, headerSubText } = config;
-
    const { fields, isFormValid, updateField } = useFormValidation(formType);
-
+   const isRegisterForm = formType === 'registerForm';
    const path = useCurrentPagePath();
    const router = useRouter();
-
-   useEffect(() => {
-      onPending(isPending);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [isPending]);
 
    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
       setIsPending(true);
+      onFormPending(true);
 
-      const formData = new FormData(e.currentTarget);
+      const result = await submitAction(state, new FormData(e.currentTarget));
+      if (result) setState(result);
 
-      const result = await submitAction(state, formData);
-      if (result) {
-         setState(result);
+      if (result?.success && isRegisterForm) {
+         onSuccessRegister?.();
+      } else {
+         onFormPending(false);
+         if (result?.success) {
+            onSuccessLogin?.();
+            router.push(path);
+         }
       }
 
-      if (result.success) {
-         onSuccessSubmit?.();
-         router.push(path);
-      }
       setIsPending(false);
    };
+
+   if (state.success && isRegisterForm) {
+      return (
+         <div className={styles.successRegisterWrapper}>
+            <p className={styles.mainText}>Check your email</p>
+            <p className={styles.secondaryText}>
+               We sent a verification link to <strong>{state.email ?? fields.email?.value}</strong>.<br /> Please check
+               your inbox and click the link to confirm your account.
+            </p>
+         </div>
+      );
+   }
 
    return (
       <>
@@ -76,23 +87,21 @@ const AuthForm = ({ config, onPending, onSuccessSubmit }: AuthFormProps) => {
             <p className={styles.secondaryText}>{headerSubText}</p>
          </div>
          <form onSubmit={handleSubmit} className={styles.formContainer}>
-            {config.fields.map((field) => {
-               return (
-                  <Input
-                     id={field.id}
-                     key={field.id}
-                     type={field.type}
-                     name={field.name}
-                     icon={field.icon}
-                     label={field.label}
-                     placeholder={field.placeholder}
-                     autoComplete={field.autoComplete}
-                     error={fields[field.name]?.error}
-                     value={fields[field.name]?.value || ''}
-                     onChange={(e) => updateField(field.name, e.target.value)}
-                  />
-               );
-            })}
+            {configFields.map((field) => (
+               <Input
+                  id={field.id}
+                  key={field.id}
+                  type={field.type}
+                  name={field.name}
+                  icon={field.icon}
+                  label={field.label}
+                  placeholder={field.placeholder}
+                  autoComplete={field.autoComplete}
+                  error={fields[field.name]?.error}
+                  value={fields[field.name]?.value ?? ''}
+                  onChange={(e) => updateField(field.name, e.target.value)}
+               />
+            ))}
             {state.error && <p className={styles.error}>{state.error}</p>}
             <ActionButton
                type="submit"

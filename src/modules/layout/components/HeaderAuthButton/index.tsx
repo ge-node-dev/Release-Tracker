@@ -10,7 +10,7 @@ const UserIcon = () => {
    return <Image width={36} alt="Home" height={36} src="/assets/icons/user-circle.svg" />;
 };
 
-const HeaderAuthButton = () => {
+const HeaderAuthButton = ({ active }: { active: boolean }) => {
    const { handleOpenModal } = useAuthModal();
    const { isLoading, isAuthenticated } = useAuth();
 
@@ -25,7 +25,7 @@ const HeaderAuthButton = () => {
    }
 
    return (
-      <LinkButton href="/profile" ariaLabel="Profile">
+      <LinkButton href="/profile" active={active} ariaLabel="Profile">
          <UserIcon />
       </LinkButton>
    );
