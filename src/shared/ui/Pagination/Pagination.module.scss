@@ -1,5 +1,8 @@
 .pagination {
    @include blur-card;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 
    a {
       @include text-base;

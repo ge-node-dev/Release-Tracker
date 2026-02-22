@@ -9,6 +9,7 @@ import ActionButton from '@/shared/ui/Buttons/ActionButton';
 import Input from '@/shared/ui/Input';
 
 import styles from './AuthForm.module.scss';
+import { useAuthModal } from '@/shared/providers/AuthModalProvider';
 
 export interface AuthField {
    id: string;
@@ -31,16 +32,16 @@ export interface AuthFormConfig {
 
 interface AuthFormProps {
    config: AuthFormConfig;
-   onSuccessLogin?: () => void;
    onSuccessRegister?: () => void;
    onFormPending: (pending: boolean) => void;
 }
 
-const AuthForm = ({ config, onFormPending, onSuccessLogin, onSuccessRegister }: AuthFormProps) => {
+const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) => {
    const { formType, headerText, submitLabel, submitAction, headerSubText, fields: configFields } = config;
 
    const [state, setState] = useState<FormState>({ error: '', success: false });
    const [isPending, setIsPending] = useState(false);
+   const { handleCloseModal } = useAuthModal();
 
    const { fields, isFormValid, updateField } = useFormValidation(formType);
    const isRegisterForm = formType === 'registerForm';
@@ -49,20 +50,26 @@ const AuthForm = ({ config, onFormPending, onSuccessLogin, onSuccessRegister }: 
 
    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
+
+      setState({ error: '', success: false });
       setIsPending(true);
       onFormPending(true);
 
       const result = await submitAction(state, new FormData(e.currentTarget));
       if (result) setState(result);
 
-      if (result?.success && isRegisterForm) {
+      const isSuccess = result?.success;
+
+      if (isSuccess && isRegisterForm) {
          onSuccessRegister?.();
-      } else {
-         onFormPending(false);
-         if (result?.success) {
-            onSuccessLogin?.();
-            router.push(path);
-         }
+         return;
+      }
+
+      onFormPending(false);
+
+      if (isSuccess) {
+         handleCloseModal();
+         router.push(path);
       }
 
       setIsPending(false);
@@ -99,7 +106,10 @@ const AuthForm = ({ config, onFormPending, onSuccessLogin, onSuccessRegister }: 
                   autoComplete={field.autoComplete}
                   error={fields[field.name]?.error}
                   value={fields[field.name]?.value ?? ''}
-                  onChange={(e) => updateField(field.name, e.target.value)}
+                  onChange={(e) => {
+                     updateField(field.name, e.target.value);
+                     setState({ error: '', success: false });
+                  }}
                />
             ))}
             {state.error && <p className={styles.error}>{state.error}</p>}

@@ -16,7 +16,7 @@ const PENDING_STATUS: FormStatus = { isPending: true, isSuccess: false };
 const SUCCESS_STATUS: FormStatus = { isSuccess: true, isPending: false };
 const IDLE_STATUS: FormStatus = { isPending: false, isSuccess: false };
 
-const Content = ({ onSuccessLogin }: { onSuccessLogin: () => void }) => {
+const Content = () => {
    const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
    const [formStatus, setFormStatus] = useState<FormStatus>(IDLE_STATUS);
 
@@ -35,7 +35,7 @@ const Content = ({ onSuccessLogin }: { onSuccessLogin: () => void }) => {
          <AuthHeaderTabs isLoginTab={isLoginTab} formStatus={formStatus} setActiveTab={setActiveTab} />
 
          <Activity mode={isLoginTab ? 'visible' : 'hidden'}>
-            <AuthForm config={loginConfig} onFormPending={handlePending} onSuccessLogin={onSuccessLogin} />
+            <AuthForm config={loginConfig} onFormPending={handlePending} />
          </Activity>
          <Activity mode={isLoginTab ? 'hidden' : 'visible'}>
             <AuthForm config={registerConfig} onFormPending={handlePending} onSuccessRegister={handleSuccessRegister} />
@@ -44,9 +44,9 @@ const Content = ({ onSuccessLogin }: { onSuccessLogin: () => void }) => {
    );
 };
 
-const AuthContent = ({ onSuccessLogin }: { onSuccessLogin: () => void }) => (
+const AuthContent = () => (
    <Suspense fallback={null}>
-      <Content onSuccessLogin={onSuccessLogin} />
+      <Content />
    </Suspense>
 );
 

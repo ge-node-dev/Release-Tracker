@@ -9,6 +9,7 @@
       "db:export-types": "npx supabase db export --schema public --types-only --out ./types/Database.ts",
       "db:pull": "npx supabase db pull --schema public",
       "db:dump": "npx supabase db reset && npx supabase db dump -f mock_data.sql --data-only --schema public && psql postgresql://postgres:postgres@localhost:54322/postgres -f mock_data.sql",
+      "db:create-migration":"npx supabase db diff --use-migra --schema public -f",
       "db:push": "npx supabase db push",
       "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\"",
       "lint": "set NODE_ENV=production&& eslint \"**/*.{ts,tsx,js,jsx}\" --fix --max-warnings=0",
