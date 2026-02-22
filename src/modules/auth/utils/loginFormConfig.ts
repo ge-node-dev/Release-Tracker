@@ -11,7 +11,7 @@ export const loginConfig: AuthFormConfig = {
    fields: [
       {
          id: 'email',
-         type: 'text',
+         type: 'email',
          name: 'email',
          autoComplete: 'email',
          label: 'Email Address',
@@ -22,8 +22,8 @@ export const loginConfig: AuthFormConfig = {
          id: 'password',
          name: 'password',
          type: 'password',
-         label: 'Password',
-         placeholder: 'Password',
+         label: 'password',
+         placeholder: 'password',
          autoComplete: 'current-password',
          icon: '/assets/icons/password-icon.svg',
       },
