@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import AuthContent from '@/modules/auth/components/AuthContent';
 
 import styles from './AuthPage.module.scss';
@@ -9,9 +7,7 @@ const AuthPage = () => {
       <div className={styles.container}>
          <div className={styles.content}>
             <div className={styles.authCard}>
-               <Suspense>
-                  <AuthContent />
-               </Suspense>
+               <AuthContent />
             </div>
          </div>
       </div>

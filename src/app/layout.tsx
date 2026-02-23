@@ -4,8 +4,6 @@ import '@/shared/styles/globals.scss';
 
 import { ViewTransition } from 'react';
 
-import AuthModal from '@/modules/auth/components/AuthModal';
-import { AuthModalProvider } from '@/shared/providers/AuthModalProvider';
 import { geistSans } from '@/shared/utils/integrations/fonts';
 
 export const metadata: Metadata = {
@@ -21,12 +19,7 @@ export default function RootLayout({
    return (
       <html lang="en">
          <body className={`${geistSans.variable} antialiased`}>
-            <ViewTransition>
-               <AuthModalProvider>
-                  {children}
-                  <AuthModal />
-               </AuthModalProvider>
-            </ViewTransition>
+            <ViewTransition>{children}</ViewTransition>
          </body>
       </html>
    );

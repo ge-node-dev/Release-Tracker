@@ -4,21 +4,10 @@ import { useState } from 'react';
 
 import { FormState } from '@/modules/auth/services/authService';
 import { useFormValidation } from '@/shared/hooks/useFormValidation';
-import { useAuthModal } from '@/shared/providers/AuthModalProvider';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
 import Input from '@/shared/ui/Input';
 
 import styles from './AuthForm.module.scss';
-
-export interface AuthField {
-   id: string;
-   name: string;
-   label: string;
-   icon?: string;
-   placeholder: string;
-   autoComplete?: string;
-   type: 'text' | 'email' | 'password';
-}
 
 export interface AuthFormConfig {
    headerText: string;
@@ -35,16 +24,26 @@ interface AuthFormProps {
    onFormPending: (pending: boolean) => void;
 }
 
+interface AuthField {
+   id: string;
+   name: string;
+   label: string;
+   icon?: string;
+   placeholder: string;
+   autoComplete?: string;
+   type: 'text' | 'email' | 'password';
+}
+
 const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) => {
    const { formType, headerText, submitLabel, submitAction, headerSubText, fields: configFields } = config;
 
    const [state, setState] = useState<FormState>({ error: '', success: false });
    const [isPending, setIsPending] = useState(false);
-   const { handleCloseModal } = useAuthModal();
+
+   const router = useRouter();
 
    const { fields, isFormValid, updateField } = useFormValidation(formType);
    const isRegisterForm = formType === 'registerForm';
-   const router = useRouter();
 
    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -66,8 +65,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
       onFormPending(false);
 
       if (isSuccess) {
-         handleCloseModal();
-         router.refresh();
+         router.back();
       }
 
       setIsPending(false);

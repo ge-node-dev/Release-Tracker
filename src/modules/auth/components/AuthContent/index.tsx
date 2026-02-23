@@ -1,5 +1,5 @@
 'use client';
-import { Activity, Suspense, useState } from 'react';
+import { Activity, useState } from 'react';
 
 import { loginConfig } from '@/modules/auth/utils/loginFormConfig';
 import { registerConfig } from '@/modules/auth/utils/registerFormConfig';
@@ -16,7 +16,7 @@ const PENDING_STATUS: FormStatus = { isPending: true, isSuccess: false };
 const SUCCESS_STATUS: FormStatus = { isSuccess: true, isPending: false };
 const IDLE_STATUS: FormStatus = { isPending: false, isSuccess: false };
 
-const Content = () => {
+const AuthContent = () => {
    const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
    const [formStatus, setFormStatus] = useState<FormStatus>(IDLE_STATUS);
 
@@ -43,11 +43,5 @@ const Content = () => {
       </>
    );
 };
-
-const AuthContent = () => (
-   <Suspense fallback={null}>
-      <Content />
-   </Suspense>
-);
 
 export default AuthContent;
