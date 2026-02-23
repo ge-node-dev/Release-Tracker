@@ -87,7 +87,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
             <p className={styles.mainText}>{headerText}</p>
             <p className={styles.secondaryText}>{headerSubText}</p>
          </div>
-         <form onSubmit={handleSubmit} className={styles.formContainer}>
+         <form onSubmit={handleSubmit} className={styles.formContainer} autoComplete="on">
             {configFields.map((field) => (
                <Input
                   id={field.id}
@@ -103,12 +103,6 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
                   onChange={(e) => {
                      updateField(field.name, e.target.value);
                      setFormState({ error: '', success: false });
-                  }}
-                  onInput={(e) => {
-                     const target = e.target as HTMLInputElement;
-                     if (target.value !== fields[field.name]?.value) {
-                        updateField(field.name, target.value);
-                     }
                   }}
                />
             ))}
