@@ -11,6 +11,7 @@ const LogoutButton = () => {
       const supabase = createSupabaseStaticClient();
       await supabase.auth.signOut();
       router.push('/');
+      router.refresh();
    };
 
    return (

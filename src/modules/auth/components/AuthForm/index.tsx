@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import { FormState } from '@/modules/auth/services/authService';
 import { useFormValidation } from '@/shared/hooks/useFormValidation';
-import useCurrentPagePath from '@/shared/hooks/useRedirctToCurrentPage';
 import { useAuthModal } from '@/shared/providers/AuthModalProvider';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
 import Input from '@/shared/ui/Input';
@@ -45,7 +44,6 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
 
    const { fields, isFormValid, updateField } = useFormValidation(formType);
    const isRegisterForm = formType === 'registerForm';
-   const path = useCurrentPagePath();
    const router = useRouter();
 
    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -69,7 +67,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
 
       if (isSuccess) {
          handleCloseModal();
-         router.push(path);
+         router.refresh();
       }
 
       setIsPending(false);

@@ -1,0 +1,10 @@
+.divider {
+   @include divider;
+}
+
+.nav {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   flex: 1;
+}
