@@ -1,0 +1,47 @@
+.headerTextContent {
+   display: flex;
+   gap: 0.5rem;
+   flex-direction: column;
+   margin-bottom: 1rem;
+}
+
+.mainText {
+   @include h3;
+
+   text-align: center;
+   color: $text-primary;
+}
+
+.secondaryText {
+   @include text-base;
+
+   text-align: center;
+   color: $text-secondary;
+
+   strong {
+      color: $text-primary;
+   }
+}
+
+.formContainer {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   width: 100%;
+}
+
+.error {
+   color: $error-color;
+   text-align: center;
+}
+
+.submitButton {
+   margin-top: 0.5rem;
+}
+
+.successRegisterWrapper {
+   display: flex;
+   gap: 1.5rem;
+   flex-direction: column;
+   margin-bottom: 1rem;
+}

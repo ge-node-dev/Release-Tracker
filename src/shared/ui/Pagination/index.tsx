@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 import { SearchParams } from '@/shared/types';
-import LinkButton from '@/shared/ui/LinkButton';
+import LinkButton from '@/shared/ui/Buttons/LinkButton';
 import { CACHE_12H } from '@/shared/utils/constants';
 import { buildHrefWithParam, getVisiblePages } from '@/shared/utils/data/pagination';
 
@@ -45,7 +45,11 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
          {visiblePages.map((page, index) => {
             if (page === '...') {
                return (
-                  <span aria-hidden="true" key={`ellipsis-${index}`} className={styles.ellipsis}>
+                  <span
+                     aria-hidden="true"
+                     className={styles.ellipsis}
+                     key={`ellipsis-after-${visiblePages[index - 1]}`}
+                  >
                      {page}
                   </span>
                );
@@ -57,8 +61,8 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
                   prefetch={false}
                   href={navigateTo(+page)}
                   ariaLabel={`Page ${page}`}
+                  active={currentPage === page}
                   ariaCurrent={currentPage === page}
-                  className={`${styles.pageButton} ${currentPage === page ? styles.active : ''}`}
                >
                   {page}
                </LinkButton>

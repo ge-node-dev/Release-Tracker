@@ -25,34 +25,23 @@
    justify-content: center;
    height: 100%;
    width: 100%;
-
-   span {
-      color: $text-primary;
-      font-size: 14px;
-      font-weight: 600;
-   }
 }
 
 .title {
-   font-size: 82px;
-   font-weight: 800;
-   line-height: 1.2cap;
-   color: $text-primary;
+   @include h1;
 }
 
 .artist {
-   font-size: 36px;
-   font-weight: 500;
-   line-height: 1cap;
+   @include h2;
+
    padding-left: 2.5px;
-   color: $text-primary;
 }
 
 .genres {
    display: flex;
    flex-wrap: wrap;
    gap: 8px;
-   margin-bottom: 4rem;
+   margin-bottom: 2rem;
 }
 
 .coverContainer {
@@ -101,27 +90,15 @@
 }
 
 .listenNowBtn {
-   border-radius: 30px;
-   border: 1px solid $button-border-light;
-   width: 200px;
-   height: 4rem;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 8px;
-   box-shadow: 0 4px 18px rgb(148 148 150 / 50%);
-   transition:
-      box-shadow 0.3s ease,
-      transform 0.3s ease;
+   width: fit-content;
 
-   span {
-      font-size: 20px;
-      font-weight: 700;
+   img {
+      filter: brightness(0);
+      transition: filter 0.2s ease-in-out;
    }
 
-   &:hover {
-      box-shadow: 0 6px 30px rgb(148 148 150 / 80%);
-      transform: translateY(-1px);
+   &:hover img {
+      filter: brightness(0) invert(1);
    }
 }
 

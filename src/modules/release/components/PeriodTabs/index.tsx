@@ -1,6 +1,6 @@
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 import { SearchParams } from '@/shared/types';
-import LinkButton from '@/shared/ui/LinkButton';
+import LinkButton from '@/shared/ui/Buttons/LinkButton';
 import { buildHrefWithParam } from '@/shared/utils/data/pagination';
 
 import styles from './PeriodTabs.module.scss';
@@ -22,9 +22,10 @@ const PeriodTabs = ({ searchParams }: { searchParams: Awaited<SearchParams> }) =
             {periods.map((period) => (
                <LinkButton
                   key={period}
+                  size="medium"
                   href={navigateTo(period)}
                   ariaLabel={`Period-${period}`}
-                  className={`${styles.tabButton} ${period === currentPeriod ? styles.active : ''}`}
+                  active={period === currentPeriod}
                >
                   {period.replace('_', ' ')}
                </LinkButton>

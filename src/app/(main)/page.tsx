@@ -9,7 +9,7 @@ import Loading from './loading';
 
 const HomePage = async ({ searchParams }: { searchParams: SearchParams }) => {
    const paramsData = await searchParams;
-   const { page, period } = paramsData;
+   const { page = 1, period = 'this_week' } = paramsData;
 
    return (
       <Suspense fallback={<Loading />} key={`${page}_${period}`}>

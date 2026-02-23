@@ -7,9 +7,6 @@ const nextConfig: NextConfig = {
    experimental: {
       viewTransition: true,
    },
-   sassOptions: {
-      prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *;`,
-   },
    images: {
       remotePatterns: [
          {
@@ -17,6 +14,9 @@ const nextConfig: NextConfig = {
             hostname: 'cdn-images.dzcdn.net',
          },
       ],
+   },
+   sassOptions: {
+      prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *; @use "@/shared/styles/_breakpoints.scss" as *; @use "@/shared/styles/_typography.scss" as *;`,
    },
 };
 

@@ -3,15 +3,20 @@
 import Link, { LinkProps } from 'next/link';
 import { ReactNode } from 'react';
 
-import styles from './LinkButton.module.scss';
+import styles from '../index.module.scss';
 
-interface LinkButtonProps extends LinkProps {
+export type LinkButtonVariant = 'ghost' | 'filled' | 'transparent';
+
+export interface LinkButtonProps extends LinkProps {
    rotate?: string;
+   active?: boolean;
    ariaLabel: string;
    className?: string;
    children: ReactNode;
    ariaCurrent?: boolean;
    ariaDisabled?: boolean;
+   variant?: LinkButtonVariant;
+   size?: 'small' | 'large' | 'medium';
 }
 
 const LinkButton = ({
@@ -19,9 +24,12 @@ const LinkButton = ({
    rotate,
    children,
    ariaLabel,
-   className,
    ariaCurrent,
-   ariaDisabled,
+   active = false,
+   className = '',
+   size = 'small',
+   variant = 'ghost',
+   ariaDisabled = false,
    ...props
 }: LinkButtonProps) => {
    return (
@@ -35,7 +43,14 @@ const LinkButton = ({
          onClick={(e) => {
             if (ariaDisabled) e.preventDefault();
          }}
-         className={`${styles.arrow} ${ariaDisabled ? styles.disabled : ''} ${className || ''}`}
+         className={`
+            ${styles.linkButton}
+            ${styles[variant]}
+            ${active ? styles.active : ''}
+            ${ariaDisabled ? styles.disabled : ''}
+            ${styles[size]}
+            ${className}
+         `}
       >
          {children}
       </Link>

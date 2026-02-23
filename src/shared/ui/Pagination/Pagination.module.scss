@@ -1,63 +1,22 @@
 .pagination {
-   width: fit-content;
-   margin: 0 auto;
-   display: flex;
-   align-items: center;
-   gap: 10px;
-   padding: 10px 20px;
-   background: $bg-card;
-   backdrop-filter: blur(30px);
-   border: 1px solid rgb(255 255 255 / 30%);
-   border-radius: 50px;
-   box-shadow: 0 8px 32px 0 rgb(0 0 0 / 20%);
-}
+   @include blur-card;
 
-.pageButton {
    display: flex;
    align-items: center;
    justify-content: center;
-   min-width: 40px;
-   height: 40px;
-   background-color: transparent;
-   border: none;
-   border-radius: 50%;
-   color: $text-tertiary;
-   font-size: 17px;
-   font-weight: 500;
-   cursor: pointer;
-   user-select: none;
 
-   &:hover:not(.disabled, .active) {
-      background-color: $button-border-light;
-      color: $text-primary;
-   }
-
-   &:active:not(.disabled) {
-      transform: scale(0.98);
-   }
-}
-
-.pageButton {
-   font-family: $font-main;
-
-   &.active {
-      background-color: $button-bg-transparent;
-      border: 1px solid $button-border-light;
-      color: $text-primary;
-
-      &:hover {
-         background-color: $button-bg-transparent;
-      }
+   a {
+      @include text-base;
    }
 }
 
 .ellipsis {
+   @include text-base-strong;
+
    display: flex;
    align-items: center;
    justify-content: center;
    color: $text-tertiary;
-   font-size: 19px;
-   font-weight: 500;
    padding: 0;
    letter-spacing: 4px;
    user-select: none;

@@ -5,6 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import { getReleaseOfTheWeek } from '@/modules/release/services/releaseServices';
 import { getGlowColorFromImage } from '@/modules/release/utils/color';
 import { Badge } from '@/shared/ui/Badge';
+import LinkButton from '@/shared/ui/Buttons/LinkButton';
 
 import styles from './ReleaseOfTheWeek.module.scss';
 
@@ -46,10 +47,16 @@ const ReleaseOfTheWeek = async () => {
                   </Badge>
                ))}
             </div>
-            <Link href={releaseHref} aria-label={'Listen now'} className={styles.listenNowBtn}>
-               <Image width={24} height={24} alt={'Play'} src={'/assets/icons/play.svg'} />
+            <LinkButton
+               size="large"
+               variant="filled"
+               href={releaseHref}
+               ariaLabel={'Listen now'}
+               className={styles.listenNowBtn}
+            >
+               <img width={24} height={24} alt={'Play'} src={'/assets/icons/play.svg'} />
                <span>Listen now</span>
-            </Link>
+            </LinkButton>
          </div>
          <div className={styles.coverScene}>
             <div className={styles.coverContainer}>
