@@ -102,6 +102,12 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
                   autoComplete={field.autoComplete}
                   error={fields[field.name]?.error}
                   value={fields[field.name]?.value ?? ''}
+                  onInput={(e) => {
+                     const target = e.target as HTMLInputElement;
+                     if (target.value !== fields[field.name]?.value) {
+                        updateField(field.name, target.value);
+                     }
+                  }}
                   onChange={(e) => {
                      updateField(field.name, e.target.value);
                      setState({ error: '', success: false });
