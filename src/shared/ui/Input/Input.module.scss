@@ -12,12 +12,15 @@
       padding: 14px 40px;
       width: 100%;
       border: 1px solid $border-light !important;
+
       &:active {
          border: 1px solid $border-light !important;
       }
+
       &:focus {
          border: 1px solid $border-light !important;
       }
+
       &:hover {
          border: 1px solid $border-light !important;
       }

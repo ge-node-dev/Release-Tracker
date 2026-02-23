@@ -11,6 +11,7 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
    'use cache';
    cacheLife(CACHE_12H);
    cacheTag(`releases-page-${page}`);
+   cacheTag('RELEASES');
 
    const supabase = createSupabaseStaticClient();
 
@@ -65,6 +66,7 @@ export const getReleaseByExternalKey = async (externalKey: string) => {
 export const getReleaseOfTheWeek = async () => {
    'use cache';
    cacheLife(CACHE_12H);
+   cacheTag('RELEASES');
 
    const supabase = createSupabaseStaticClient();
    const { to, from } = getReleaseDateRange('this_week');
