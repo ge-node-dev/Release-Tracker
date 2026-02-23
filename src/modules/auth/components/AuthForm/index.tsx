@@ -87,7 +87,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
             <p className={styles.mainText}>{headerText}</p>
             <p className={styles.secondaryText}>{headerSubText}</p>
          </div>
-         <form onSubmit={handleSubmit} className={styles.formContainer} autoComplete="on">
+         <form autoComplete="on" onSubmit={handleSubmit} className={styles.formContainer}>
             {configFields.map((field) => (
                <Input
                   id={field.id}
