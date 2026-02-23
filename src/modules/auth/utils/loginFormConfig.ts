@@ -1,12 +1,10 @@
 import { AuthFormConfig } from '@/modules/auth/components/AuthForm';
 
-import { loginUserAccount } from '../services/authService';
-
 export const loginConfig: AuthFormConfig = {
    formType: 'loginForm',
    submitLabel: 'Sign In',
    headerText: 'Welcome back',
-   submitAction: loginUserAccount,
+   submitAction: 'loginRequest',
    headerSubText: 'Enter your credentials to access your account',
    fields: [
       {

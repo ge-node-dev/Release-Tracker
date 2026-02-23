@@ -1,11 +1,9 @@
 import { AuthFormConfig } from '@/modules/auth/components/AuthForm';
 
-import { createUserAccount } from '../services/authService';
-
 export const registerConfig: AuthFormConfig = {
    submitLabel: 'Sign Up',
    formType: 'registerForm',
-   submitAction: createUserAccount,
+   submitAction: 'registerRequest',
    headerText: 'Create your account',
    headerSubText: 'Join us - it only takes a minute',
    fields: [

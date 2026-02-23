@@ -16,14 +16,26 @@ const FORM_FIELDS = {
 } as const;
 
 const VALIDATORS: Record<string, Validator> = {
-   email: (value) => (EMAIL_REGEX.test(value.trim()) ? '' : 'Invalid email format'),
+   email: (value) => {
+      if (!value || !value.trim()) return 'Email is required';
+      return EMAIL_REGEX.test(value.trim()) ? '' : 'Invalid email format';
+   },
 
-   password: (value) => (value.length >= 8 ? '' : 'Password must be at least 8 characters'),
+   password: (value) => {
+      if (!value) return 'Password is required';
+      if (value.length < 8) return 'Password must be at least 8 characters';
+      return '';
+   },
 
-   username: (value) => (value.trim().length >= 4 ? '' : 'Username must be at least 4 characters'),
+   username: (value) => {
+      if (!value || !value.trim()) return 'Username is required';
+      return value.trim().length >= 4 ? '' : 'Username must be at least 4 characters';
+   },
 
-   confirmPassword: (value, form) =>
-      form?.password?.value && value !== form.password.value ? 'Passwords do not match' : '',
+   confirmPassword: (value, form) => {
+      if (!value) return 'Password confirmation is required';
+      return form?.password?.value && value !== form.password.value ? 'Passwords do not match' : '';
+   },
 };
 
 const createInitialState = (fields: readonly string[]): FormFields =>

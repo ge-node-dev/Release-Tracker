@@ -1,21 +1,19 @@
 'use client';
-import { useRouter } from 'next/navigation';
-
-import { createSupabaseStaticClient } from '@/lib/supabase/client';
+import { logoutUserAccount } from '@/modules/auth/services/authActions';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
 
 const LogoutButton = () => {
-   const router = useRouter();
-
-   const handleLogout = async () => {
-      const supabase = createSupabaseStaticClient();
-      await supabase.auth.signOut();
-      router.refresh();
-      window.location.href = '/';
-   };
-
    return (
-      <ActionButton variant="filled" onClick={handleLogout}>
+      <ActionButton
+         variant="filled"
+         onClick={async () => {
+            try {
+               await logoutUserAccount();
+            } finally {
+               window.location.href = '/';
+            }
+         }}
+      >
          Logout
       </ActionButton>
    );
