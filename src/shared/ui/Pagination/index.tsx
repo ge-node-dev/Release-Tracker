@@ -20,7 +20,8 @@ interface PaginationProps {
 const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisiblePages = 5 }: PaginationProps) => {
    'use cache';
    cacheLife(CACHE_12H);
-   cacheTag(`releases-count-${currentPeriod}`);
+   cacheTag(`releases-count-${currentPeriod}-${currentPage}`);
+   cacheTag('RELEASES');
 
    const { totalPages } = await getPaginationCount(currentPeriod);
    if (!totalPages || totalPages < 2) return null;

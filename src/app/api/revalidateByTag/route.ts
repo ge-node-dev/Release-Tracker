@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export const POST = async (req: NextRequest) => {
    const authHeader = req.headers.get('Authorization');
 
-   if (authHeader !== `Basic ${process.env.REVALIDATION_SECRET}`) {
+   if (authHeader !== process.env.REVALIDATION_SECRET) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
    }
 
