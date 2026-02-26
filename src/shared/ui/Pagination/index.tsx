@@ -1,11 +1,11 @@
-import { cacheLife, cacheTag } from 'next/cache';
+import { cacheTag } from 'next/cache';
 import Image from 'next/image';
 
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 import { SearchParams } from '@/shared/types';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
-import { CACHE_12H } from '@/shared/utils/constants';
+import { RELEASES_CACHE_TAG } from '@/shared/utils/constants';
 import { buildHrefWithParam, getVisiblePages } from '@/shared/utils/data/pagination';
 
 import styles from './Pagination.module.scss';
@@ -19,9 +19,8 @@ interface PaginationProps {
 
 const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisiblePages = 5 }: PaginationProps) => {
    'use cache';
-   cacheLife(CACHE_12H);
    cacheTag(`releases-count-${currentPeriod}-${currentPage}`);
-   cacheTag('RELEASES');
+   cacheTag(RELEASES_CACHE_TAG);
 
    const { totalPages } = await getPaginationCount(currentPeriod);
    if (!totalPages || totalPages < 2) return null;
