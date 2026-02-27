@@ -2,15 +2,16 @@ import { cacheLife, cacheTag } from 'next/cache';
 
 import { createSupabaseStaticClient } from '@/lib/supabase/client';
 import { ReleasePeriod, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
-import { CACHE_12H } from '@/shared/utils/constants';
+import { CACHE_12H, CACHE_1W, RELEASES_CACHE_TAG } from '@/shared/utils/constants';
 import { getReleaseDateRange } from '@/shared/utils/date/getReleaseDateRange';
 
 import { RELEASE_BY_EXTERNAL_KEY_QUERY, RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
 
 export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    'use cache';
-   cacheLife(CACHE_12H);
+   cacheLife(CACHE_1W);
    cacheTag(`releases-page-${page}`);
+   cacheTag(RELEASES_CACHE_TAG);
 
    const supabase = createSupabaseStaticClient();
 
