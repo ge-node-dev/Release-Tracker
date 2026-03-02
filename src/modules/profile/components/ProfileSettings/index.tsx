@@ -14,13 +14,13 @@ import styles from './ProfileSettings.module.scss';
 
 const ProfileSettings = ({ profile }: { profile: Database['public']['Tables']['profiles']['Row'] }) => {
    const { fields, isFormValid, updateField } = useFormValidation('updateUsernameForm');
-   const currentUsername = profile.username;
+   const { id, email, username: currentUsername } = profile;
    const [error, setError] = useState('');
    const [isDirty, setIsDirty] = useState(false);
 
    const updateProfileUsername = async (username: string) => {
       setError('');
-      const { error } = await updateProfileData({ username, userId: profile.id, email: profile.email });
+      const { error } = await updateProfileData({ email, username, userId: id });
       if (error) setError(error);
    };
 
