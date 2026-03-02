@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import ProfileInfo from '@/modules/profile/components/ProfileInfo';
 import ProfileTabs from '@/modules/profile/components/ProfileTabs';
 import LogoutButton from '@/shared/ui/Buttons/LogoutButton';
@@ -9,7 +11,9 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
       <div className={styles.profilePageContainer}>
          <ProfileTabs />
          <div className={styles.profileContent}>
-            <ProfileInfo />
+            <Suspense>
+               <ProfileInfo />
+            </Suspense>
             {children}
             <LogoutButton size="medium" variant="filled" />
          </div>

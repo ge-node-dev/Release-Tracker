@@ -1,5 +1,5 @@
 'use client';
-import { Activity, Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { loginConfig } from '@/modules/auth/utils/loginFormConfig';
 import { registerConfig } from '@/modules/auth/utils/registerFormConfig';
@@ -37,12 +37,16 @@ const AuthContent = ({ isModalWrapper }: { isModalWrapper: boolean }) => {
       <ModalWrapper {...(isModalWrapper ? { disableClose: formStatus.isPending } : {})}>
          <AuthFormTabs isLoginTab={isLoginTab} formStatus={formStatus} setActiveTab={setActiveTab} />
 
-         <Activity mode={isLoginTab ? 'visible' : 'hidden'}>
-            <AuthForm config={loginConfig} onFormPending={handlePending} />
-         </Activity>
-         <Activity mode={isLoginTab ? 'hidden' : 'visible'}>
-            <AuthForm config={registerConfig} onFormPending={handlePending} onSuccessRegister={handleSuccessRegister} />
-         </Activity>
+         {activeTab === 'login' ? (
+            <AuthForm key={activeTab} config={loginConfig} onFormPending={handlePending} />
+         ) : (
+            <AuthForm
+               key={activeTab}
+               config={registerConfig}
+               onFormPending={handlePending}
+               onSuccessRegister={handleSuccessRegister}
+            />
+         )}
       </ModalWrapper>
    );
 };

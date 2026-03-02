@@ -1,7 +1,7 @@
 'use client';
 
 import { notFound, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import { validateCodeForResetPassword } from '@/modules/auth/services/authActions';
 import { resetProfilePassword } from '@/modules/profile/services/profileActions';
@@ -11,7 +11,7 @@ import FormContainer from '@/shared/ui/FormContainer';
 import FormErrorText from '@/shared/ui/FormErrorText';
 import Input from '@/shared/ui/Input';
 
-const ResetPasswordPage = () => {
+const ResetPasswordForm = () => {
    const { fields, isFormValid, updateField } = useFormValidation('resetPasswordForm');
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState('');
@@ -74,4 +74,10 @@ const ResetPasswordPage = () => {
    );
 };
 
-export default ResetPasswordPage;
+export default function ResetPasswordPage() {
+   return (
+      <Suspense fallback={null}>
+         <ResetPasswordForm />
+      </Suspense>
+   );
+}
