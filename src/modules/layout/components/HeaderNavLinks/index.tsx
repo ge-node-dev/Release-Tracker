@@ -1,8 +1,11 @@
 'use client';
 
+import { Database } from '@db/types/database';
 import { usePathname } from 'next/navigation';
 
+import { Avatar } from '@/shared/ui/Avatar';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
+import { ROUTES } from '@/shared/utils/constants';
 
 import styles from './HeaderNavLinks.module.scss';
 
@@ -10,7 +13,8 @@ const NAV_LINKS = [{ href: '/', label: 'Releases' }];
 
 const UserIcon = () => <img width={36} alt="User" height={36} src="/assets/icons/user-circle.svg" />;
 
-const HeaderNavLinks = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+const HeaderNavLinks = ({ profile }: { profile: null | Database['public']['Tables']['profiles']['Row'] }) => {
+   const isAuthenticated = !!profile;
    const path = usePathname();
 
    return (
@@ -24,12 +28,11 @@ const HeaderNavLinks = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
          <div className={styles.divider} />
 
          <LinkButton
-            scroll={false}
-            href={isAuthenticated ? '/profile' : '/auth'}
-            active={isAuthenticated && path === '/profile'}
             ariaLabel={isAuthenticated ? 'Profile' : 'Login'}
+            active={isAuthenticated && path === ROUTES.PROFILE}
+            href={isAuthenticated ? ROUTES.PROFILE : ROUTES.AUTH}
          >
-            <UserIcon />
+            {profile?.avatar_url ? <Avatar size="small" avatarUrl={profile.avatar_url} /> : <UserIcon />}
          </LinkButton>
       </nav>
    );

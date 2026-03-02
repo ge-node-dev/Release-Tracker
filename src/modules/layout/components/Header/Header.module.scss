@@ -1,5 +1,5 @@
 .header {
-   @include fixed-center(20px, 50px);
+   @include fixed-center;
 
    top: 0;
 }

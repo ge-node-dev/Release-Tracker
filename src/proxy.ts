@@ -1,10 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { validateUrlSearchParams } from '@/shared/utils/browser/validateUrlSearchParams';
 
-const AUTH_ROUTE = '/auth';
-const PROFILE_ROUTE = '/profile';
+import { ROUTES } from './shared/utils/constants';
+import { getAuthenticatedUser } from './shared/utils/data/getAuthenticatedUser';
 
 export const proxy = async (request: NextRequest) => {
    const { pathname, searchParams } = request.nextUrl;
@@ -19,23 +18,21 @@ export const proxy = async (request: NextRequest) => {
       }
    }
 
-   const isAuthRoute = pathname.startsWith(AUTH_ROUTE);
-   const isProfileRoute = pathname.startsWith(PROFILE_ROUTE);
+   const isAuthRoute = pathname.startsWith(ROUTES.AUTH);
+   const isProfileRoute = pathname.startsWith(ROUTES.PROFILE);
 
    if (isAuthRoute || isProfileRoute) {
-      const supabase = await createSupabaseServerClient();
-      const {
-         data: { user },
-      } = await supabase.auth.getUser();
+      const user = await getAuthenticatedUser();
+
       const isAuthenticated = Boolean(user);
 
       if (isProfileRoute && !isAuthenticated) {
-         const redirectUrl = new URL(AUTH_ROUTE, request.url);
+         const redirectUrl = new URL(ROUTES.AUTH, request.url);
          return NextResponse.redirect(redirectUrl);
       }
 
       if (isAuthRoute && isAuthenticated) {
-         return NextResponse.redirect(new URL(PROFILE_ROUTE, request.url));
+         return NextResponse.redirect(new URL(ROUTES.PROFILE, request.url));
       }
    }
 

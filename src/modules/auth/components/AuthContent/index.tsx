@@ -1,11 +1,12 @@
 'use client';
-import { Activity, useState } from 'react';
+import { Activity, Fragment, useState } from 'react';
 
 import { loginConfig } from '@/modules/auth/utils/loginFormConfig';
 import { registerConfig } from '@/modules/auth/utils/registerFormConfig';
+import Modal from '@/shared/ui/Modal';
 
 import AuthForm from '../AuthForm';
-import AuthHeaderTabs from '../AuthHeaderTabs';
+import AuthFormTabs from '../AuthFormTabs';
 
 export type FormStatus = {
    isPending: boolean;
@@ -16,7 +17,7 @@ const PENDING_STATUS: FormStatus = { isPending: true, isSuccess: false };
 const SUCCESS_STATUS: FormStatus = { isSuccess: true, isPending: false };
 const IDLE_STATUS: FormStatus = { isPending: false, isSuccess: false };
 
-const AuthContent = () => {
+const AuthContent = ({ isModalWrapper }: { isModalWrapper: boolean }) => {
    const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
    const [formStatus, setFormStatus] = useState<FormStatus>(IDLE_STATUS);
 
@@ -30,9 +31,11 @@ const AuthContent = () => {
       setFormStatus(SUCCESS_STATUS);
    };
 
+   const ModalWrapper = isModalWrapper ? Modal : Fragment;
+
    return (
-      <>
-         <AuthHeaderTabs isLoginTab={isLoginTab} formStatus={formStatus} setActiveTab={setActiveTab} />
+      <ModalWrapper {...(isModalWrapper ? { disableClose: formStatus.isPending } : {})}>
+         <AuthFormTabs isLoginTab={isLoginTab} formStatus={formStatus} setActiveTab={setActiveTab} />
 
          <Activity mode={isLoginTab ? 'visible' : 'hidden'}>
             <AuthForm config={loginConfig} onFormPending={handlePending} />
@@ -40,7 +43,7 @@ const AuthContent = () => {
          <Activity mode={isLoginTab ? 'hidden' : 'visible'}>
             <AuthForm config={registerConfig} onFormPending={handlePending} onSuccessRegister={handleSuccessRegister} />
          </Activity>
-      </>
+      </ModalWrapper>
    );
 };
 

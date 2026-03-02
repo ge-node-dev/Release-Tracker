@@ -1,0 +1,16 @@
+.profilePageContainer {
+   max-width: 1100px;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: row;
+   gap: 1.5rem;
+   align-items: start;
+   padding: 20px 0 100px;
+}
+
+.profileContent {
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+   min-width: 800px;
+}

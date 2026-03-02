@@ -5,7 +5,6 @@ import styles from '../index.module.scss';
 export type ActionButtonVariant = 'ghost' | 'filled' | 'transparent';
 
 export interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-   active?: boolean;
    children: React.ReactNode;
    variant?: ActionButtonVariant;
    size?: 'small' | 'large' | 'medium';
@@ -13,7 +12,6 @@ export interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButton
 
 const ActionButton = ({
    children,
-   active = false,
    className = '',
    size = 'small',
    disabled = false,
@@ -29,7 +27,6 @@ const ActionButton = ({
             ${styles.button}
             ${styles[variant]}
             ${styles[size]}
-            ${active ? styles.active : ''}
             ${className}
          `}
          {...props}

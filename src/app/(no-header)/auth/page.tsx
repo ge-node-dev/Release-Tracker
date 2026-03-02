@@ -7,7 +7,7 @@ const AuthPage = () => {
       <div className={styles.container}>
          <div className={styles.content}>
             <div className={styles.authCard}>
-               <AuthContent />
+               <AuthContent isModalWrapper={false} />
             </div>
          </div>
       </div>

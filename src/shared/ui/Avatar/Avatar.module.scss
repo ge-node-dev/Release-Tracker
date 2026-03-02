@@ -1,0 +1,38 @@
+.avatarCircle {
+   width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   overflow: hidden;
+   background: $border-dark;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-shrink: 0;
+   outline: 2px solid $border-light;
+
+   &.small {
+      width: 36px;
+      height: 36px;
+   }
+
+   &.large {
+      width: 127px;
+      height: 127px;
+   }
+}
+
+.avatarImg {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   display: block;
+}
+
+.avatarPlaceholder {
+   width: 80%;
+   height: 80%;
+   border-radius: 35%;
+   object-fit: cover;
+   display: block;
+   user-select: none;
+}

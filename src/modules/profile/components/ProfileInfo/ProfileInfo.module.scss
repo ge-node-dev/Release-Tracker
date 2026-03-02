@@ -1,0 +1,47 @@
+.profileHeader {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   padding: 1rem;
+   background: $bg-card;
+   border: 1px solid $border-primary;
+   border-radius: 16px;
+   position: relative;
+
+   @include breakpoint('tablet') {
+      padding: 2rem;
+      gap: 4rem;
+   }
+}
+
+.avatarWrapper {
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+   align-items: center;
+}
+
+.profileInfo {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   flex: 1;
+   min-width: 0;
+}
+
+.displayName {
+   @include h2;
+
+   margin: 0;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.email {
+   @include h4($color: $text-tertiary);
+}
+
+.memberSince {
+   @include label-text($color: $text-secondary);
+}

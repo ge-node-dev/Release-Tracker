@@ -134,8 +134,8 @@
    @include font-geist(600);
 }
 
-// button-medium-text - (1rem)
-@mixin button-medium-text {
+// button-text - (1rem)
+@mixin button-text {
    @include font-geist(500);
 
    font-size: 1rem;

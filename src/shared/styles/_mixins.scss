@@ -23,10 +23,10 @@
    border-radius: 50px;
 }
 
-@mixin fixed-center($topPadding: 50px, $bottomPadding: 50px) {
+@mixin fixed-center {
    position: fixed;
    left: 50%;
    transform: translateX(-50%);
    z-index: 100;
-   padding: $topPadding 50px $bottomPadding;
+   padding: 10px;
 }

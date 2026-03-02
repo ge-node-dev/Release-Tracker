@@ -9,11 +9,22 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
    icon?: string;
    value: string;
    error?: string;
+   required?: boolean;
    placeholder?: string;
    type?: 'text' | 'email' | 'password';
 }
 
-const Input = ({ id, icon, error, label, value, placeholder, type = 'text', ...props }: InputProps) => {
+const Input = ({
+   id,
+   icon,
+   error,
+   label,
+   value,
+   placeholder,
+   type = 'text',
+   required = true,
+   ...props
+}: InputProps) => {
    const [showPassword, setShowPassword] = useState(false);
 
    const isPasswordField = type === 'password';
@@ -28,7 +39,7 @@ const Input = ({ id, icon, error, label, value, placeholder, type = 'text', ...p
          <div className={styles.input}>
             <label htmlFor={id}>
                {label}
-               <span className={styles.required}>*</span>
+               {required && <span className={styles.required}>*</span>}
             </label>
             <div className={styles.inputWrapper}>
                {icon && (

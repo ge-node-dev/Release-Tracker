@@ -6,3 +6,9 @@ export const CACHE_1W = { stale: weekInSeconds, revalidate: weekInSeconds };
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const RELEASES_CACHE_TAG = 'RELEASES';
+
+export const ROUTES = {
+   AUTH: '/auth',
+   PROFILE: '/profile',
+   RESET_PASSWORD: '/reset-password',
+};

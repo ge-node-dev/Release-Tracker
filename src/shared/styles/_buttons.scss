@@ -4,7 +4,7 @@
 @use '@/shared/styles/breakpoints' as *;
 
 @mixin button-sizes {
-   @include button-medium-text;
+   @include button-text;
 
    &.small {
       padding: 0.5rem;
@@ -85,6 +85,19 @@
    color: $text-secondary;
 }
 
+@mixin variant-text-link {
+   @include label-text-strong($color: $text-primary);
+
+   text-decoration: underline;
+   text-underline-offset: 3px;
+   transition: opacity 0.2s ease;
+   width: fit-content;
+
+   &:hover {
+      opacity: 0.7;
+   }
+}
+
 @mixin hover-filled($selector) {
    &:hover:not(#{$selector}) {
       background-color: $button-bg-transparent;
@@ -155,5 +168,13 @@
    &.transparent {
       @include variant-transparent;
       @include hover-transparent("[aria-disabled='true']");
+   }
+
+   &.textLink {
+      @include variant-text-link;
+   }
+
+   &.disabled {
+      pointer-events: none;
    }
 }
