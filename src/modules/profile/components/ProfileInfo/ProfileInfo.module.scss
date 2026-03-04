@@ -39,9 +39,9 @@
 }
 
 .email {
-   @include h4($color: var(--text-muted));
+   color: var(--text-muted);
 }
 
 .memberSince {
-   @include label-text($color: var(--text-muted));
+   color: var(--text-muted);
 }
