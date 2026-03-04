@@ -12,6 +12,8 @@ type Validator = (value: string, form?: FormFields) => string;
 
 const FORM_FIELDS = {
    loginForm: ['email', 'password'],
+   updateUsernameForm: ['username'],
+   resetPasswordForm: ['password', 'confirmPassword'],
    registerForm: ['username', 'email', 'password', 'confirmPassword'],
 } as const;
 
@@ -27,14 +29,17 @@ const VALIDATORS: Record<string, Validator> = {
       return '';
    },
 
-   username: (value) => {
-      if (!value || !value.trim()) return 'Username is required';
-      return value.trim().length >= 4 ? '' : 'Username must be at least 4 characters';
-   },
-
    confirmPassword: (value, form) => {
       if (!value) return 'Password confirmation is required';
       return form?.password?.value && value !== form.password.value ? 'Passwords do not match' : '';
+   },
+
+   username: (value) => {
+      const trimmedValue = value.trim();
+
+      if (!value || !trimmedValue) return 'Username is required';
+      if (trimmedValue.length > 25) return 'Username must be less than 25 characters';
+      return trimmedValue.length >= 4 ? '' : 'Username must be at least 4 characters';
    },
 };
 

@@ -144,30 +144,6 @@ export type Database = {
                title?: null | string;
             };
          };
-         profiles: {
-            Relationships: [];
-            Row: {
-               id: string;
-               is_admin: boolean;
-               created_at: string;
-               updated_at: string;
-               telegram_id: null | number;
-            };
-            Insert: {
-               id: string;
-               is_admin?: boolean;
-               created_at?: string;
-               updated_at?: string;
-               telegram_id?: null | number;
-            };
-            Update: {
-               id?: string;
-               is_admin?: boolean;
-               created_at?: string;
-               updated_at?: string;
-               telegram_id?: null | number;
-            };
-         };
          tracks: {
             Relationships: [];
             Row: {
@@ -176,7 +152,7 @@ export type Database = {
                created_at: string;
                updated_at: string;
                external_key: string;
-               audio_preview: null | string;
+               deezer_track_id: number;
             };
             Insert: {
                id?: string;
@@ -184,7 +160,7 @@ export type Database = {
                created_at?: string;
                updated_at?: string;
                external_key: string;
-               audio_preview?: null | string;
+               deezer_track_id: number;
             };
             Update: {
                id?: string;
@@ -192,7 +168,7 @@ export type Database = {
                created_at?: string;
                updated_at?: string;
                external_key?: string;
-               audio_preview?: null | string;
+               deezer_track_id?: number;
             };
          };
          artists: {
@@ -222,7 +198,37 @@ export type Database = {
                updated_at?: null | string;
             };
          };
-         artist_tracks: {
+         track_genres: {
+            Row: {
+               genre_id: string;
+               track_id: string;
+            };
+            Insert: {
+               genre_id: string;
+               track_id: string;
+            };
+            Update: {
+               genre_id?: string;
+               track_id?: string;
+            };
+            Relationships: [
+               {
+                  isOneToOne: false;
+                  columns: ['genre_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'genres';
+                  foreignKeyName: 'track_genres_genre_id_fkey';
+               },
+               {
+                  isOneToOne: false;
+                  columns: ['track_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'tracks';
+                  foreignKeyName: 'track_genres_track_id_fkey';
+               },
+            ];
+         };
+         track_artists: {
             Row: {
                track_id: string;
                artist_id: string;
@@ -249,6 +255,36 @@ export type Database = {
                   referencedColumns: ['id'];
                   referencedRelation: 'tracks';
                   foreignKeyName: 'track_artists_track_id_fkey';
+               },
+            ];
+         };
+         artists_genres: {
+            Row: {
+               genre_id: string;
+               artist_id: string;
+            };
+            Insert: {
+               genre_id: string;
+               artist_id: string;
+            };
+            Update: {
+               genre_id?: string;
+               artist_id?: string;
+            };
+            Relationships: [
+               {
+                  isOneToOne: false;
+                  columns: ['artist_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'artists';
+                  foreignKeyName: 'artist_genres_artist_id_fkey';
+               },
+               {
+                  isOneToOne: false;
+                  columns: ['genre_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'genres';
+                  foreignKeyName: 'artist_genres_genre_id_fkey';
                },
             ];
          };
@@ -282,36 +318,6 @@ export type Database = {
                },
             ];
          };
-         release_tracks: {
-            Row: {
-               track_id: string;
-               release_id: string;
-            };
-            Insert: {
-               track_id: string;
-               release_id: string;
-            };
-            Update: {
-               track_id?: string;
-               release_id?: string;
-            };
-            Relationships: [
-               {
-                  isOneToOne: false;
-                  columns: ['release_id'];
-                  referencedColumns: ['id'];
-                  referencedRelation: 'releases';
-                  foreignKeyName: 'release_tracks_release_id_fkey';
-               },
-               {
-                  isOneToOne: false;
-                  columns: ['track_id'];
-                  referencedColumns: ['id'];
-                  referencedRelation: 'tracks';
-                  foreignKeyName: 'release_tracks_track_id_fkey';
-               },
-            ];
-         };
          release_artists: {
             Row: {
                artist_id: string;
@@ -342,11 +348,76 @@ export type Database = {
                },
             ];
          };
+         profiles: {
+            Relationships: [];
+            Row: {
+               id: string;
+               email: string;
+               username: string;
+               is_admin: boolean;
+               created_at: string;
+               updated_at: string;
+               avatar_url: null | string;
+               telegram_id: null | number;
+            };
+            Insert: {
+               id: string;
+               email?: string;
+               username?: string;
+               is_admin?: boolean;
+               created_at?: string;
+               updated_at?: string;
+               avatar_url?: null | string;
+               telegram_id?: null | number;
+            };
+            Update: {
+               id?: string;
+               email?: string;
+               username?: string;
+               is_admin?: boolean;
+               created_at?: string;
+               updated_at?: string;
+               avatar_url?: null | string;
+               telegram_id?: null | number;
+            };
+         };
+         release_tracks: {
+            Row: {
+               position: number;
+               track_id: string;
+               release_id: string;
+            };
+            Insert: {
+               position: number;
+               track_id: string;
+               release_id: string;
+            };
+            Update: {
+               position?: number;
+               track_id?: string;
+               release_id?: string;
+            };
+            Relationships: [
+               {
+                  isOneToOne: false;
+                  columns: ['release_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'releases';
+                  foreignKeyName: 'release_tracks_release_id_fkey';
+               },
+               {
+                  isOneToOne: false;
+                  columns: ['track_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'tracks';
+                  foreignKeyName: 'release_tracks_track_id_fkey';
+               },
+            ];
+         };
          releases: {
             Relationships: [];
             Row: {
                id: string;
-               likes: number;
                title: string;
                created_at: string;
                rating_avg: number;
@@ -359,7 +430,6 @@ export type Database = {
             Insert: {
                id?: string;
                title: string;
-               likes?: number;
                created_at?: string;
                rating_avg?: number;
                updated_at?: string;
@@ -370,7 +440,6 @@ export type Database = {
             };
             Update: {
                id?: string;
-               likes?: number;
                title?: string;
                created_at?: string;
                rating_avg?: number;

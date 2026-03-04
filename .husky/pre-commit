@@ -19,4 +19,7 @@ npm run lint:styles || { echo -e "${RED}❌ Ошибка линтинга сти
 echo -e "\n${BLUE}🔹 Тестирование запросов к БД...${NC}\n"
 npm run test:queries || { echo -e "${RED}❌ Ошибка тестирования запросов${NC}"; exit 1; }
 
+echo -e "\n${BLUE}🔹 Тестирование авторизации...${NC}\n"
+npm run test:auth || { echo -e "${RED}❌ Ошибка тестирования авторизации${NC}"; exit 1; }
+
 echo -e "\n${GREEN}✅ Pre-commit успешно завершён!${NC}\n"

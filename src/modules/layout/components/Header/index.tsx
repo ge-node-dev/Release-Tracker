@@ -6,13 +6,13 @@ import styles from './Header.module.scss';
 
 const Header = () => {
    return (
-      <header className={styles.header}>
-         <div className={styles.wrapper}>
-            <Suspense fallback={null}>
+      <Suspense fallback={null}>
+         <header className={styles.header}>
+            <div className={styles.wrapper}>
                <HeaderData />
-            </Suspense>
-         </div>
-      </header>
+            </div>
+         </header>
+      </Suspense>
    );
 };
 

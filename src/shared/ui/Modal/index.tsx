@@ -5,10 +5,16 @@ import { useEffect } from 'react';
 
 import styles from './Modal.module.scss';
 
-const Modal = ({ children }: { children: React.ReactNode }) => {
+interface ModalProps {
+   onClose?: () => void;
+   disableClose?: boolean;
+   children: React.ReactNode;
+}
+
+const Modal = ({ children, disableClose, onClose: onCloseProp }: ModalProps) => {
    const router = useRouter();
 
-   const onClose = () => router.back();
+   const onClose = onCloseProp ?? (() => router.back());
 
    useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -26,16 +32,20 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
          <div
             tabIndex={0}
             role="button"
-            onClick={onClose}
             aria-label="Close modal"
             className={styles.backdrop}
+            onClick={!disableClose ? onClose : undefined}
             onKeyDown={(e) => {
                if (e.key === 'Enter' || e.key === ' ') onClose();
             }}
          />
          <div className={styles.overlay}>
             <div className={styles.content}>
-               <button onClick={onClose} aria-label="Close modal" className={styles.closeButton}>
+               <button
+                  aria-label="Close modal"
+                  className={styles.closeButton}
+                  onClick={!disableClose ? onClose : undefined}
+               >
                   X
                </button>
                {children}

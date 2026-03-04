@@ -6,15 +6,16 @@
       "dev": "next dev",
       "build": "next build",
       "start": "next start",
-      "db:export-types": "npx supabase db export --schema public --types-only --out ./types/Database.ts",
+      "db:export-types": "npx supabase gen types typescript --linked --schema public > supabase/types/database.ts",
       "db:pull": "npx supabase db pull --schema public",
       "db:dump": "npx supabase db reset && npx supabase db dump -f mock_data.sql --data-only --schema public && psql postgresql://postgres:postgres@localhost:54322/postgres -f mock_data.sql",
-      "db:create-migration":"npx supabase db diff --use-migra --schema public -f",
+      "db:create-migration": "npx supabase db diff --use-migra --schema public -f",
       "db:push": "npx supabase db push",
       "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\"",
       "lint": "set NODE_ENV=production&& eslint \"**/*.{ts,tsx,js,jsx}\" --fix --max-warnings=0",
       "lint:styles": "stylelint \"**/*.{scss,sass,css}\" --fix",
       "test:queries": "tsx --env-file=.env.local src/tests/releaseServices.test.ts",
+      "test:auth": "tsx --env-file=.env.local src/tests/authServices.test.ts",
       "prepare": "husky"
    },
    "dependencies": {
@@ -23,6 +24,7 @@
       "next": "16.1.6",
       "react": "19.2.4",
       "react-dom": "19.2.4",
+      "react-easy-crop": "^5.5.6",
       "react-loading-skeleton": "^3.5.0",
       "sharp": "^0.34.5"
    },

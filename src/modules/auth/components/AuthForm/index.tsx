@@ -6,6 +6,7 @@ import { FormState } from '@/modules/auth/services/authActions';
 import { submitAuthForm } from '@/modules/auth/services/submitAuthForm';
 import { useFormValidation } from '@/shared/hooks/useFormValidation';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
+import FormContainer from '@/shared/ui/FormContainer';
 import Input from '@/shared/ui/Input';
 
 import styles from './AuthForm.module.scss';
@@ -87,7 +88,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
             <p className={styles.mainText}>{headerText}</p>
             <p className={styles.secondaryText}>{headerSubText}</p>
          </div>
-         <form autoComplete="on" onSubmit={handleSubmit} className={styles.formContainer}>
+         <FormContainer autoComplete="on" onSubmit={handleSubmit}>
             {configFields.map((field) => (
                <Input
                   id={field.id}
@@ -115,7 +116,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
             >
                {submitLabel}
             </ActionButton>
-         </form>
+         </FormContainer>
       </>
    );
 };

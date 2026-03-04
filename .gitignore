@@ -47,5 +47,4 @@ next-env.d.ts
 *data.sql
 
 #LLM
-QWEN.md
-.qwen
+CLAUDE.md

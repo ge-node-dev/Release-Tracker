@@ -1,21 +1,20 @@
 'use client';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
+import Tabs from '@/shared/ui/Tabs';
 
 import { FormStatus } from '../AuthContent';
 
-import styles from './AuthHeaderTabs.module.scss';
-
-interface AuthHeaderTabsProps {
+interface AuthFormTabsProps {
    isLoginTab: boolean;
    formStatus: FormStatus;
    setActiveTab: (tab: 'login' | 'register') => void;
 }
 
-const AuthHeaderTabs = ({ formStatus, isLoginTab, setActiveTab }: AuthHeaderTabsProps) => {
+const AuthFormTabs = ({ formStatus, isLoginTab, setActiveTab }: AuthFormTabsProps) => {
    if (formStatus.isSuccess) return null;
 
    return (
-      <div className={styles.headerButtons}>
+      <Tabs>
          <ActionButton
             disabled={formStatus.isPending}
             onClick={() => setActiveTab('login')}
@@ -30,8 +29,8 @@ const AuthHeaderTabs = ({ formStatus, isLoginTab, setActiveTab }: AuthHeaderTabs
          >
             Register
          </ActionButton>
-      </div>
+      </Tabs>
    );
 };
 
-export default AuthHeaderTabs;
+export default AuthFormTabs;

@@ -6,7 +6,7 @@ const Loading = () => {
             left: 0,
             zIndex: 1000,
             width: '99vw',
-            height: '100vh',
+            height: '100%',
             overflow: 'hidden',
             position: 'absolute',
             backdropFilter: 'blur(8px)',

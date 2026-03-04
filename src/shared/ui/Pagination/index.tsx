@@ -36,8 +36,8 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
       <div className={styles.pagination}>
          <LinkButton
             prefetch={false}
+            disabled={isFirstPage}
             ariaLabel="Previous page"
-            ariaDisabled={isFirstPage}
             href={navigateTo(currentPage - 1)}
          >
             <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
@@ -74,7 +74,7 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
             prefetch={false}
             rotate={'180deg'}
             ariaLabel="Next page"
-            ariaDisabled={isLastPage}
+            disabled={isLastPage}
             href={buildHrefWithParam(searchParams, 'page', currentPage + 1, 1)}
          >
             <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />

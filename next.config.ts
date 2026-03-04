@@ -7,16 +7,20 @@ const nextConfig: NextConfig = {
    experimental: {
       viewTransition: true,
    },
+   sassOptions: {
+      prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *; @use "@/shared/styles/_breakpoints.scss" as *; @use "@/shared/styles/_typography.scss" as *;`,
+   },
    images: {
       remotePatterns: [
          {
             protocol: 'https',
             hostname: 'cdn-images.dzcdn.net',
          },
+         {
+            protocol: 'https',
+            hostname: 'res.cloudinary.com',
+         },
       ],
-   },
-   sassOptions: {
-      prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *; @use "@/shared/styles/_breakpoints.scss" as *; @use "@/shared/styles/_typography.scss" as *;`,
    },
    headers() {
       return [

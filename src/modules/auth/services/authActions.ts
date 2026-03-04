@@ -1,9 +1,12 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
+import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { updateProfileData } from '@/modules/profile/services/profileActions';
+import { ROUTES } from '@/shared/utils/constants';
+import { isUsernameAlreadyExist } from '@/shared/utils/data/isUsernameAlreadyExist';
 
 export type FormState = {
    error: string;
@@ -11,27 +14,41 @@ export type FormState = {
    success: boolean;
 };
 
-export const createUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
+export const createUserAccount = async (_: FormState, formData: FormData): Promise<FormState> => {
    const supabase = await createSupabaseServerClient();
 
    const email = formData.get('email')?.toString().trim() ?? '';
    const password = formData.get('password')?.toString() ?? '';
-   const userName = formData.get('username')?.toString().trim() ?? '';
+   const username = formData.get('username')?.toString().trim() ?? '';
 
-   const { error } = await supabase.auth.signUp({
+   if (await isUsernameAlreadyExist(username)) {
+      return { email, success: false, error: 'This username is already in use' };
+   }
+
+   const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { username: userName } },
    });
 
    if (error) {
       return { email, success: false, error: error.message };
    }
 
+   const { error: profileError } = await updateProfileData({
+      email,
+      username,
+      userId: data.user!.id,
+   });
+
+   if (profileError) {
+      await createSupabaseAdminClient().auth.admin.deleteUser(data.user!.id);
+      return { email, success: false, error: 'Failed to create account. Please try again.' };
+   }
+
    return { error: '', success: true };
 };
 
-export const loginUserAccount = async (prevData: FormState, formData: FormData): Promise<FormState> => {
+export const loginUserAccount = async (_: FormState, formData: FormData): Promise<FormState> => {
    const email = formData.get('email')?.toString().trim() ?? '';
    const password = formData.get('password')?.toString() ?? '';
 
@@ -48,6 +65,12 @@ export const loginUserAccount = async (prevData: FormState, formData: FormData):
 export const logoutUserAccount = async () => {
    const supabase = await createSupabaseServerClient();
    await supabase.auth.signOut();
-   revalidatePath('/auth');
+   revalidatePath(ROUTES.AUTH);
    revalidatePath('/');
+};
+
+export const validateCodeForResetPassword = async (code: string): Promise<{ error: string }> => {
+   const supabase = await createSupabaseServerClient();
+   const { error } = await supabase.auth.exchangeCodeForSession(code);
+   return { error: error?.message ?? '' };
 };

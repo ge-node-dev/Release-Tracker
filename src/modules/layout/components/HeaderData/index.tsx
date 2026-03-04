@@ -1,14 +1,11 @@
-import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { getProfile } from '@/modules/profile/services/profileActions';
 
-import HeaderNavLinks from '../HederNavLinks';
+import HeaderNavLinks from '../HeaderNavLinks';
 
 const HeaderAuth = async () => {
-   const supabase = await createSupabaseServerClient();
-   const {
-      data: { user },
-   } = await supabase.auth.getUser();
+   const { profile } = await getProfile();
 
-   return <HeaderNavLinks isAuthenticated={!!user} />;
+   return <HeaderNavLinks profile={profile} />;
 };
 
 export default HeaderAuth;

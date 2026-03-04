@@ -1,11 +1,18 @@
 'use client';
 import { logoutUserAccount } from '@/modules/auth/services/authActions';
-import ActionButton from '@/shared/ui/Buttons/ActionButton';
+import ActionButton, { type ActionButtonProps } from '@/shared/ui/Buttons/ActionButton';
 
-const LogoutButton = () => {
+const LogoutButton = ({
+   size = 'small',
+   variant = 'filled',
+}: {
+   size?: ActionButtonProps['size'];
+   variant?: ActionButtonProps['variant'];
+}) => {
    return (
       <ActionButton
-         variant="filled"
+         size={size}
+         variant={variant}
          onClick={async () => {
             try {
                await logoutUserAccount();
