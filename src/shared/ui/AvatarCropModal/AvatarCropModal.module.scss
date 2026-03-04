@@ -10,7 +10,7 @@
    height: 360px;
    border-radius: 12px;
    overflow: hidden;
-   background: $bg-card;
+   background: var(--bg-surface);
 }
 
 .controls {
@@ -22,7 +22,7 @@
 
 .slider {
    width: 100%;
-   accent-color: $text-primary;
+   accent-color: var(--text-primary);
    cursor: pointer;
 }
 

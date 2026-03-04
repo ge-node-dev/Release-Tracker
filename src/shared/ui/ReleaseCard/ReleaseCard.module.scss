@@ -2,9 +2,9 @@
    cursor: pointer;
    padding: 16px;
    border-radius: 16px;
-   background-color: rgb($bg-card, 40%);
+   background-color: rgb(var(--bg-surface), 40%);
    backdrop-filter: blur(20px);
-   border: 1px solid $border-primary;
+   border: 1px solid var(--bg-surface);
    transition: all 0.3s ease;
    display: flex;
    flex-direction: column;
@@ -74,15 +74,13 @@
 }
 
 .cardTitle {
-   @include title-sm;
+   @include h5;
 }
 
 .cardArtistsNames {
-   @include text-base;
-
-   color: $text-tertiary;
+   @include h5;
 }
 
 .cardDate {
-   @include label-text;
+   @include h5;
 }

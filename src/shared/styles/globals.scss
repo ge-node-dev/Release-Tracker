@@ -1,3 +1,21 @@
+[data-theme='dark'] {
+   --bg-page: #{$dark-bg-page};
+   --bg-surface: #{$dark-bg-surface};
+   --bg-surface-raised: #{$dark-bg-surface-raised};
+   --text-primary: #{$dark-text-primary};
+   --text-muted: #{$dark-text-muted};
+   --border-grid: #{$dark-border-grid};
+}
+
+[data-theme='light'] {
+   --bg-page: #{$light-bg-page};
+   --bg-surface: #{$light-bg-surface};
+   --bg-surface-raised: #{$light-bg-surface-raised};
+   --text-primary: #{$light-text-primary};
+   --text-muted: #{$light-text-muted};
+   --border-grid: #{$light-border-grid};
+}
+
 *,
 *::before,
 *::after {
@@ -10,12 +28,11 @@ html {
 }
 
 body {
-   @include text-base;
-
+   font-family: var(--font-oswald);
    height: 100%;
    margin: 0;
    padding: 0 24px;
-   background-color: $bg-primary;
+   background-color: var(--bg-page);
    text-rendering: optimizespeed;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;

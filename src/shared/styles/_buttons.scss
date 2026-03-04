@@ -4,8 +4,6 @@
 @use '@/shared/styles/breakpoints' as *;
 
 @mixin button-sizes {
-   @include button-text;
-
    &.small {
       padding: 0.5rem;
    }
@@ -52,12 +50,12 @@
    }
 
    &.active {
-      background-color: $button-bg-transparent;
-      border-color: $button-border-light;
-      color: $text-primary;
+      background-color: var(--bg-surface);
+      border-color: var(--bg-surface);
+      color: $dark-text-muted;
 
       &:hover {
-         background-color: $button-bg-transparent;
+         background-color: var(--bg-surface);
       }
    }
 }
@@ -73,7 +71,7 @@
    @include button-sizes;
 
    border-radius: 6px;
-   background-color: $button-light-bg;
+   background-color: var(--bg-surface);
    color: black;
 }
 
@@ -82,12 +80,10 @@
 
    border-radius: 6px;
    background-color: transparent;
-   color: $text-secondary;
+   color: $dark-text-muted;
 }
 
 @mixin variant-text-link {
-   @include label-text-strong($color: $text-primary);
-
    text-decoration: underline;
    text-underline-offset: 3px;
    transition: opacity 0.2s ease;
@@ -100,14 +96,14 @@
 
 @mixin hover-filled($selector) {
    &:hover:not(#{$selector}) {
-      background-color: $button-bg-transparent;
-      color: $button-light-bg;
+      background-color: var(--bg-surface);
+      color: var(--bg-surface);
    }
 }
 
 @mixin hover-transparent($selector) {
    &:hover:not(#{$selector}) {
-      background-color: $button-bg-transparent;
+      background-color: var(--bg-surface);
       color: white;
    }
 }

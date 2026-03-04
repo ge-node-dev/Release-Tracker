@@ -3,8 +3,8 @@
    display: flex;
    align-items: flex-start;
    padding: 1rem;
-   background: $bg-card;
-   border: 1px solid $border-primary;
+   background: var(--bg-surface);
+   border: 1px solid var(--bg-surface);
    border-radius: 16px;
    position: relative;
 
@@ -39,9 +39,9 @@
 }
 
 .email {
-   @include h4($color: $text-tertiary);
+   @include h4($color: var(--text-muted));
 }
 
 .memberSince {
-   @include label-text($color: $text-secondary);
+   @include label-text($color: var(--text-muted));
 }

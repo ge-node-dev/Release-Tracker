@@ -4,7 +4,8 @@ import '@/shared/styles/globals.scss';
 
 import { ViewTransition } from 'react';
 
-import { geistSans } from '@/shared/utils/integrations/fonts';
+import ThemeProvider from '@/shared/providers/ThemeProvider';
+import { InterFont, JetBrainsMonoFont, OswaldFont } from '@/shared/utils/integrations/fonts';
 
 export const metadata: Metadata = {
    title: 'Release Tracker',
@@ -22,9 +23,11 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en">
-         <body className={`${geistSans.variable} antialiased`}>
-            <ViewTransition>{children}</ViewTransition>
+      <html lang="en" suppressHydrationWarning={true}>
+         <body className={`${OswaldFont.variable} ${InterFont.variable} ${JetBrainsMonoFont.variable} antialiased`}>
+            <ThemeProvider>
+               <ViewTransition>{children}</ViewTransition>
+            </ThemeProvider>
          </body>
       </html>
    );

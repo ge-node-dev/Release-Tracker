@@ -10,7 +10,7 @@
 }
 
 @mixin blur-card {
-   background: $bg-card;
+   background: var(--bg-surface);
    backdrop-filter: blur(30px);
    border: 1px solid rgb(255 255 255 / 30%);
    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 20%);

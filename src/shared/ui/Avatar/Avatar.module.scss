@@ -3,12 +3,12 @@
    height: 80px;
    border-radius: 50%;
    overflow: hidden;
-   background: $border-dark;
+   background: var(--bg-surface);
    display: flex;
    align-items: center;
    justify-content: center;
    flex-shrink: 0;
-   outline: 2px solid $border-light;
+   outline: 2px solid var(--bg-surface);
 
    &.small {
       width: 36px;

@@ -25,8 +25,8 @@
 
 .content {
    position: relative;
-   background: $bg-primary;
-   border: 1px solid $border-dark;
+   background: var(--bg-surface);
+   border: 1px solid var(--bg-surface);
    border-radius: 16px;
    padding: 2.75rem 2rem 2rem;
    width: 100%;
@@ -53,10 +53,10 @@
    width: 35px;
    height: 35px;
    z-index: 20;
-   background-color: $button-bg-transparent;
+   background-color: var(--bg-surface);
 
    &:hover {
-      color: $text-primary;
-      background: $button-bg-transparent;
+      color: var(--text-primary);
+      background: var(--bg-surface);
    }
 }

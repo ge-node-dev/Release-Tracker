@@ -1,29 +1,25 @@
-import localFont from 'next/font/local';
+import { Inter, JetBrains_Mono, Oswald } from 'next/font/google';
 
-export const geistSans = localFont({
+export const OswaldFont = Oswald({
    display: 'swap',
-   variable: '--font-geist-sans',
+   weight: ['400', '600'],
+   variable: '--font-oswald',
+   subsets: ['latin', 'cyrillic'],
    fallback: ['system-ui', 'arial', 'sans-serif'],
-   src: [
-      {
-         weight: '400',
-         style: 'normal',
-         path: '../../../fonts/Geist-Regular.woff2',
-      },
-      {
-         weight: '500',
-         style: 'normal',
-         path: '../../../fonts/Geist-Medium.woff2',
-      },
-      {
-         weight: '600',
-         style: 'normal',
-         path: '../../../fonts/Geist-SemiBold.woff2',
-      },
-      {
-         weight: '700',
-         style: 'normal',
-         path: '../../../fonts/Geist-Bold.woff2',
-      },
-   ],
+});
+
+export const InterFont = Inter({
+   display: 'swap',
+   weight: ['400', '600'],
+   variable: '--font-inter',
+   subsets: ['latin', 'cyrillic'],
+   fallback: ['system-ui', 'arial', 'sans-serif'],
+});
+
+export const JetBrainsMonoFont = JetBrains_Mono({
+   display: 'swap',
+   subsets: ['latin'],
+   weight: ['500', '600'],
+   variable: '--font-mono',
+   fallback: ['Courier New', 'monospace'],
 });

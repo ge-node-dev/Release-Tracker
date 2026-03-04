@@ -9,17 +9,15 @@
    @include h3;
 
    text-align: center;
-   color: $text-primary;
+   color: var(--text-muted);
 }
 
 .secondaryText {
-   @include text-base;
-
    text-align: center;
-   color: $text-secondary;
+   color: var(--text-muted);
 
    strong {
-      color: $text-primary;
+      color: var(--text-primary);
    }
 }
 

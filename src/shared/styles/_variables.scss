@@ -1,23 +1,22 @@
 $base-line-height: 1.5;
 $reduced-motion-duration: 0.01ms;
 
-// Background colors
-$bg-primary: #121212; // Main page background
-$bg-card: #191919; // Card background
+// Dark theme
+$dark-bg-page: #030303; // Page background
+$dark-bg-surface: #0a0a0a; // Cards, panels, sections
+$dark-bg-surface-raised: #141414; // Hover states, elevated elements
+$dark-text-primary: #e0e0e0; // Main text
+$dark-text-muted: #555; // Secondary text
+$dark-border-grid: rgb(255 255 255 / 4%); // Hairline dividers
 
-// Text colors
-$text-primary: #fff; // Main text
-$text-secondary: #6b7280; // Secondary text
-$text-tertiary: #9ca3af; // Tertiary text
+// Light theme
+$light-bg-page: #fff;
+$light-bg-surface: #f0f0f0;
+$light-bg-surface-raised: #e8e8e8;
+$light-text-primary: #000;
+$light-text-muted: #777;
+$light-border-grid: rgb(0 0 0 / 8%); // Hairline dividers
 
-// Border colors
-$border-primary: #242424; // Main borders
-$border-dark: #303030; // Dark borders
-$border-light: #504e50; // Light borders
-
-// Button colors
-$button-bg-transparent: #ffffff1a; // Transparent button background (10% white)
-$button-light-bg: #f5f5f5;
-$button-border-light: #ffffff26; // Light button border (15% white)
-
+// Shared
+$color-accent: #c00;
 $error-color: #ef4444;
