@@ -1,6 +1,6 @@
 .headerTextContent {
    display: flex;
-   gap: 0.5rem;
+   gap: 0.25rem;
    flex-direction: column;
    margin-block: 1rem;
 }
@@ -24,6 +24,7 @@
 }
 
 .error {
+   font-family: var(--font-mono);
    color: $color-accent;
    text-align: center;
 }

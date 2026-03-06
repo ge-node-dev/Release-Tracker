@@ -11,25 +11,89 @@
    backdrop-filter: blur(30px);
    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 20%);
    width: fit-content;
+   background: var(--bg-raised);
    gap: 2px;
-   padding: 15px;
+   padding: 10px 20px;
 
    a {
       min-width: 48px;
    }
 }
 
+.paginationLink {
+   font-weight: 700;
+   font-size: 0.95rem;
+   letter-spacing: 0.1em;
+   text-transform: uppercase;
+   color: var(--text-muted);
+   background: none;
+   border: none;
+   cursor: pointer;
+   padding: 0 1rem;
+   height: 45px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition:
+      color 0.2s,
+      background 0.2s;
+   position: relative;
+
+   &.active {
+      color: $color-accent;
+      background: $color-accent-muted;
+      pointer-events: none;
+
+      &::after {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 2px;
+         background: $color-accent;
+      }
+
+      &:hover {
+         color: $color-accent;
+         background: $color-accent-muted;
+      }
+   }
+
+   &:hover {
+      color: var(--text-primary);
+      background: var(--bg-primary);
+   }
+}
+
+.arrowLink {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 48px;
+   height: 45px;
+   background: none;
+   border: none;
+   cursor: pointer;
+   transition: background 0.2s;
+
+   &:hover {
+      background: var(--bg-primary);
+   }
+
+   &.disabled {
+      pointer-events: none;
+      opacity: 0.35;
+   }
+}
+
 .ellipsis {
    display: flex;
-   align-items: end;
+   align-items: center;
    justify-content: center;
-   padding: 0 14px;
-   height: 44px;
+   height: 45px;
    color: var(--text-muted);
-   background: var(--bg-primary);
-   border: 1px solid var(--border-grid);
    letter-spacing: 3px;
    user-select: none;
    font-size: 1rem;
-   padding-bottom: 6px;
 }
