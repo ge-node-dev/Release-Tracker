@@ -9,13 +9,14 @@ const ThemeToggle = () => {
 
    return (
       <button
-         aria-label="Toggle theme"
          className={styles.button}
+         aria-label="Toggle theme"
          onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
       >
-         <span aria-hidden="true" className={styles.icon}>
-            {resolvedTheme === 'dark' ? 'light' : 'dark'}
-         </span>
+         <span className={styles.themeLabel}>Light / Dark</span>
+         <div className={styles.switch} data-checked={resolvedTheme === 'light'}>
+            <div className={styles.switchHandle}></div>
+         </div>
       </button>
    );
 };

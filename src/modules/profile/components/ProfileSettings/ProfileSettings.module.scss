@@ -1,27 +1,59 @@
-.container {
+.dashboardGrid {
+   display: grid;
+   grid-template-columns: 278px 1fr;
+   gap: 3.5rem;
+   align-items: start;
+   overflow: hidden;
+}
+
+.absoluteUsername {
+   position: absolute;
+   right: 15%;
+   top: 10%;
+   white-space: nowrap;
+   font-size: 18rem;
+   transform: translateY(-50%) rotate(-90deg);
+   transform-origin: right center;
+   z-index: -1;
+   color: #acacac1f;
+   opacity: 0.2;
+   pointer-events: none;
+}
+
+.avatarModule {
    display: flex;
    flex-direction: column;
-   gap: 1.5rem;
+   gap: 1rem;
+   justify-content: space-between;
+   height: 100%;
+}
+
+.avatarFrame {
    width: 100%;
+   border: 1px solid var(--border-grid);
+   overflow: hidden;
+   position: relative;
 }
 
-.section {
-   background: var(--bg-surface);
-   border: 1px solid var(--bg-surface);
-   border-radius: 12px;
-   padding: 1.5rem;
+.formStack {
    display: flex;
    flex-direction: column;
-   gap: 1.25rem;
+   gap: 2.5rem;
+   max-width: 55%;
 }
 
-.sectionTitle {
-   @include h4;
+.inputGroup {
+   display: flex;
+   flex-direction: column;
+   gap: 0.75rem;
+}
 
-   margin: 0;
+.fieldLabel {
+   @include label-small;
 }
 
 .actionButtons {
    display: flex;
-   gap: 1rem;
+   gap: 0.75rem;
+   margin-top: 0.5rem;
 }

@@ -110,7 +110,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
             {formError && <p className={styles.error}>{formError}</p>}
             <ActionButton
                type="submit"
-               variant="filled"
+               variant="secondary"
                className={styles.submitButton}
                disabled={isPending || !isFormValid}
             >

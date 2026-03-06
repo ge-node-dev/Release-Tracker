@@ -10,8 +10,8 @@ export const OswaldFont = Oswald({
 
 export const InterFont = Inter({
    display: 'swap',
-   weight: ['400', '600'],
    variable: '--font-inter',
+   weight: ['400', '500', '900'],
    subsets: ['latin', 'cyrillic'],
    fallback: ['system-ui', 'arial', 'sans-serif'],
 });

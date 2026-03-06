@@ -2,21 +2,24 @@ $base-line-height: 1.5;
 $reduced-motion-duration: 0.01ms;
 
 // Dark theme
-$dark-bg-page: #030303; // Page background
-$dark-bg-surface: #0a0a0a; // Cards, panels, sections
-$dark-bg-surface-raised: #141414; // Hover states, elevated elements
-$dark-text-primary: #e0e0e0; // Main text
-$dark-text-muted: #555; // Secondary text
-$dark-border-grid: rgb(255 255 255 / 4%); // Hairline dividers
+$dark-bg-main: #0a0a0a;
+$dark-bg-primary: #141414;
+$dark-bg-secondary: #e8e8e8;
+$dark-bg-raised: #0a0a0a;
+$dark-text-primary: #e0e0e0;
+$dark-text-secondary: #000;
+$dark-text-muted: #999;
+$dark-border-grid: rgb(255 255 255 / 8%);
 
 // Light theme
-$light-bg-page: #fff;
-$light-bg-surface: #f0f0f0;
-$light-bg-surface-raised: #e8e8e8;
+$light-bg-main: #fff;
+$light-bg-primary: #e8e8e8;
+$light-bg-secondary: #141414;
+$light-bg-raised: #f0f0f0;
 $light-text-primary: #000;
+$light-text-secondary: #e0e0e0;
 $light-text-muted: #777;
-$light-border-grid: rgb(0 0 0 / 8%); // Hairline dividers
+$light-border-grid: rgb(0 0 0 / 8%);
 
 // Shared
 $color-accent: #c00;
-$error-color: #ef4444;

@@ -1,5 +1,4 @@
 import { cacheLife, cacheTag } from 'next/cache';
-import Image from 'next/image';
 
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
@@ -10,6 +9,9 @@ import { buildHrefWithParam, getVisiblePages } from '@/shared/utils/data/paginat
 
 import styles from './Pagination.module.scss';
 
+const ARROW_ICON_SIZE = 15;
+const ARROW_ICON_SRC = '/assets/icons/arrow.svg';
+
 interface PaginationProps {
    currentPage: number;
    maxVisiblePages?: number;
@@ -17,7 +19,22 @@ interface PaginationProps {
    searchParams: Awaited<SearchParams>;
 }
 
-const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisiblePages = 5 }: PaginationProps) => {
+const ArrowIcon = ({ rotate, disabled }: { rotate?: string; disabled: boolean }) => (
+   <img
+      alt="arrow icon"
+      src={ARROW_ICON_SRC}
+      width={ARROW_ICON_SIZE}
+      height={ARROW_ICON_SIZE}
+      style={{
+         minWidth: ARROW_ICON_SIZE,
+         minHeight: ARROW_ICON_SIZE,
+         opacity: disabled ? 0.5 : 1,
+         ...(rotate && { transform: `rotate(${rotate})` }),
+      }}
+   />
+);
+
+const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisiblePages = 3 }: PaginationProps) => {
    'use cache';
    cacheLife(CACHE_1W);
    cacheTag(`releases-count-${currentPeriod}-${currentPage}`);
@@ -30,7 +47,7 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
    const isLastPage = currentPage === totalPages;
    const visiblePages = getVisiblePages(currentPage, totalPages, maxVisiblePages);
 
-   const navigateTo = (newPage: number) => buildHrefWithParam(searchParams, 'page', newPage, 1);
+   const navigateTo = (page: number) => buildHrefWithParam(searchParams, 'page', page, 1);
 
    return (
       <div className={styles.pagination}>
@@ -40,44 +57,33 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
             ariaLabel="Previous page"
             href={navigateTo(currentPage - 1)}
          >
-            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+            <ArrowIcon disabled={isFirstPage} />
          </LinkButton>
 
-         {visiblePages.map((page, index) => {
-            if (page === '...') {
-               return (
-                  <span
-                     aria-hidden="true"
-                     className={styles.ellipsis}
-                     key={`ellipsis-after-${visiblePages[index - 1]}`}
-                  >
-                     {page}
-                  </span>
-               );
-            }
-
-            return (
+         {visiblePages.map((page, index) =>
+            page === '...' ? (
+               <p aria-hidden="true" className={styles.ellipsis} key={`ellipsis-${visiblePages[index - 1]}`}>
+                  {page}
+               </p>
+            ) : (
                <LinkButton
                   key={page}
+                  size="medium"
                   prefetch={false}
                   href={navigateTo(+page)}
                   ariaLabel={`Page ${page}`}
                   active={currentPage === page}
+                  disabled={currentPage === page}
                   ariaCurrent={currentPage === page}
+                  variant={currentPage === page ? 'red' : 'primary'}
                >
                   {page}
                </LinkButton>
-            );
-         })}
+            ),
+         )}
 
-         <LinkButton
-            prefetch={false}
-            rotate={'180deg'}
-            ariaLabel="Next page"
-            disabled={isLastPage}
-            href={buildHrefWithParam(searchParams, 'page', currentPage + 1, 1)}
-         >
-            <Image width={15} height={15} alt="arrow icon" src="/assets/icons/arrow.svg" />
+         <LinkButton prefetch={false} disabled={isLastPage} ariaLabel="Next page" href={navigateTo(currentPage + 1)}>
+            <ArrowIcon rotate="180deg" disabled={isLastPage} />
          </LinkButton>
       </div>
    );

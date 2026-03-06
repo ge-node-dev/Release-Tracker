@@ -1,9 +1,7 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { getProfile } from '@/modules/profile/services/profileActions';
-import { Avatar } from '@/shared/ui/Avatar';
-import ChangeAvatarButton from '@/shared/ui/Buttons/ChangeAvatarButton';
-import LinkButton from '@/shared/ui/Buttons/LinkButton';
 import { ROUTES } from '@/shared/utils/constants';
 
 import styles from './ProfileInfo.module.scss';
@@ -13,30 +11,29 @@ const ProfileInfo = async () => {
    if (!data?.profile) redirect(ROUTES.AUTH);
 
    const {
-      profile: { id, email, username, avatar_url, created_at },
+      profile: { email, username, created_at },
    } = data;
 
-   const userMemberSince = new Date(created_at).toLocaleDateString('en-US', {
-      month: 'long',
-      year: 'numeric',
-   });
+   const memberSince = new Date(created_at)
+      .toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })
+      .toUpperCase();
 
    return (
-      <div className={styles.profileHeader}>
-         <div className={styles.avatarWrapper}>
-            <Avatar size="large" avatarUrl={avatar_url} />
-            <ChangeAvatarButton userId={id} />
-         </div>
-         <div className={styles.profileInfo}>
-            <h1 className={styles.displayName}>{username}</h1>
-            <p className={styles.email}>{email}</p>
-            <p className={styles.memberSince}>Member since {userMemberSince}</p>
+      <div className={styles.sidebarContent}>
+         <h2 className={styles.userName}>{username ?? 'User'}</h2>
 
-            {username && (
-               <LinkButton variant="textLink" href={`/user/${username}`} ariaLabel="View public profile">
-                  View public profile
-               </LinkButton>
-            )}
+         <nav className={styles.profileNav}>
+            <Link href="/profile" className={`${styles.profileNavItem} ${styles.profileNavItemActive}`}>
+               Settings
+            </Link>
+            <Link href="/" className={styles.profileNavItem}>
+               Feed
+            </Link>
+         </nav>
+
+         <div className={styles.metaInfo}>
+            <span>{email}</span>
+            <span>{memberSince}</span>
          </div>
       </div>
    );

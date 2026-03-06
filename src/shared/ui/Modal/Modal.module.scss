@@ -25,10 +25,9 @@
 
 .content {
    position: relative;
-   background: var(--bg-surface);
-   border: 1px solid var(--bg-surface);
-   border-radius: 16px;
-   padding: 2.75rem 2rem 2rem;
+   background: var(--bg-primary);
+   border: 1px solid var(--border-grid);
+   padding: 1.5rem;
    width: 100%;
    max-width: 500px;
    max-height: 90vh;
@@ -41,22 +40,28 @@
    pointer-events: all;
 }
 
+.modalWrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+   width: 100%;
+   max-width: 500px;
+}
+
 .closeButton {
-   position: absolute;
-   top: 0.5rem;
-   right: 0.5rem;
+   pointer-events: all;
    display: flex;
    align-items: center;
    justify-content: center;
    color: white;
-   border-radius: 50%;
-   width: 35px;
-   height: 35px;
-   z-index: 20;
-   background-color: var(--bg-surface);
+   padding: 10px 0 10px 10px;
+   height: auto;
+   font-size: 2rem;
+   transition: all 0.2s ease-in;
+   transform: scaleX(1.5);
 
    &:hover {
-      color: var(--text-primary);
-      background: var(--bg-surface);
+      color: $color-accent;
+      cursor: pointer;
    }
 }

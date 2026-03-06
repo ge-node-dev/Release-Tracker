@@ -4,173 +4,116 @@
 @use '@/shared/styles/breakpoints' as *;
 
 @mixin button-sizes {
-   &.small {
-      padding: 0.5rem;
-   }
-
    &.medium {
-      padding: 0.75rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      height: 44px;
+      padding-inline: 16px;
    }
 
    &.large {
-      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      height: 55px;
+      padding-inline: 40px;
+      font-weight: 900;
    }
 }
 
-@mixin ghost-button {
-   text-transform: capitalize;
-   min-height: 40px;
-   min-width: 40px;
-   width: fit-content;
-   height: fit-content;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 8px 12px;
-   border-radius: 20px;
-   border: 1px solid transparent;
-   color: #999;
-   cursor: pointer;
-   transition:
-      color 0.2s ease,
-      background 0.2s ease;
-
-   &:hover:not(.disabled) {
-      background-color: #2a2a2a;
-      color: #fff;
-   }
-
-   &:active:not(.disabled) {
-      transform: scale(0.97);
-   }
-
-   &.disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-   }
-
-   &.active {
-      background-color: var(--bg-surface);
-      border-color: var(--bg-surface);
-      color: $dark-text-muted;
-
-      &:hover {
-         background-color: var(--bg-surface);
-      }
-   }
-}
-
-@mixin variant-ghost {
-   @include ghost-button;
+@mixin variant-primary {
    @include button-sizes;
 
-   padding: 0.35rem;
-}
-
-@mixin variant-filled {
-   @include button-sizes;
-
-   border-radius: 6px;
-   background-color: var(--bg-surface);
-   color: black;
-}
-
-@mixin variant-transparent {
-   @include button-sizes;
-
-   border-radius: 6px;
-   background-color: transparent;
-   color: $dark-text-muted;
-}
-
-@mixin variant-text-link {
-   text-decoration: underline;
-   text-underline-offset: 3px;
-   transition: opacity 0.2s ease;
-   width: fit-content;
+   text-transform: uppercase;
+   background-color: var(--bg-primary);
+   color: var(--text-primary);
+   border: 1px solid var(--border-grid);
 
    &:hover {
-      opacity: 0.7;
+      background-color: var(--bg-raised);
+      color: var(--text-muted);
    }
 }
 
-@mixin hover-filled($selector) {
-   &:hover:not(#{$selector}) {
-      background-color: var(--bg-surface);
-      color: var(--bg-surface);
+@mixin variant-secondary {
+   @include button-sizes;
+
+   background-color: var(--bg-secondary);
+   color: var(--text-secondary);
+   border: 1px solid var(--border-grid);
+   text-transform: uppercase;
+
+   &:hover {
+      background-color: var(--bg-raised);
+      color: var(--text-muted);
    }
 }
 
-@mixin hover-transparent($selector) {
-   &:hover:not(#{$selector}) {
-      background-color: var(--bg-surface);
-      color: white;
+@mixin variant-red {
+   @include button-sizes;
+
+   background-color: $color-accent;
+   color: var(--text-primary);
+   text-transform: uppercase;
+   border: 1px solid #6d6d6d;
+
+   &:hover {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
    }
 }
 
-%interactive-base {
+.button {
+   font-family: var(--font-inter);
    display: inline-flex;
    align-items: center;
    justify-content: center;
    cursor: pointer;
-   border: none;
-   gap: 0.5rem;
+   border: 1px solid transparent;
    transition:
       background-color 0.25s ease-in-out,
-      color 0.25s ease-in-out,
-      transform 0.2s ease;
-}
+      color 0.25s ease-in-out;
 
-.button {
-   @extend %interactive-base;
-
-   &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
+   &.primary {
+      @include variant-primary;
    }
 
-   &.ghost {
-      @include variant-ghost;
+   &.secondary {
+      @include variant-secondary;
    }
 
-   &.filled {
-      @include variant-filled;
-      @include hover-filled(':disabled');
+   &.red {
+      @include variant-red;
    }
 
-   &.transparent {
-      @include variant-transparent;
-      @include hover-transparent(':disabled');
+   &[data-disabled='true'] {
+      opacity: 0.3;
+      pointer-events: none;
    }
 }
 
 .linkButton {
-   @extend %interactive-base;
-
-   text-decoration: none;
+   font-family: var(--font-inter);
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   border: 1px solid transparent;
    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
+      background-color 0.25s ease-in-out,
+      color 0.25s ease-in-out;
 
-   &.ghost {
-      @include variant-ghost;
+   &.primary {
+      @include variant-primary;
    }
 
-   &.filled {
-      @include variant-filled;
-      @include hover-filled("[aria-disabled='true']");
+   &.secondary {
+      @include variant-secondary;
    }
 
-   &.transparent {
-      @include variant-transparent;
-      @include hover-transparent("[aria-disabled='true']");
+   &.red {
+      @include variant-red;
    }
 
-   &.textLink {
-      @include variant-text-link;
-   }
-
-   &.disabled {
+   &[data-disabled='true'] {
       pointer-events: none;
    }
 }

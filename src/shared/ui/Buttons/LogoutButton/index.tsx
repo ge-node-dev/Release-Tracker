@@ -3,8 +3,8 @@ import { logoutUserAccount } from '@/modules/auth/services/authActions';
 import ActionButton, { type ActionButtonProps } from '@/shared/ui/Buttons/ActionButton';
 
 const LogoutButton = ({
-   size = 'small',
-   variant = 'filled',
+   size = 'medium',
+   variant = 'primary',
 }: {
    size?: ActionButtonProps['size'];
    variant?: ActionButtonProps['variant'];

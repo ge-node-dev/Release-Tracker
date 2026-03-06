@@ -44,7 +44,6 @@ const AvatarCropModal = ({ error, imageSrc, onCancel, onConfirm, isUploading }: 
                minZoom={1}
                image={imageSrc}
                showGrid={false}
-               cropShape="round"
                onCropChange={setCrop}
                onZoomChange={setZoom}
                onCropComplete={(_, pixels) => setCroppedAreaPixels(pixels)}
@@ -65,10 +64,16 @@ const AvatarCropModal = ({ error, imageSrc, onCancel, onConfirm, isUploading }: 
          </div>
 
          <div className={styles.actions}>
-            <ActionButton size="medium" type="button" variant="filled" onClick={onCancel} disabled={isUploading}>
+            <ActionButton size="medium" type="button" variant="primary" onClick={onCancel} disabled={isUploading}>
                Cancel
             </ActionButton>
-            <ActionButton size="medium" type="button" variant="filled" disabled={isUploading} onClick={handleConfirm}>
+            <ActionButton
+               size="medium"
+               type="button"
+               variant="secondary"
+               disabled={isUploading}
+               onClick={handleConfirm}
+            >
                {isUploading ? 'Uploading...' : 'Save'}
             </ActionButton>
          </div>

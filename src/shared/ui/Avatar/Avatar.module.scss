@@ -1,14 +1,13 @@
-.avatarCircle {
-   width: 80px;
-   height: 80px;
-   border-radius: 50%;
+.avatarSquare {
+   width: 278px;
+   height: 278px;
    overflow: hidden;
-   background: var(--bg-surface);
+   background: var(--bg-primary);
    display: flex;
    align-items: center;
    justify-content: center;
    flex-shrink: 0;
-   outline: 2px solid var(--bg-surface);
+   border: 1px solid var(--border-grid);
 
    &.small {
       width: 36px;
@@ -16,8 +15,8 @@
    }
 
    &.large {
-      width: 127px;
-      height: 127px;
+      width: 278px;
+      height: 278px;
    }
 }
 

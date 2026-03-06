@@ -40,15 +40,15 @@ const Modal = ({ children, disableClose, onClose: onCloseProp }: ModalProps) => 
             }}
          />
          <div className={styles.overlay}>
-            <div className={styles.content}>
+            <div className={styles.modalWrapper}>
                <button
                   aria-label="Close modal"
                   className={styles.closeButton}
                   onClick={!disableClose ? onClose : undefined}
                >
-                  X
+                  x
                </button>
-               {children}
+               <div className={styles.content}>{children}</div>
             </div>
          </div>
       </>

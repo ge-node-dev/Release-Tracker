@@ -1,39 +1,24 @@
-.input {
+.inputWrapper {
    display: flex;
    flex-direction: column;
-   gap: 0.25rem;
+   gap: 0.5rem;
    background: transparent;
    position: relative;
-
-   input {
-      background: transparent;
-      color: var(--text-primary);
-      border-radius: 8px;
-      padding: 14px 40px;
-      width: 100%;
-      border: 1px solid #cbcbcb !important;
-
-      &:active {
-         border: 1px solid #cbcbcb !important;
-      }
-
-      &:focus {
-         border: 1px solid #cbcbcb !important;
-      }
-
-      &:hover {
-         border: 1px solid #cbcbcb !important;
-      }
-   }
+   outline: none;
 
    label {
-      color: #cbcbcb;
+      @include label-small;
+
+      display: flex;
+      align-items: center;
+      color: var(--text-primary);
    }
 
    .inputIcon {
       position: absolute;
       width: 24px;
-      bottom: 15px;
+      bottom: 50%;
+      transform: translateY(50%);
       left: 10px;
       height: 24px;
    }
@@ -62,9 +47,32 @@
    }
 }
 
-.error {
-   color: $error-color;
+.input {
+   font-family: var(--font-mono);
+   color: var(--text-primary);
+   padding: 0 40px;
+   width: 100%;
+   height: 50px;
+   background: var(--bg-raised);
+   border: 1px solid var(--border-grid);
+   transition: border-color 0.2s ease-in;
+   outline: none;
 
+   &:focus,
+   &:focus-visible {
+      border-color: var(--text-muted) !important;
+   }
+
+   &[data-error='true'] {
+      border-color: $color-accent !important;
+   }
+
+   &::placeholder {
+      @include h6;
+   }
+}
+
+.error {
    @include error-text;
 
    position: relative;
@@ -72,6 +80,7 @@
 }
 
 .required {
-   color: $error-color;
-   margin-left: 2px;
+   color: $color-accent;
+   margin-left: 3px;
+   font-size: 1.2rem;
 }
