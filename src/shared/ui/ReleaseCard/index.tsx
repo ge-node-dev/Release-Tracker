@@ -32,9 +32,11 @@ const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
             </div>
          </div>
          <div className={styles.cardInfo}>
-            <h3 className={styles.cardTitle}>{release.title}</h3>
-            <p className={styles.cardArtistsNames}>{artistsNames}</p>
-            <p className={styles.cardDate}>{formatReleaseDate(release.release_date)}</p>
+            <h4 className={styles.cardTitle}>{release.title}</h4>
+            <div className={styles.cardBottom}>
+               <p className={styles.cardArtistsNames}>{artistsNames}</p>
+               <p className={styles.cardDate}>{formatReleaseDate(release.release_date)}</p>
+            </div>
          </div>
       </Link>
    );

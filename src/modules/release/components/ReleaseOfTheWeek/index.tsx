@@ -49,7 +49,7 @@ const ReleaseOfTheWeek = async () => {
             </div>
             <LinkButton
                size="large"
-               variant="filled"
+               variant="secondary"
                href={releaseHref}
                ariaLabel={'Listen now'}
                className={styles.listenNowBtn}

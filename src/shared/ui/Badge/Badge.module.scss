@@ -3,11 +3,7 @@
    border-radius: 100px;
    padding: 4px 16px;
    width: fit-content;
-   border: 1px solid $border-light;
+   border: 1px solid var(--bg-primary);
    display: flex;
    align-items: center;
-
-   span {
-      @include label-text-strong($text-primary);
-   }
 }

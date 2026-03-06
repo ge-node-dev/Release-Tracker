@@ -1,16 +1,80 @@
 .profilePageContainer {
-   max-width: 1100px;
+   display: grid;
+   grid-template-columns: 400px 1fr;
+   height: 90vh;
+   max-height: 1200px;
+   max-width: 1920px;
+   border: 1px solid var(--border-grid);
    margin: 0 auto;
-   display: flex;
-   flex-direction: row;
-   gap: 1.5rem;
-   align-items: start;
-   padding: 20px 0 100px;
+   position: relative;
 }
 
-.profileContent {
+.vLineContent {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: calc(400px + 4.7rem + 278px);
+   width: 1px;
+   background: var(--border-grid);
+   pointer-events: none;
+   z-index: 0;
+}
+
+.vLineRight {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   right: 15%;
+   width: 1px;
+   background: var(--border-grid);
+   opacity: 0.5;
+   pointer-events: none;
+   z-index: 0;
+}
+
+.sidebar {
+   border-right: 1px solid var(--border-grid);
+   padding: 1.5rem;
    display: flex;
    flex-direction: column;
-   gap: 1.5rem;
-   min-width: 800px;
+   justify-content: space-between;
+   gap: 2rem;
+}
+
+.mainStage {
+   position: relative;
+   overflow: hidden;
+}
+
+.headerLockup {
+   margin-bottom: 3rem;
+   position: relative;
+   z-index: 1;
+   border-bottom: 1px solid var(--border-grid);
+   padding: 1.5rem 1.5rem 3rem 3rem;
+}
+
+.subtitle {
+   @include h5;
+
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   margin-bottom: 0.5rem;
+
+   &::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--text-muted);
+   }
+}
+
+.title {
+   @include h2;
+}
+
+.mainContent {
+   padding: 1.5rem 1.5rem 3rem 3rem;
 }

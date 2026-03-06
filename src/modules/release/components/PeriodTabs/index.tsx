@@ -14,10 +14,7 @@ const PeriodTabs = ({ searchParams }: { searchParams: Awaited<SearchParams> }) =
 
    return (
       <section className={styles.container}>
-         <div className={styles.titleContainer}>
-            <div className={styles.line} />
-            <h1 className={styles.title}>New Releases</h1>
-         </div>
+         <h3 className={styles.title}>New Releases</h3>
          <div className={styles.tabsContainer}>
             {periods.map((period) => (
                <LinkButton

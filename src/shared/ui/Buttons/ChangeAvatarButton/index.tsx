@@ -42,7 +42,7 @@ const ChangeAvatarButton = ({ userId }: { userId: string }) => {
 
    return (
       <>
-         <ActionButton size="medium" type="button" variant="filled" onClick={() => fileInputRef.current?.click()}>
+         <ActionButton size="medium" type="button" variant="secondary" onClick={() => fileInputRef.current?.click()}>
             Change avatar
          </ActionButton>
          <input

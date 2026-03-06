@@ -2,29 +2,29 @@
    display: flex;
    gap: 0.5rem;
    flex-direction: column;
-   margin-bottom: 1rem;
+   margin-block: 1rem;
 }
 
 .mainText {
-   @include h3;
+   @include h4;
 
    text-align: center;
-   color: $text-primary;
+   color: var(--text-muted);
 }
 
 .secondaryText {
-   @include text-base;
+   @include h5;
 
    text-align: center;
-   color: $text-secondary;
+   color: var(--text-muted);
 
    strong {
-      color: $text-primary;
+      color: var(--text-primary);
    }
 }
 
 .error {
-   color: $error-color;
+   color: $color-accent;
    text-align: center;
 }
 

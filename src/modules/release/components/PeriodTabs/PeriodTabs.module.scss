@@ -1,39 +1,29 @@
 .container {
    width: 100%;
-   height: 4rem;
-   display: flex;
-   color: $text-primary;
-   align-items: center;
-   padding: 0 4px;
-   margin-bottom: 1rem;
-   justify-content: space-between;
-}
-
-.titleContainer {
-   display: flex;
-   align-items: center;
    height: 100%;
-}
+   display: flex;
+   color: var(--text-primary);
+   align-items: center;
+   margin-bottom: 2.5rem;
+   padding-bottom: 1.4rem;
+   justify-content: space-between;
+   border-bottom: 1px solid var(--border-grid);
 
-.line {
-   border-left: 5px solid $border-light;
-   border-radius: 100px;
-   height: 60%;
-   margin-right: 12px;
+   @include breakpoint('laptop') {
+      margin-bottom: 3rem;
+   }
 }
 
 .title {
-   @include h3;
+   @include h2;
+
+   margin-bottom: 0.5rem;
 }
 
 .tabsContainer {
    width: fit-content;
    display: flex;
    align-items: center;
+   align-self: flex-end;
    gap: 10px;
-   padding: 8px;
-   background: $bg-card;
-   backdrop-filter: blur(30px);
-   border: 1px solid rgb(255 255 255 / 30%);
-   border-radius: 100px;
 }

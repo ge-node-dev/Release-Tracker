@@ -8,6 +8,7 @@ export const POST = async (request: Request) => {
    const result = await createUserAccount({ error: '', success: false }, formData);
 
    if (!result.success) {
+      console.error(result.error);
       return NextResponse.json(result, { status: 400 });
    }
 

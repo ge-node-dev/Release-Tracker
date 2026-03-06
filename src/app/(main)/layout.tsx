@@ -10,7 +10,7 @@ export default function MainLayout({
    return (
       <>
          <Header />
-         <main className="mainContainer">{children}</main>
+         {children}
          {authModal}
       </>
    );

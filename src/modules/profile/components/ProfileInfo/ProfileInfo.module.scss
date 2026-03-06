@@ -1,47 +1,65 @@
-.profileHeader {
-   width: 100%;
+.sidebarContent {
    display: flex;
-   align-items: flex-start;
-   padding: 1rem;
-   background: $bg-card;
-   border: 1px solid $border-primary;
-   border-radius: 16px;
+   flex-direction: column;
+   gap: 2.5rem;
+   justify-content: space-between;
+   flex: 1;
+}
+
+.userName {
+   @include h3;
+
+   text-transform: uppercase;
+   color: $color-accent;
+   margin: 0;
+
+   // line-height: 1;
+   overflow-wrap: break-word;
+   hyphens: auto;
+}
+
+.profileNav {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}
+
+.profileNavItem {
+   @include h3;
+
+   padding-left: 0;
+   transition:
+      color 0.2s ease,
+      padding-left 0.2s ease;
    position: relative;
 
-   @include breakpoint('tablet') {
-      padding: 2rem;
-      gap: 4rem;
+   &:hover {
+      color: var(--text-primary);
+      padding-left: 0.85rem;
    }
 }
 
-.avatarWrapper {
-   display: flex;
-   flex-direction: column;
-   gap: 1.5rem;
-   align-items: center;
+.profileNavItemActive {
+   color: var(--text-primary);
+   padding-left: 0.85rem;
+
+   &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 100%;
+      background: $color-accent;
+   }
 }
 
-.profileInfo {
+.metaInfo {
+   @include h6;
+
    display: flex;
    flex-direction: column;
    gap: 0.5rem;
-   flex: 1;
-   min-width: 0;
-}
-
-.displayName {
-   @include h2;
-
-   margin: 0;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-}
-
-.email {
-   @include h4($color: $text-tertiary);
-}
-
-.memberSince {
-   @include label-text($color: $text-secondary);
+   text-transform: uppercase;
 }

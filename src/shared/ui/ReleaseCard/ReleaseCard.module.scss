@@ -1,25 +1,14 @@
 .card {
    cursor: pointer;
-   padding: 16px;
-   border-radius: 16px;
-   background-color: rgb($bg-card, 40%);
-   backdrop-filter: blur(20px);
-   border: 1px solid $border-primary;
-   transition: all 0.3s ease;
    display: flex;
    flex-direction: column;
-
-   &:hover {
-      background-color: rgb(255 255 255 / 5%);
-   }
 }
 
 .cardImageWrapper {
    position: relative;
    aspect-ratio: 1 / 1;
-   border-radius: 12px;
    overflow: hidden;
-   margin-bottom: 16px;
+   margin-bottom: 0.6rem;
    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%);
 }
 
@@ -29,24 +18,26 @@
    background-color: rgb(0 0 0 / 40%);
    opacity: 0;
    backdrop-filter: blur(2px);
-   transition: opacity 0.3s ease;
+   transition: opacity 0.2s ease;
    z-index: 2;
 
    .card:hover & {
-      opacity: 1;
+      opacity: 0.7;
    }
 }
 
 .cardImage {
+   transition: all 0.2s ease;
+   filter: grayscale(30%) brightness(0.8);
    width: 311px;
    height: 311px;
    object-fit: cover;
    background-position: center;
    background-size: cover;
-   transition: transform 0.3s ease;
 
    .card:hover & {
-      transform: scale(1.05);
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.04);
    }
 }
 
@@ -57,7 +48,7 @@
    transform: translate(-50%, -50%) scale(0.8);
    opacity: 0;
    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 40%));
-   transition: all 0.3s ease;
+   transition: all 0.2s ease;
    z-index: 3;
    pointer-events: none;
 
@@ -68,21 +59,55 @@
 }
 
 .cardInfo {
+   position: relative;
    display: flex;
    flex-direction: column;
-   gap: 2px;
+   gap: 0.5rem;
+
+   &::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      width: 2.5px;
+      height: 0;
+      transform: translateY(-50%);
+      background-color: $color-accent;
+      transition: height 0.3s ease;
+   }
+
+   .card:hover & {
+      &::before {
+         height: 100%;
+      }
+   }
 }
 
 .cardTitle {
-   @include title-sm;
+   @include h4;
+}
+
+.cardBottom {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   gap: 4px;
+
+   @include breakpoint('mobile') {
+      flex-direction: row;
+      gap: 10px;
+      align-items: end;
+   }
 }
 
 .cardArtistsNames {
-   @include text-base;
+   @include h5;
 
-   color: $text-tertiary;
+   color: var(--text-primary);
 }
 
 .cardDate {
-   @include label-text;
+   @include h6;
+
+   min-width: 70px;
 }

@@ -17,12 +17,7 @@
 
 .authCard {
    width: 100%;
-   background: $bg-card;
-   border: 1px solid $border-primary;
-   border-radius: 16px;
+   background: var(--bg-primary);
+   border: 1px solid var(--border-grid);
    padding: 1.5rem;
-   backdrop-filter: blur(10px);
-   box-shadow:
-      0 4px 24px rgb(0 0 0 / 20%),
-      0 0 0 1px rgb(255 255 255 / 5%);
 }

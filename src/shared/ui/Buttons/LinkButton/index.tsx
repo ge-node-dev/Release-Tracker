@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 
 import styles from '../index.module.scss';
 
-export type LinkButtonVariant = 'ghost' | 'filled' | 'textLink' | 'transparent';
+export type LinkButtonVariant = 'red' | 'primary' | 'secondary';
 
 export interface LinkButtonProps extends LinkProps {
    rotate?: string;
@@ -15,8 +15,8 @@ export interface LinkButtonProps extends LinkProps {
    disabled?: boolean;
    children: ReactNode;
    ariaCurrent?: boolean;
+   size?: 'large' | 'medium';
    variant?: LinkButtonVariant;
-   size?: 'small' | 'large' | 'medium';
 }
 
 const LinkButton = ({
@@ -27,9 +27,9 @@ const LinkButton = ({
    ariaCurrent,
    active = false,
    className = '',
-   size = 'small',
+   size = 'medium',
    disabled = false,
-   variant = 'ghost',
+   variant = 'primary',
    ...props
 }: LinkButtonProps) => {
    return (
@@ -38,6 +38,7 @@ const LinkButton = ({
          href={href}
          aria-label={ariaLabel}
          aria-disabled={disabled}
+         data-disabled={disabled}
          aria-current={ariaCurrent}
          style={{ transform: `rotate(${rotate})` }}
          onClick={(e) => {
@@ -47,7 +48,6 @@ const LinkButton = ({
             ${styles.linkButton}
             ${styles[variant]}
             ${disabled ? styles.disabled : ''}
-            ${active ? styles.active : ''}
             ${styles[size]}
             ${className}
          `}

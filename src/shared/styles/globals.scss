@@ -1,3 +1,25 @@
+[data-theme='dark'] {
+   --bg-main: #{$dark-bg-main};
+   --bg-primary: #{$dark-bg-primary};
+   --bg-secondary: #{$dark-bg-secondary};
+   --bg-raised: #{$dark-bg-raised};
+   --text-primary: #{$dark-text-primary};
+   --text-secondary: #{$dark-text-secondary};
+   --text-muted: #{$dark-text-muted};
+   --border-grid: #{$dark-border-grid};
+}
+
+[data-theme='light'] {
+   --bg-main: #{$light-bg-main};
+   --bg-primary: #{$light-bg-primary};
+   --bg-secondary: #{$light-bg-secondary};
+   --bg-raised: #{$light-bg-raised};
+   --text-primary: #{$light-text-primary};
+   --text-secondary: #{$light-text-secondary};
+   --text-muted: #{$light-text-muted};
+   --border-grid: #{$light-border-grid};
+}
+
 *,
 *::before,
 *::after {
@@ -10,15 +32,30 @@ html {
 }
 
 body {
-   @include text-base;
-
+   font-family: var(--font-oswald);
    height: 100%;
    margin: 0;
-   padding: 0 24px;
-   background-color: $bg-primary;
+   padding: 0 16px;
+   background-color: var(--bg-main);
    text-rendering: optimizespeed;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
+
+   @include breakpoint('mobile') {
+      padding-inline: 24px;
+   }
+
+   @include breakpoint('tablet') {
+      padding-inline: 32px;
+   }
+
+   @include breakpoint('laptop') {
+      padding-inline: 40px;
+   }
+
+   @include breakpoint('wide') {
+      padding-inline: 64px;
+   }
 }
 
 h1,
@@ -59,9 +96,9 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-   box-shadow: 0 0 0 1000px #121212 inset !important;
-   -webkit-text-fill-color: #fff !important;
-   caret-color: #fff;
+   box-shadow: 0 0 0 1000px var(--bg-raised) inset !important;
+   -webkit-text-fill-color: var(--text-primary) !important;
+   caret-color: var(--text-primary);
 }
 
 button {
@@ -88,7 +125,7 @@ table {
 }
 
 .mainContainer {
-   max-width: 1440px;
+   max-width: 1920px;
    margin: 0 auto;
    padding-top: 6.5rem;
 }

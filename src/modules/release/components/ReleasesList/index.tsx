@@ -23,9 +23,7 @@ const ReleasesList = async ({ searchParams }: { searchParams: Awaited<SearchPara
                <ReleaseCard key={release.id} release={release} />
             ))}
          </div>
-         <div className={styles.paginationWrapper}>
-            <Pagination currentPage={currentPage} searchParams={searchParams} currentPeriod={currentPeriod} />
-         </div>
+         <Pagination currentPage={currentPage} searchParams={searchParams} currentPeriod={currentPeriod} />
       </section>
    );
 };

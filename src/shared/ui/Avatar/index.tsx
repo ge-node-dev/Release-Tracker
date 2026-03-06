@@ -12,9 +12,10 @@ interface AvatarProps {
 export const Avatar = ({ avatarUrl, size = 'small' }: AvatarProps) => {
    const image = avatarUrl ? (
       <Image
-         width={127}
-         height={127}
+         width={278}
+         height={278}
          alt="avatar"
+         sizes="278px"
          className={styles.avatarImg}
          src={optimizeCloudinaryUrl(avatarUrl)}
       />
@@ -22,5 +23,5 @@ export const Avatar = ({ avatarUrl, size = 'small' }: AvatarProps) => {
       <img alt="avatar" src="/assets/icons/user.svg" className={styles.avatarPlaceholder} />
    );
 
-   return <div className={`${styles.avatarCircle} ${styles[size]}`}>{image}</div>;
+   return <div className={`${styles.avatarSquare} ${styles[size]}`}>{image}</div>;
 };

@@ -2,26 +2,26 @@
 
 import styles from '../index.module.scss';
 
-export type ActionButtonVariant = 'ghost' | 'filled' | 'transparent';
+export type ActionButtonVariant = 'red' | 'primary' | 'secondary';
 
 export interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
    children: React.ReactNode;
+   size?: 'large' | 'medium';
    variant?: ActionButtonVariant;
-   size?: 'small' | 'large' | 'medium';
 }
 
 const ActionButton = ({
    children,
    className = '',
-   size = 'small',
+   size = 'medium',
    disabled = false,
-   variant = 'filled',
+   variant = 'primary',
    ...props
 }: ActionButtonProps) => {
    return (
       <button
          type="button"
-         disabled={disabled}
+         data-disabled={disabled}
          aria-disabled={disabled}
          className={`
             ${styles.button}

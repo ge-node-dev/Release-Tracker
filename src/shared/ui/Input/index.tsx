@@ -36,7 +36,7 @@ const Input = ({
 
    return (
       <>
-         <div className={styles.input}>
+         <div className={styles.inputWrapper}>
             <label htmlFor={id}>
                {label}
                {required && <span className={styles.required}>*</span>}
@@ -49,8 +49,9 @@ const Input = ({
                   id={id}
                   value={value}
                   type={inputType}
+                  data-error={!!error}
+                  className={styles.input}
                   placeholder={placeholder}
-                  style={{ border: error ? '1px solid red' : '1px solid #ffffff33' }}
                   {...props}
                />
                {isPasswordField && (

@@ -65,7 +65,7 @@ const ResetPasswordForm = () => {
                   setError('');
                }}
             />
-            <ActionButton size="large" type="submit" variant="filled" disabled={!isFormValid}>
+            <ActionButton size="large" type="submit" variant="secondary" disabled={!isFormValid}>
                Reset Password
             </ActionButton>
             {error && <FormErrorText error={error} />}

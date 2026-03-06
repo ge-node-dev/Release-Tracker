@@ -18,14 +18,14 @@ const AuthFormTabs = ({ formStatus, isLoginTab, setActiveTab }: AuthFormTabsProp
          <ActionButton
             disabled={formStatus.isPending}
             onClick={() => setActiveTab('login')}
-            variant={isLoginTab ? 'filled' : 'transparent'}
+            variant={isLoginTab ? 'secondary' : 'primary'}
          >
             Login
          </ActionButton>
          <ActionButton
             disabled={formStatus.isPending}
             onClick={() => setActiveTab('register')}
-            variant={!isLoginTab ? 'filled' : 'transparent'}
+            variant={!isLoginTab ? 'secondary' : 'primary'}
          >
             Register
          </ActionButton>

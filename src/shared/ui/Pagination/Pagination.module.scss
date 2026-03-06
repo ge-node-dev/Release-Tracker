@@ -1,23 +1,35 @@
 .pagination {
-   @include blur-card;
-
+   position: fixed;
+   bottom: 20;
+   left: 50%;
+   transform: translateX(-50%);
+   border: 1px solid var(--border-grid);
    display: flex;
    align-items: center;
    justify-content: center;
+   z-index: 500;
+   backdrop-filter: blur(30px);
+   box-shadow: 0 8px 32px 0 rgb(0 0 0 / 20%);
+   width: fit-content;
+   gap: 2px;
+   padding: 15px;
 
    a {
-      @include text-base;
+      min-width: 48px;
    }
 }
 
 .ellipsis {
-   @include text-base-strong;
-
    display: flex;
-   align-items: center;
+   align-items: end;
    justify-content: center;
-   color: $text-tertiary;
-   padding: 0;
-   letter-spacing: 4px;
+   padding: 0 14px;
+   height: 44px;
+   color: var(--text-muted);
+   background: var(--bg-primary);
+   border: 1px solid var(--border-grid);
+   letter-spacing: 3px;
    user-select: none;
+   font-size: 1rem;
+   padding-bottom: 6px;
 }
