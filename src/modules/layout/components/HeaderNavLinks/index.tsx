@@ -28,6 +28,7 @@ const HeaderNavLinks = ({ profile }: { profile: null | Database['public']['Table
          <div className={styles.divider} />
 
          <LinkButton
+            scroll={false}
             ariaLabel={isAuthenticated ? 'Profile' : 'Login'}
             active={isAuthenticated && path === ROUTES.PROFILE}
             href={isAuthenticated ? ROUTES.PROFILE : ROUTES.AUTH}

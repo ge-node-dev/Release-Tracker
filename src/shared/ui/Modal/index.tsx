@@ -17,6 +17,15 @@ const Modal = ({ children, disableClose, onClose: onCloseProp }: ModalProps) => 
    const onClose = onCloseProp ?? (() => router.back());
 
    useEffect(() => {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+         document.body.style.overflow = originalOverflow;
+      };
+   }, []);
+
+   useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
          if (e.key === 'Escape') onClose();
       };
