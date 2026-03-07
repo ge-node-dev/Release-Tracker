@@ -48,7 +48,11 @@ export const RELEASE_BY_EXTERNAL_KEY_QUERY = `
 ${BASE_RELEASE_FIELDS},
 release_tracks (
   position,
-  tracks (id, title, deezer_track_id)
+  tracks (
+    id,
+    title,
+    deezer_track_id
+  )
 ),
 ${COMMENT_FRAGMENT},
 ${GENRE_FRAGMENT}

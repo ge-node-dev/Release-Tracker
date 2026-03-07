@@ -1,4 +1,10 @@
 .profilePageContainer {
+   @include page-paddings;
+
+   width: 100%;
+}
+
+.content {
    display: grid;
    grid-template-columns: 400px 1fr;
    height: 90vh;

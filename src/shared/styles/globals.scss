@@ -35,27 +35,10 @@ body {
    font-family: var(--font-oswald);
    height: 100%;
    margin: 0;
-   padding: 0 16px;
    background-color: var(--bg-main);
    text-rendering: optimizespeed;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
-
-   @include breakpoint('mobile') {
-      padding-inline: 24px;
-   }
-
-   @include breakpoint('tablet') {
-      padding-inline: 32px;
-   }
-
-   @include breakpoint('laptop') {
-      padding-inline: 40px;
-   }
-
-   @include breakpoint('wide') {
-      padding-inline: 64px;
-   }
 }
 
 h1,
@@ -92,6 +75,13 @@ select {
    font: inherit;
 }
 
+ul,
+ol {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -125,7 +115,8 @@ table {
 }
 
 .mainContainer {
+   @include page-paddings;
+
    max-width: 1920px;
    margin: 0 auto;
-   padding-top: 6.5rem;
 }

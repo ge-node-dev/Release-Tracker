@@ -1,0 +1,14 @@
+.pageWrapper {
+   display: grid;
+   grid-template-columns: 1fr 380px;
+   height: 100%;
+   overflow: hidden;
+   width: 100%;
+   background: var(--bg-main);
+}
+
+.content {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+}

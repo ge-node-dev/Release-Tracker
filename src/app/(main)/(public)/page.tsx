@@ -12,11 +12,13 @@ const HomePage = async ({ searchParams }: { searchParams: SearchParams }) => {
    const { page = 1, period = 'this_week' } = paramsData;
 
    return (
-      <Suspense fallback={<Loading />} key={`${page}_${period}`}>
-         <ReleaseOfTheWeek />
-         <PeriodTabs searchParams={paramsData} />
-         <ReleasesList searchParams={paramsData} />
-      </Suspense>
+      <main className="mainContainer">
+         <Suspense fallback={<Loading />} key={`${page}_${period}`}>
+            <ReleaseOfTheWeek />
+            <PeriodTabs searchParams={paramsData} />
+            <ReleasesList searchParams={paramsData} />
+         </Suspense>
+      </main>
    );
 };
 

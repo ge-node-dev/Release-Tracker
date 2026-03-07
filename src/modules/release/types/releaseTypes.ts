@@ -1,4 +1,4 @@
-import { getReleasesList } from '../services/releaseServices';
+import { getReleaseByExternalKey, getReleasesList } from '../services/releaseServices';
 
 export enum RELEASES_PERIODS_LIMITS {
    this_week = 10,
@@ -7,6 +7,8 @@ export enum RELEASES_PERIODS_LIMITS {
 }
 
 export type ReleasePeriod = keyof typeof RELEASES_PERIODS_LIMITS;
+
+export type ReleaseByIdDetails = Awaited<ReturnType<typeof getReleaseByExternalKey>>;
 
 export type ReleaseWithArtists = NonNullable<Awaited<ReturnType<typeof getReleasesList>>['data']>[number];
 

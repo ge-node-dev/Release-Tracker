@@ -1,9 +1,18 @@
 .header {
-   top: 0;
+   @include page-paddings;
+
    max-width: 1920px;
    margin: 0 auto;
+   position: fixed;
+   z-index: 100;
+   top: 0;
+   width: 100%;
+   padding-top: 0;
+   backdrop-filter: blur(10px);
+   border-bottom: 1px solid var(--border-grid);
 }
 
 .wrapper {
-   padding: 8px 0;
+   padding: 1rem 0;
+   display: flex;
 }

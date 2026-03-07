@@ -8,3 +8,24 @@
    background: #333;
    margin: 0 $m;
 }
+
+@mixin page-paddings {
+   padding-top: 90px;
+   padding-inline: 16px;
+
+   @include breakpoint('mobile') {
+      padding-inline: 24px;
+   }
+
+   @include breakpoint('tablet') {
+      padding-inline: 32px;
+   }
+
+   @include breakpoint('laptop') {
+      padding-inline: 40px;
+   }
+
+   @include breakpoint('wide') {
+      padding-inline: 64px;
+   }
+}
