@@ -5,7 +5,7 @@ import { ReleasePeriod, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/mo
 import { CACHE_12H, CACHE_1W, RELEASES_CACHE_TAG } from '@/shared/utils/constants';
 import { getReleaseDateRange } from '@/shared/utils/date/getReleaseDateRange';
 
-import { RELEASE_BY_EXTERNAL_KEY_QUERY, RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
+import { RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
 
 export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    'use cache';
@@ -41,27 +41,6 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
       page,
       data: data ?? [],
    };
-};
-
-export const getReleaseByExternalKey = async (externalKey: string) => {
-   const supabase = createSupabaseStaticClient();
-
-   const { data, error } = await supabase
-      .from('releases')
-      .select(RELEASE_BY_EXTERNAL_KEY_QUERY)
-      .eq('external_key', externalKey)
-      .order('position', { ascending: true, referencedTable: 'release_tracks' })
-      .maybeSingle();
-
-   if (error) {
-      throw new Error(`Failed to fetch release with external key: ${externalKey}`, { cause: error });
-   }
-
-   if (!data) {
-      throw new Error(`Release with external key ${externalKey} not found`);
-   }
-
-   return data;
 };
 
 export const getReleaseOfTheWeek = async () => {

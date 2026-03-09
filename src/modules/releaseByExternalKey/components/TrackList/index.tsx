@@ -1,9 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import AudioPlayer from '@/modules/releaseByExternalKey/components/AudioPlayer';
 import { getTrackPreviewUrl } from '@/modules/releaseByExternalKey/services/releaseServices';
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
+
+import AudioPlayer from '../AudioPlayer';
 
 import TrackItem from './TrackItem';
 

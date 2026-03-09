@@ -14,7 +14,7 @@ const CommentsSection = async () => {
          <h3 className={styles.sectionTitle}>COMMENTS</h3>
          {!profile && (
             <div className={styles.signInBlock}>
-               <LinkButton ariaLabel="Sing" href={ROUTES.AUTH}>
+               <LinkButton href={ROUTES.AUTH} ariaLabel="Sign in">
                   Sing in to leave comments
                </LinkButton>
             </div>

@@ -1,7 +1,7 @@
-import CommentsSection from '@/modules/release/components/CommentsSection';
-import ReleaseBanner from '@/modules/release/components/ReleaseBanner';
-import TrackList from '@/modules/release/components/TrackList';
-import { getReleaseByExternalKey } from '@/modules/release/services/releaseServices';
+import CommentsSection from '@/modules/releaseByExternalKey/components/CommentsSection';
+import ReleaseBanner from '@/modules/releaseByExternalKey/components/ReleaseBanner';
+import TrackList from '@/modules/releaseByExternalKey/components/TrackList';
+import { getReleaseByExternalKey } from '@/modules/releaseByExternalKey/services/releaseServices';
 
 import styles from './ReleasePage.module.scss';
 
