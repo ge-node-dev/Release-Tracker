@@ -6,6 +6,7 @@ import { getReleaseOfTheWeek } from '@/modules/release/services/releaseServices'
 import { getGlowColorFromImage } from '@/modules/release/utils/color';
 import { Badge } from '@/shared/ui/Badge';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
+import { PlayIcon } from '@/shared/ui/Icons';
 
 import styles from './ReleaseOfTheWeek.module.scss';
 
@@ -54,7 +55,7 @@ const ReleaseOfTheWeek = async () => {
                ariaLabel={'Listen now'}
                className={styles.listenNowBtn}
             >
-               <img width={24} height={24} alt={'Play'} src={'/assets/icons/play.svg'} />
+               <PlayIcon width={24} height={24} />
                <span>Listen now</span>
             </LinkButton>
          </div>

@@ -1,4 +1,5 @@
 import { AuthFormConfig } from '@/modules/auth/components/AuthForm';
+import { EmailIcon, PasswordIcon } from '@/shared/ui/Icons';
 
 export const loginConfig: AuthFormConfig = {
    formType: 'loginForm',
@@ -11,19 +12,19 @@ export const loginConfig: AuthFormConfig = {
          id: 'email',
          name: 'email',
          type: 'email',
+         icon: EmailIcon,
          autoComplete: 'email',
          label: 'Email Address',
          placeholder: 'name@example.com',
-         icon: '/assets/icons/email-icon.svg',
       },
       {
          id: 'password',
          name: 'password',
          type: 'password',
          label: 'password',
+         icon: PasswordIcon,
          placeholder: 'password',
          autoComplete: 'current-password',
-         icon: '/assets/icons/password-icon.svg',
       },
    ],
 } as const;

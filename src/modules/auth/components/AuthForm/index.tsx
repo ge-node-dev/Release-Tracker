@@ -21,9 +21,9 @@ export interface AuthFormConfig {
       id: string;
       name: string;
       label: string;
-      icon?: string;
       placeholder: string;
       autoComplete?: string;
+      icon?: React.ElementType;
       type: 'text' | 'email' | 'password';
    }[];
 }

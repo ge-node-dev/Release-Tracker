@@ -1,25 +1,27 @@
 'use client';
 import { useState } from 'react';
 
+import { EyeOffIcon, EyeOnIcon } from '@/shared/ui/Icons';
+
 import styles from './Input.module.scss';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
    id: string;
    label: string;
-   icon?: string;
    value: string;
    error?: string;
    required?: boolean;
    placeholder?: string;
+   icon?: React.ElementType;
    type?: 'text' | 'email' | 'password';
 }
 
 const Input = ({
    id,
-   icon,
    error,
    label,
    value,
+   icon: Icon,
    placeholder,
    type = 'text',
    required = true,
@@ -42,9 +44,7 @@ const Input = ({
                {required && <span className={styles.required}>*</span>}
             </label>
             <div className={styles.inputWrapper}>
-               {icon && (
-                  <img alt="" src={icon} width={24} height={24} aria-hidden={true} className={styles.inputIcon} />
-               )}
+               {Icon && <Icon width={24} height={24} aria-hidden={true} className={styles.inputIcon} />}
                <input
                   id={id}
                   value={value}
@@ -61,13 +61,11 @@ const Input = ({
                      onClick={togglePasswordVisibility}
                      aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
-                     <img
-                        alt=""
-                        width={24}
-                        height={24}
-                        aria-hidden={true}
-                        src={!showPassword ? '/assets/icons/eye-off.svg' : '/assets/icons/eye-on.svg'}
-                     />
+                     {!showPassword ? (
+                        <EyeOffIcon width={24} height={24} aria-hidden={true} />
+                     ) : (
+                        <EyeOnIcon width={24} height={24} aria-hidden={true} />
+                     )}
                   </button>
                )}
             </div>

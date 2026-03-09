@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
+import { CloseIcon } from '../Icons';
+
 import styles from './Modal.module.scss';
 
 interface ModalProps {
@@ -55,7 +57,7 @@ const Modal = ({ children, disableClose, onClose: onCloseProp }: ModalProps) => 
                   className={styles.closeButton}
                   onClick={!disableClose ? onClose : undefined}
                >
-                  x
+                  <CloseIcon width={24} height={24} />
                </button>
                <div className={styles.content}>{children}</div>
             </div>

@@ -11,6 +11,7 @@ import ChangeAvatarButton from '@/shared/ui/Buttons/ChangeAvatarButton';
 import LogoutButton from '@/shared/ui/Buttons/LogoutButton';
 import FormContainer from '@/shared/ui/FormContainer';
 import FormErrorText from '@/shared/ui/FormErrorText';
+import { UserIcon } from '@/shared/ui/Icons';
 import Input from '@/shared/ui/Input';
 
 import styles from './ProfileSettings.module.scss';
@@ -56,11 +57,11 @@ const ProfileSettings = ({ profile }: { profile: Database['public']['Tables']['p
                         type="text"
                         id="username"
                         name="username"
+                        icon={UserIcon}
                         label="USERNAME"
                         required={false}
                         placeholder="Username"
                         error={fields.username?.error}
-                        icon={'/assets/icons/user.svg'}
                         value={isDirty ? fields.username?.value : currentUsername}
                         onChange={(e) => {
                            setIsDirty(true);

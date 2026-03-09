@@ -1,12 +1,13 @@
 import Image from 'next/image';
 
+import { UserIcon } from '@/shared/ui/Icons';
 import { optimizeCloudinaryUrl } from '@/shared/utils/integrations/cloudinary';
 
 import styles from './Avatar.module.scss';
 
 interface AvatarProps {
    avatarUrl: null | string;
-   size?: 'small' | 'large';
+   size?: 'small' | 'large' | 'medium';
 }
 
 export const Avatar = ({ avatarUrl, size = 'small' }: AvatarProps) => {
@@ -20,7 +21,7 @@ export const Avatar = ({ avatarUrl, size = 'small' }: AvatarProps) => {
          src={optimizeCloudinaryUrl(avatarUrl)}
       />
    ) : (
-      <img alt="avatar" src="/assets/icons/user.svg" className={styles.avatarPlaceholder} />
+      <UserIcon className={styles.avatarPlaceholder} />
    );
 
    return <div className={`${styles.avatarSquare} ${styles[size]}`}>{image}</div>;

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 
+import { PlayCircleIcon } from '@/shared/ui/Icons';
 import { formatReleaseDate } from '@/shared/utils/date/formatReleaseDate';
 
 import styles from './ReleaseCard.module.scss';
@@ -22,13 +23,7 @@ const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
                src={release.cover_url || ''}
             />
             <div className={styles.cardImageOverlay}>
-               <Image
-                  width={40}
-                  alt="Play"
-                  height={40}
-                  className={styles.cardPlayIcon}
-                  src={'/assets/icons/playCircle.svg'}
-               />
+               <PlayCircleIcon width={40} height={40} className={styles.cardPlayIcon} />
             </div>
          </div>
          <div className={styles.cardInfo}>

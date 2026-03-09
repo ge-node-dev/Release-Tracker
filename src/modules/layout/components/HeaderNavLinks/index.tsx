@@ -5,13 +5,14 @@ import { usePathname } from 'next/navigation';
 
 import { Avatar } from '@/shared/ui/Avatar';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
+import { UserCircleIcon } from '@/shared/ui/Icons';
 import { ROUTES } from '@/shared/utils/constants';
 
 import styles from './HeaderNavLinks.module.scss';
 
 const NAV_LINKS = [{ href: '/', label: 'Releases' }];
 
-const UserIcon = () => <img width={36} alt="User" height={36} src="/assets/icons/user-circle.svg" />;
+const UserIcon = () => <UserCircleIcon width={36} height={36} aria-label="User" />;
 
 const HeaderNavLinks = ({ profile }: { profile: null | Database['public']['Tables']['profiles']['Row'] }) => {
    const isAuthenticated = !!profile;

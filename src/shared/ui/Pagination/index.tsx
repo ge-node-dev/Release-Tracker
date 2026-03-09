@@ -4,13 +4,13 @@ import Link from 'next/link';
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 import { SearchParams } from '@/shared/types';
+import { ArrowIcon as UiArrowIcon } from '@/shared/ui/Icons';
 import { CACHE_1W, RELEASES_CACHE_TAG } from '@/shared/utils/constants';
 import { buildHrefWithParam, getVisiblePages } from '@/shared/utils/data/pagination';
 
 import styles from './Pagination.module.scss';
 
 const ARROW_ICON_SIZE = 18;
-const ARROW_ICON_SRC = '/assets/icons/arrow.svg';
 
 interface PaginationProps {
    currentPage: number;
@@ -20,9 +20,7 @@ interface PaginationProps {
 }
 
 const ArrowIcon = ({ rotate }: { rotate?: string }) => (
-   <img
-      alt="arrow icon"
-      src={ARROW_ICON_SRC}
+   <UiArrowIcon
       width={ARROW_ICON_SIZE}
       height={ARROW_ICON_SIZE}
       style={{

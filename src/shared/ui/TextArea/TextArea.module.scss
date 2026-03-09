@@ -1,0 +1,50 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   position: relative;
+   gap: 1rem;
+
+   span {
+      @include h5;
+
+      margin-top: 0.5rem;
+      align-self: flex-end;
+      position: absolute;
+      top: -30px;
+   }
+}
+
+.textarea {
+   min-height: 100px;
+   max-height: 250px;
+   font-family: var(--font-mono);
+   color: var(--text-primary);
+   padding: 10px;
+   width: 100%;
+   height: 50px;
+   background: var(--bg-raised);
+   border: 1px solid var(--border-grid);
+   transition: border-color 0.2s ease-in;
+   outline: none;
+   resize: none;
+   scrollbar-width: none;
+
+   &::-webkit-scrollbar {
+      display: none;
+   }
+
+   &:focus,
+   &:focus-visible {
+      border-color: var(--text-muted) !important;
+   }
+}
+
+.spanError {
+   color: $color-accent;
+}
+
+.sendCommentBtn {
+   width: 150px;
+   align-self: flex-end;
+}

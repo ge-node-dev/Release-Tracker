@@ -11,10 +11,15 @@ const nextConfig: NextConfig = {
       prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *; @use "@/shared/styles/_breakpoints.scss" as *; @use "@/shared/styles/_typography.scss" as *;`,
    },
    images: {
+      qualities: [100, 75],
       remotePatterns: [
          {
             protocol: 'https',
             hostname: 'cdn-images.dzcdn.net',
+         },
+         {
+            protocol: 'https',
+            hostname: 'cdnt-preview.dzcdn.net',
          },
          {
             protocol: 'https',
@@ -64,6 +69,7 @@ const nextConfig: NextConfig = {
                      "img-src 'self' data: https: blob:",
                      "font-src 'self' data:",
                      "connect-src 'self' https://*.supabase.co",
+                     "media-src 'self' https://cdnt-preview.dzcdn.net",
                      "frame-ancestors 'self'",
                      "base-uri 'self'",
                      "form-action 'self'",

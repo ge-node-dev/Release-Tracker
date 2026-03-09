@@ -92,12 +92,13 @@
 .listenNowBtn {
    width: fit-content;
 
-   img {
+   svg {
+      margin-right: 0.5rem;
       filter: brightness(0);
       transition: filter 0.2s ease-in-out;
    }
 
-   &:hover img {
+   &:hover svg {
       filter: brightness(0) invert(1);
    }
 }
