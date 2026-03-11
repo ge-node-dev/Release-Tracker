@@ -17,7 +17,7 @@ const CommentsSection = async ({ comments, releaseId, externalKey }: CommentsSec
       <section className={styles.wrapper}>
          <h3 className={styles.sectionTitle}>COMMENTS</h3>
          {!profile && (
-            <div className={styles.signInBlock}>
+            <div>
                <LinkButton href={ROUTES.AUTH} ariaLabel="Sign in">
                   Sing in to leave comments
                </LinkButton>

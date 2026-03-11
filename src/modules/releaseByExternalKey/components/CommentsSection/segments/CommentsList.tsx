@@ -15,6 +15,10 @@ const CommentList = ({ comments, releaseId, externalKey }: CommentsSectionProps)
    const [highlightedCommentId, setHighlightedCommentId] = useState<null | string>(null);
    const [replyingToCommentId, setReplyingToCommentId] = useState<null | string>(null);
 
+   if (commentsTree.length === 0) {
+      return null;
+   }
+
    return (
       <ul className={styles.commentList}>
          {commentsTree.map((node) => (
