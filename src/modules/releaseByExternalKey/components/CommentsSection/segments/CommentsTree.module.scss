@@ -1,0 +1,31 @@
+.commentList {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+}
+
+.commentListItem {
+   gap: 0.75rem;
+   padding: 0.8rem;
+   background: var(--bg-primary);
+}
+
+.replyFormWrapper {
+   margin-top: 0.75rem;
+   padding-left: 1rem;
+   border-left: 2px solid var(--border-grid);
+}
+
+.replyList {
+   list-style: none;
+   margin: 1rem 0 0;
+   padding-left: 1.5rem;
+   border-left: 2px solid var(--border-grid);
+
+   .replyList .replyList {
+      padding-left: 0.75rem;
+   }
+}

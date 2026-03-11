@@ -1,10 +1,7 @@
 /* eslint-disable no-console */
 import { createSupabaseStaticClient } from '@/lib/supabase/client';
-import {
-   RELEASE_BY_EXTERNAL_KEY_QUERY,
-   RELEASES_OF_THE_WEEK_QUERY,
-   RELEASES_QUERY,
-} from '@/modules/release/services/query';
+import { RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from '@/modules/release/services/query';
+import { RELEASE_BY_EXTERNAL_KEY_QUERY } from '@/modules/releaseByExternalKey/services/query';
 
 interface TestResult {
    name: string;

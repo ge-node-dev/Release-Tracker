@@ -18,9 +18,9 @@ export const getReleaseDateRange = (period: ReleasePeriod): DateRange => {
 
    if (period === 'this_week') {
       const day = now.getDay();
-      const diffToMonday = (1 - day + 7) % 7;
+      const diffToFriday = day <= 5 ? 5 - day : 5 - day + 7;
 
-      end.setDate(now.getDate() + diffToMonday);
+      end.setDate(now.getDate() + diffToFriday);
       start.setTime(end.getTime() - 7 * 24 * 60 * 60 * 1000);
    } else if (period === 'this_month') {
       start.setDate(1);

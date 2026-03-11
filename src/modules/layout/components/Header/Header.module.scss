@@ -1,8 +1,6 @@
 .header {
    @include page-paddings;
 
-   max-width: 1920px;
-   margin: 0 auto;
    position: fixed;
    z-index: 100;
    top: 0;
@@ -13,6 +11,10 @@
 }
 
 .wrapper {
+   max-width: 1920px;
    padding: 1rem 0;
+   margin: 0 auto;
    display: flex;
+   align-items: center;
+   justify-content: space-between;
 }

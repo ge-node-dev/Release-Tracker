@@ -1,0 +1,108 @@
+.commentItem,
+.commentItemReply {
+   display: flex;
+   gap: 1rem;
+   align-items: flex-start;
+   min-width: 0;
+}
+
+.commentItemReply {
+   margin-top: 0.75rem;
+}
+
+.commentBody {
+   flex: 1;
+   min-width: 0;
+}
+
+.commentHeader {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   gap: 0.75rem;
+   margin-bottom: 0.5rem;
+   min-width: 0;
+}
+
+.commentAuthor {
+   @include h5;
+
+   font-weight: 600;
+   color: var(--text-primary);
+   transition:
+      color 0.15s ease,
+      text-decoration 0.15s ease;
+
+   &:hover {
+      text-decoration: underline;
+      color: var(--text-primary);
+   }
+}
+
+.replyTo {
+   @include label-small;
+
+   color: var(--text-muted);
+   cursor: default;
+   transition: color 0.15s ease;
+
+   &:hover {
+      color: $color-accent;
+   }
+}
+
+.highlighted {
+   position: relative;
+
+   &::before {
+      background: $color-accent;
+      content: '';
+      height: 100%;
+      left: -8px;
+      position: absolute;
+      top: 0;
+      width: 3px;
+   }
+}
+
+.commentDate {
+   @include label-small;
+
+   color: var(--text-muted);
+   margin-left: auto;
+}
+
+.commentContent {
+   @include h5;
+
+   color: var(--text-primary);
+   white-space: pre-wrap;
+   overflow-wrap: anywhere;
+}
+
+.replyButton {
+   background: none;
+   border: none;
+   cursor: pointer;
+   padding: 0;
+   margin-top: 0.5rem;
+   color: var(--text-muted);
+   transition: color 0.15s ease;
+   display: flex;
+   align-items: center;
+   gap: 0.3rem;
+
+   span {
+      transition: color 0.15s ease;
+
+      @include label-small;
+   }
+
+   &:hover {
+      color: $color-accent;
+
+      span {
+         color: $color-accent;
+      }
+   }
+}

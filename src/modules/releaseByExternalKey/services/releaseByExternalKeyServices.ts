@@ -22,6 +22,7 @@ export const getReleaseByExternalKey = async (externalKey: string) => {
       .from('releases')
       .select(RELEASE_BY_EXTERNAL_KEY_QUERY)
       .eq('external_key', externalKey)
+      .order('created_at', { ascending: false, referencedTable: 'comments' })
       .order('position', { ascending: true, referencedTable: 'release_tracks' })
       .maybeSingle();
 

@@ -13,16 +13,11 @@ export const useAudioPlayer = (previewUrl: string) => {
       const audio = audioRef.current;
       if (!audio) return;
       audio.volume = volume / 100;
-      audio.play().catch(console.error);
+      audio.play().catch((e) => {
+         if (e.name !== 'AbortError') console.error(e);
+      });
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [previewUrl]);
-
-   useEffect(() => {
-      const audio = audioRef.current;
-      return () => {
-         audio?.pause();
-      };
-   }, []);
 
    const togglePlay = () => {
       const audio = audioRef.current;

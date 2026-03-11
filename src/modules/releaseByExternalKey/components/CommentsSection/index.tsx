@@ -1,12 +1,22 @@
+import type { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
+
 import { getProfile } from '@/modules/profile/services/profileActions';
 import { Avatar } from '@/shared/ui/Avatar';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
-import TextArea from '@/shared/ui/TextArea';
 import { ROUTES } from '@/shared/utils/constants';
+
+import CommentForm from './segments/CommentForm';
+import CommentList from './segments/CommentsList';
 
 import styles from './CommentsSection.module.scss';
 
-const CommentsSection = async () => {
+type CommentsSectionProps = {
+   releaseId: string;
+   externalKey: string;
+   comments: ReleaseByExternalKeyType['comments'];
+};
+
+const CommentsSection = async ({ comments, releaseId, externalKey }: CommentsSectionProps) => {
    const { profile } = await getProfile();
 
    return (
@@ -22,9 +32,10 @@ const CommentsSection = async () => {
          {profile && (
             <div className={styles.commentWrapper}>
                <Avatar size="medium" avatarUrl={profile?.avatar_url || null} />
-               <TextArea />
+               <CommentForm releaseId={releaseId} externalKey={externalKey} />
             </div>
          )}
+         <CommentList comments={comments} releaseId={releaseId} externalKey={externalKey} />
       </section>
    );
 };

@@ -18,9 +18,8 @@ const COMMENT_FRAGMENT = `
     created_at,
     updated_at,
     likes,
-    parent_id (
-      id, user_id, parent_id, content, created_at, updated_at, likes
-    )
+    parent_id (id),
+    profiles (username, avatar_url)
   )
 ` as const;
 

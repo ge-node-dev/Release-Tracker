@@ -11,7 +11,7 @@ import {
    RepeatIcon,
    VolumeIcon,
 } from '@/shared/ui/Icons';
-import { formatTrackTime } from '@/shared/utils/data/formatTrackTime';
+import { formatTrackTime } from '@/shared/utils/date/formatTrackTime';
 
 import { useAudioPlayer } from './hooks/useAudioPlayer';
 

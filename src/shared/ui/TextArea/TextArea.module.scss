@@ -38,13 +38,23 @@
    &:focus-visible {
       border-color: var(--text-muted) !important;
    }
-}
 
-.spanError {
-   color: $color-accent;
+   &[data-disabled='true'] {
+      color: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 0.5;
+   }
 }
 
 .sendCommentBtn {
-   width: 150px;
    align-self: flex-end;
+   width: 150px;
+}
+
+.submitError {
+   @include h5;
+
+   color: $color-accent;
+   margin-left: auto;
+   margin-bottom: 0.5rem;
 }

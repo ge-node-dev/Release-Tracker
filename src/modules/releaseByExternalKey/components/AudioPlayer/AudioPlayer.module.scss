@@ -1,4 +1,17 @@
+@keyframes playerAppear {
+   from {
+      opacity: 0;
+      transform: translateY(100%);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
 .wrapper {
+   animation: playerAppear 0.3s ease-out;
    position: fixed;
    bottom: 0;
    width: 100%;

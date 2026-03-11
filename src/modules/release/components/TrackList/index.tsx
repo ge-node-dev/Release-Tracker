@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 import AudioPlayer from '@/modules/releaseByExternalKey/components/AudioPlayer';
-import { getTrackPreviewUrl } from '@/modules/releaseByExternalKey/services/releaseServices';
+import { getTrackPreviewUrl } from '@/modules/releaseByExternalKey/services/releaseByExternalKeyServices';
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
 import TrackItem from './TrackItem';

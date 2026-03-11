@@ -7,19 +7,22 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "\n${BLUE}🔹 Запуск Prettier...${NC}\n"
-npm run format || { echo -e "${RED}❌ Ошибка форматирования${NC}"; exit 1; }
+echo -e "\n${BLUE}🔹 Running Prettier...${NC}\n"
+npm run format || { echo -e "${RED}❌ Formatting failed${NC}"; exit 1; }
 
-echo -e "\n${YELLOW}🔹 Запуск ESLint...${NC}\n"
-npm run lint || { echo -e "${RED}❌ Ошибка линтинга${NC}"; exit 1; }
+echo -e "\n${BLUE}🔹 Checking TypeScript...${NC}\n"
+npx tsc --noEmit || { echo -e "${RED}❌ TypeScript check failed${NC}"; exit 1; }
 
-echo -e "\n${YELLOW}🔹 Запуск Stylelint...${NC}\n"
-npm run lint:styles || { echo -e "${RED}❌ Ошибка линтинга стилей${NC}"; exit 1; }
+echo -e "\n${YELLOW}🔹 Running ESLint...${NC}\n"
+npm run lint || { echo -e "${RED}❌ Linting failed${NC}"; exit 1; }
 
-echo -e "\n${BLUE}🔹 Тестирование запросов к БД...${NC}\n"
-npm run test:queries || { echo -e "${RED}❌ Ошибка тестирования запросов${NC}"; exit 1; }
+echo -e "\n${YELLOW}🔹 Running Stylelint...${NC}\n"
+npm run lint:styles || { echo -e "${RED}❌ Stylelint failed${NC}"; exit 1; }
 
-echo -e "\n${BLUE}🔹 Тестирование авторизации...${NC}\n"
-npm run test:auth || { echo -e "${RED}❌ Ошибка тестирования авторизации${NC}"; exit 1; }
+echo -e "\n${BLUE}🔹 Running database tests...${NC}\n"
+npm run test:queries || { echo -e "${RED}❌ Database test failed${NC}"; exit 1; }
 
-echo -e "\n${GREEN}✅ Pre-commit успешно завершён!${NC}\n"
+echo -e "\n${BLUE}🔹 Running authorization tests...${NC}\n"
+npm run test:auth || { echo -e "${RED}❌ Authorization test failed${NC}"; exit 1; }
+
+echo -e "\n${GREEN}✅ Pre-commit completed successfully!${NC}\n"
