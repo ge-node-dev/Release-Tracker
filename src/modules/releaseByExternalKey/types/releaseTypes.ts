@@ -8,3 +8,9 @@ export type CommentNode = {
 };
 
 export type ReleaseByExternalKeyType = Awaited<ReturnType<typeof getReleaseByExternalKey>>;
+
+export type CommentsSectionProps = {
+   releaseId: ReleaseByExternalKeyType['id'];
+   comments: ReleaseByExternalKeyType['comments'];
+   externalKey: ReleaseByExternalKeyType['external_key'];
+};

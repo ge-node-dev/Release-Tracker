@@ -4,15 +4,16 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { submitComment } from '@/modules/releaseByExternalKey/services/commentActions';
+import { CommentsSectionProps } from '@/modules/releaseByExternalKey/types/releaseTypes';
 import TextArea from '@/shared/ui/TextArea';
 
 import styles from './CommentForm.module.scss';
 
 type CommentFormProps = {
-   releaseId: string;
-   externalKey: string;
    onSuccess?: () => void;
    parentId?: null | string;
+   releaseId: CommentsSectionProps['releaseId'];
+   externalKey: CommentsSectionProps['externalKey'];
 };
 
 const CommentForm = ({ parentId, onSuccess, releaseId, externalKey }: CommentFormProps) => {

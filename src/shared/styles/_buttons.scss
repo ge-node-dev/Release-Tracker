@@ -53,7 +53,7 @@
    background-color: $color-accent;
    color: var(--text-primary);
    text-transform: uppercase;
-   border: 1px solid #6d6d6d;
+   border: 1px solid var(--border-grid);
 
    &:hover {
       background-color: var(--bg-primary);

@@ -1,0 +1,22 @@
+.deleteModalActions {
+   display: flex;
+   gap: 1rem;
+   justify-content: flex-end;
+   margin-top: 1rem;
+}
+
+.deleteButton {
+   cursor: pointer;
+   color: var(--text-muted);
+   transition: color 0.15s ease;
+   padding: 0;
+
+   &:hover {
+      color: $color-accent;
+   }
+}
+
+.error {
+   color: $color-accent;
+   margin-top: 1rem;
+}

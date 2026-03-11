@@ -14,3 +14,4 @@ export { NoVolumeIcon } from './NoVolumeIcon';
 export { CloseIcon } from './CloseIcon';
 export { RepeatIcon } from './RepeatIcon';
 export { ReplyIcon } from './ReplyIcon';
+export { DeleteIcon } from './DeleteIcon';

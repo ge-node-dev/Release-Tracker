@@ -1,8 +1,10 @@
+'use client';
 import type { ReleaseComment } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
 import Link from 'next/link';
 
 import { Avatar } from '@/shared/ui/Avatar';
+import DeleteModal from '@/shared/ui/DeleteModal/DeleteModal';
 import { ReplyIcon } from '@/shared/ui/Icons';
 import { formatCommentDate } from '@/shared/utils/date/formatCommentDate';
 
@@ -15,12 +17,14 @@ type CommentItemProps = {
    highlightedCommentId: null | string;
    parentComment?: null | ReleaseComment;
    setHighlightedCommentId: (id: null | string) => void;
+   handleCommentDelete: () => Promise<{ success?: boolean; error?: null | string }>;
 };
 
 const CommentItem = ({
    comment,
    onReply,
    isReply = false,
+   handleCommentDelete,
    highlightedCommentId,
    parentComment = null,
    setHighlightedCommentId,
@@ -53,10 +57,14 @@ const CommentItem = ({
                </time>
             </header>
             <p className={styles.commentContent}>{comment.content}</p>
-            <button onClick={onReply} aria-label="Reply to comment" className={styles.replyButton}>
-               <ReplyIcon width={14} height={14} />
-               <span>Reply</span>
-            </button>
+            <div className={styles.commentActions}>
+               <button onClick={onReply} aria-label="Reply to comment" className={styles.replyButton}>
+                  <ReplyIcon width={16} height={16} />
+                  <span>Reply</span>
+               </button>
+
+               <DeleteModal handleDelete={handleCommentDelete} />
+            </div>
          </div>
       </article>
    );

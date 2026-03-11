@@ -4,15 +4,6 @@
    width: 100%;
    position: relative;
    gap: 1rem;
-
-   span {
-      @include h5;
-
-      margin-top: 0.5rem;
-      align-self: flex-end;
-      position: absolute;
-      top: -30px;
-   }
 }
 
 .textarea {
@@ -46,15 +37,25 @@
    }
 }
 
+.bottomContent {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   @include h5;
+
+   margin-top: -0.5rem;
+
+   span {
+      margin-left: auto;
+   }
+}
+
 .sendCommentBtn {
    align-self: flex-end;
    width: 150px;
 }
 
 .submitError {
-   @include h5;
-
    color: $color-accent;
-   margin-left: auto;
-   margin-bottom: 0.5rem;
 }

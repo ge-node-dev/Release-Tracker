@@ -5,6 +5,7 @@
    display: flex;
    flex-direction: column;
    gap: 0.5rem;
+   background: var(--bg-primary);
 }
 
 .commentListItem {
@@ -14,9 +15,8 @@
 }
 
 .replyFormWrapper {
-   margin-top: 0.75rem;
+   margin: 1rem 0;
    padding-left: 1rem;
-   border-left: 2px solid var(--border-grid);
 }
 
 .replyList {

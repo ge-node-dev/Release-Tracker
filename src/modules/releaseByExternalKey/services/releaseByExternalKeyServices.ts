@@ -1,7 +1,7 @@
 'use server';
 import { cacheLife } from 'next/cache';
 
-import { createSupabaseStaticClient } from '@/lib/supabase/client';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { CACHE_10MIN } from '@/shared/utils/constants';
 
 import { RELEASE_BY_EXTERNAL_KEY_QUERY } from './query';
@@ -16,7 +16,7 @@ export const getTrackPreviewUrl = async (trackId: string | number): Promise<null
 };
 
 export const getReleaseByExternalKey = async (externalKey: string) => {
-   const supabase = createSupabaseStaticClient();
+   const supabase = await createSupabaseServerClient();
 
    const { data, error } = await supabase
       .from('releases')

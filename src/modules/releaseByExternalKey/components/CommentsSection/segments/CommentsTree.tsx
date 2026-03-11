@@ -1,4 +1,10 @@
-import type { CommentNode, ReleaseComment } from '@/modules/releaseByExternalKey/types/releaseTypes';
+import type {
+   CommentNode,
+   CommentsSectionProps,
+   ReleaseComment,
+} from '@/modules/releaseByExternalKey/types/releaseTypes';
+
+import { deleteComment } from '@/modules/releaseByExternalKey/services/commentActions';
 
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
@@ -8,11 +14,11 @@ import styles from './CommentsTree.module.scss';
 type CommentsTreeProps = {
    isRoot?: boolean;
    node: CommentNode;
-   releaseId: string;
-   externalKey: string;
    replyingToCommentId: null | string;
    highlightedCommentId: null | string;
    parentComment?: null | ReleaseComment;
+   releaseId: CommentsSectionProps['releaseId'];
+   externalKey: CommentsSectionProps['externalKey'];
    setReplyingToCommentId: (id: null | string) => void;
    setHighlightedCommentId: (id: null | string) => void;
 };
@@ -31,11 +37,17 @@ const CommentsTree = ({
    const { comment, replies } = node;
    const isReply = !!(typeof comment.parent_id === 'object' && comment.parent_id);
 
+   const handleCommentDelete = async () => {
+      const result = await deleteComment(comment.id, externalKey);
+      return result;
+   };
+
    return (
       <li className={isRoot ? styles.commentListItem : undefined}>
          <CommentItem
             comment={comment}
             isReply={isReply}
+            handleCommentDelete={handleCommentDelete}
             highlightedCommentId={highlightedCommentId}
             parentComment={isReply ? parentComment : null}
             setHighlightedCommentId={setHighlightedCommentId}

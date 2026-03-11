@@ -1,4 +1,4 @@
-import type { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
+import type { CommentsSectionProps } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
 import { getProfile } from '@/modules/profile/services/profileActions';
 import { Avatar } from '@/shared/ui/Avatar';
@@ -9,12 +9,6 @@ import CommentForm from './segments/CommentForm';
 import CommentList from './segments/CommentsList';
 
 import styles from './CommentsSection.module.scss';
-
-type CommentsSectionProps = {
-   releaseId: string;
-   externalKey: string;
-   comments: ReleaseByExternalKeyType['comments'];
-};
 
 const CommentsSection = async ({ comments, releaseId, externalKey }: CommentsSectionProps) => {
    const { profile } = await getProfile();

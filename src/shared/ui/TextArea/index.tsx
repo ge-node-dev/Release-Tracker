@@ -54,7 +54,6 @@ const TextArea = ({ onSend, disabled, error = null, onErrorClear, placeholder = 
 
    return (
       <div className={styles.wrapper}>
-         <span>{`${value.length}/${TEXT_AREA_LIMIT}`}</span>
          <textarea
             value={value}
             ref={textareaRef}
@@ -63,7 +62,10 @@ const TextArea = ({ onSend, disabled, error = null, onErrorClear, placeholder = 
             className={styles.textarea}
             disabled={disabled ?? isSubmitting}
          />
-         {error && <p className={styles.submitError}>{error}</p>}
+         <div className={styles.bottomContent}>
+            {error && <p className={styles.submitError}>{error}</p>}
+            <span>{`${value.length}/${TEXT_AREA_LIMIT}`}</span>
+         </div>
          {onSend && (
             <ActionButton
                variant="secondary"

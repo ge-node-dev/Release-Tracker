@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
+import type { CommentsSectionProps } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
 import { useState } from 'react';
 
@@ -10,13 +10,7 @@ import CommentsTree from './CommentsTree';
 
 import styles from './CommentsList.module.scss';
 
-type CommentListProps = {
-   releaseId: string;
-   externalKey: string;
-   comments: ReleaseByExternalKeyType['comments'];
-};
-
-const CommentList = ({ comments, releaseId, externalKey }: CommentListProps) => {
+const CommentList = ({ comments, releaseId, externalKey }: CommentsSectionProps) => {
    const commentsTree = buildCommentsTree(comments);
    const [highlightedCommentId, setHighlightedCommentId] = useState<null | string>(null);
    const [replyingToCommentId, setReplyingToCommentId] = useState<null | string>(null);

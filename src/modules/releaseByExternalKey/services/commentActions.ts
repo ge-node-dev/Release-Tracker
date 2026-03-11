@@ -16,6 +16,7 @@ export const submitComment = async (
    const trimmed = content.trim();
 
    const user = await getAuthenticatedUser();
+
    if (!user) {
       return { error: 'You must be signed in to comment' };
    }
@@ -36,4 +37,18 @@ export const submitComment = async (
 
    revalidatePath(`/release/${externalKey}`);
    return {};
+};
+
+export const deleteComment = async (
+   commentId: string,
+   externalKey: string,
+): Promise<{ success: boolean; error: null | string }> => {
+   const supabase = await createSupabaseServerClient();
+
+   const { error } = await supabase.from('comments').delete().eq('id', commentId);
+   if (error) {
+      return { success: false, error: error.message };
+   }
+   revalidatePath(`/release/${externalKey}`);
+   return { error: null, success: true };
 };
