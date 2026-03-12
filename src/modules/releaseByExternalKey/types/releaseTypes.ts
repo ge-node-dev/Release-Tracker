@@ -7,6 +7,10 @@ export type CommentNode = {
    comment: ReleaseComment;
 };
 
+export type CommentsListProps = CommentsSectionProps & {
+   authUserId: null | string;
+};
+
 export type ReleaseByExternalKeyType = Awaited<ReturnType<typeof getReleaseByExternalKey>>;
 
 export type CommentsSectionProps = {

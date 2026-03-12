@@ -2,7 +2,7 @@
 
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
-import styles from './TrackList.module.scss';
+import styles from './TrackItem.module.scss';
 
 type Track = ReleaseByExternalKeyType['release_tracks'][number];
 

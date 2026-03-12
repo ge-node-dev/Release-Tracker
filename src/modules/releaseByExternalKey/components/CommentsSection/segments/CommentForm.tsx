@@ -7,16 +7,23 @@ import { submitComment } from '@/modules/releaseByExternalKey/services/commentAc
 import { CommentsSectionProps } from '@/modules/releaseByExternalKey/types/releaseTypes';
 import TextArea from '@/shared/ui/TextArea';
 
-import styles from './CommentForm.module.scss';
-
 type CommentFormProps = {
+   onCancel?: () => void;
    onSuccess?: () => void;
    parentId?: null | string;
+   disabledOpenBtn: boolean;
    releaseId: CommentsSectionProps['releaseId'];
    externalKey: CommentsSectionProps['externalKey'];
 };
 
-const CommentForm = ({ parentId, onSuccess, releaseId, externalKey }: CommentFormProps) => {
+const CommentForm = ({
+   onCancel,
+   parentId,
+   onSuccess,
+   releaseId,
+   externalKey,
+   disabledOpenBtn = false,
+}: CommentFormProps) => {
    const router = useRouter();
    const [error, setError] = useState<null | string>(null);
 
@@ -34,14 +41,14 @@ const CommentForm = ({ parentId, onSuccess, releaseId, externalKey }: CommentFor
    };
 
    return (
-      <div className={styles.commentForm}>
-         <TextArea
-            error={error}
-            onSend={handleSend}
-            onErrorClear={() => setError(null)}
-            placeholder={parentId ? 'Write a reply…' : 'Write a comment…'}
-         />
-      </div>
+      <TextArea
+         error={error}
+         onCancel={onCancel}
+         onSend={handleSend}
+         disabledOpenBtn={disabledOpenBtn}
+         onErrorClear={() => setError(null)}
+         placeholder={parentId ? 'Write a reply…' : 'Write a comment…'}
+      />
    );
 };
 

@@ -19,7 +19,7 @@ const COMMENT_FRAGMENT = `
     updated_at,
     likes,
     parent_id (id),
-    profiles (username, avatar_url)
+    profiles (id, username, avatar_url)
   )
 ` as const;
 

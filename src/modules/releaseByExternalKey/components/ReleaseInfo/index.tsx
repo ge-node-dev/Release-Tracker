@@ -1,10 +1,18 @@
+'use client';
 import Image from 'next/image';
 
+import TrackList from '@/modules/releaseByExternalKey/components/TrackList';
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
-import styles from './ReleaseBanner.module.scss';
+import { useTrackList } from './hooks/useTrackList';
 
-const ReleaseBanner = ({ release }: { release: ReleaseByExternalKeyType }) => {
+import styles from './ReleaseInfo.module.scss';
+
+const ReleaseInfo = ({ release }: { release: ReleaseByExternalKeyType }) => {
+   const { activeTrack, setActiveTrackId, soundTrackPreview, setSoundTrackPreview } = useTrackList(
+      release.release_tracks,
+   );
+
    return (
       <>
          <div className={styles.bannerWrapper}>
@@ -28,8 +36,18 @@ const ReleaseBanner = ({ release }: { release: ReleaseByExternalKeyType }) => {
                </h3>
             </div>
          </div>
+
+         <TrackList
+            activeTrack={activeTrack}
+            coverUrl={release.cover_url}
+            tracks={release.release_tracks}
+            setActiveTrackId={setActiveTrackId}
+            soundTrackPreview={soundTrackPreview}
+            setSoundTrackPreview={setSoundTrackPreview}
+            artistsName={release.release_artists.map((artist) => artist.artists.name).join(', ')}
+         />
       </>
    );
 };
 
-export default ReleaseBanner;
+export default ReleaseInfo;

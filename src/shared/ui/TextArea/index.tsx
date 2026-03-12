@@ -14,14 +14,25 @@ export type TextAreaProps = {
    disabled?: boolean;
    placeholder?: string;
    error?: null | string;
+   onCancel?: () => void;
+   disabledOpenBtn: boolean;
    onErrorClear?: () => void;
    onSend?: (content: string) => void | Promise<void | OnSendResult>;
 };
 
-const TextArea = ({ onSend, disabled, error = null, onErrorClear, placeholder = 'Write something' }: TextAreaProps) => {
+const TextArea = ({
+   onSend,
+   disabled,
+   onCancel,
+   error = null,
+   onErrorClear,
+   disabledOpenBtn = false,
+   placeholder = 'Write something',
+}: TextAreaProps) => {
    const textareaRef = useRef<HTMLTextAreaElement>(null);
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [value, setValue] = useState('');
+   const [isOpen, setIsOpen] = useState(disabledOpenBtn);
 
    const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
       const newValue = event.target.value.slice(0, TEXT_AREA_LIMIT);
@@ -42,6 +53,7 @@ const TextArea = ({ onSend, disabled, error = null, onErrorClear, placeholder = 
 
          if (!result?.error) {
             setValue('');
+            setIsOpen(disabledOpenBtn);
             const el = textareaRef.current;
             if (el) {
                el.style.height = 'auto';
@@ -54,27 +66,49 @@ const TextArea = ({ onSend, disabled, error = null, onErrorClear, placeholder = 
 
    return (
       <div className={styles.wrapper}>
-         <textarea
-            value={value}
-            ref={textareaRef}
-            placeholder={placeholder}
-            onChange={onChangeHandler}
-            className={styles.textarea}
-            disabled={disabled ?? isSubmitting}
-         />
-         <div className={styles.bottomContent}>
-            {error && <p className={styles.submitError}>{error}</p>}
-            <span>{`${value.length}/${TEXT_AREA_LIMIT}`}</span>
-         </div>
-         {onSend && (
-            <ActionButton
-               variant="secondary"
-               onClick={handleSend}
-               className={styles.sendCommentBtn}
-               disabled={isSubmitting || !value.trim()}
-            >
-               {isSubmitting ? 'Sending...' : 'Send'}
+         {!isOpen && !disabledOpenBtn && (
+            <ActionButton variant="secondary" onClick={() => setIsOpen(true)} className={styles.activeTextareaBtn}>
+               {'Write a comment…'}
             </ActionButton>
+         )}
+         {isOpen && (
+            <>
+               <textarea
+                  value={value}
+                  ref={textareaRef}
+                  placeholder={placeholder}
+                  onChange={onChangeHandler}
+                  className={styles.textarea}
+                  disabled={disabled ?? isSubmitting}
+               />
+               <div className={styles.bottomContent}>
+                  {error && <p className={styles.submitError}>{error}</p>}
+                  <span>{`${value.length}/${TEXT_AREA_LIMIT}`}</span>
+               </div>
+               <div className={styles.textareaActionButtons}>
+                  <ActionButton
+                     variant="primary"
+                     disabled={isSubmitting}
+                     className={styles.sendCommentBtn}
+                     onClick={() => {
+                        setValue('');
+                        setIsOpen(false);
+                        onErrorClear?.();
+                        onCancel?.();
+                     }}
+                  >
+                     {'Cancel'}
+                  </ActionButton>
+                  <ActionButton
+                     variant="secondary"
+                     onClick={handleSend}
+                     className={styles.sendCommentBtn}
+                     disabled={isSubmitting || !value.trim()}
+                  >
+                     {isSubmitting ? 'Sending...' : 'Send'}
+                  </ActionButton>
+               </div>
+            </>
          )}
       </div>
    );

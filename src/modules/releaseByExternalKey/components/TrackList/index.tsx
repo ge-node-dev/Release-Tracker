@@ -1,68 +1,39 @@
 'use client';
-import { useEffect, useState } from 'react';
 
-import { getTrackPreviewUrl } from '@/modules/releaseByExternalKey/services/releaseByExternalKeyServices';
+import AudioPlayer from '@/modules/releaseByExternalKey/components/AudioPlayer';
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
-import AudioPlayer from '../AudioPlayer';
-
-import TrackItem from './TrackItem';
+import TrackItem from './segments/TrackItem';
 
 import styles from './TrackList.module.scss';
 
 type Props = {
    artistsName: string;
    coverUrl?: null | string;
+   soundTrackPreview: null | string;
+   setActiveTrackId: (id: null | string) => void;
+   setSoundTrackPreview: (url: null | string) => void;
    tracks: ReleaseByExternalKeyType['release_tracks'];
+   activeTrack: null | ReleaseByExternalKeyType['release_tracks'][number];
 };
 
-const TrackList = ({ tracks, coverUrl, artistsName }: Props) => {
-   const [activeTrackId, setActiveTrackId] = useState<null | string>(null);
-   const [previewUrl, setPreviewUrl] = useState<null | string>(null);
-
-   const activeIndex = activeTrackId ? tracks.findIndex((t) => t.tracks.id === activeTrackId) : -1;
-
-   const activeTrack = activeIndex >= 0 ? tracks[activeIndex] : null;
-
-   useEffect(() => {
-      const trackId = activeTrack?.tracks.deezer_track_id;
-
-      if (!trackId) {
-         return;
-      }
-
-      let cancelled = false;
-
-      getTrackPreviewUrl(trackId).then((url) => {
-         if (!cancelled) setPreviewUrl(url);
-      });
-
-      return () => {
-         cancelled = true;
-      };
-   }, [activeTrack?.tracks.deezer_track_id]);
-
-   useEffect(() => {
-      return () => {
-         setPreviewUrl(null);
-         setActiveTrackId(null);
-      };
-   }, []);
-
-   const handleSelect = (id: string) => setActiveTrackId(id);
+const TrackList = ({
+   tracks,
+   coverUrl,
+   activeTrack,
+   artistsName,
+   setActiveTrackId,
+   soundTrackPreview,
+   setSoundTrackPreview,
+}: Props) => {
+   const activeIndex = activeTrack ? tracks.findIndex((t) => t.tracks.id === activeTrack.tracks.id) : -1;
 
    const handlePrev = () => {
-      setActiveTrackId((prev) => {
-         const idx = prev ? tracks.findIndex((t) => t.tracks.id === prev) : -1;
-         return idx > 0 ? tracks[idx - 1].tracks.id : prev;
-      });
+      if (activeIndex > 0) setActiveTrackId(tracks[activeIndex - 1].tracks.id);
    };
 
    const handleNext = () => {
-      setActiveTrackId((prev) => {
-         const idx = prev ? tracks.findIndex((t) => t.tracks.id === prev) : -1;
-         return idx >= 0 && idx < tracks.length - 1 ? tracks[idx + 1].tracks.id : prev;
-      });
+      if (activeIndex >= 0 && activeIndex < tracks.length - 1) setActiveTrackId(tracks[activeIndex + 1].tracks.id);
    };
 
    return (
@@ -77,21 +48,21 @@ const TrackList = ({ tracks, coverUrl, artistsName }: Props) => {
                   track={item}
                   index={index}
                   key={item.tracks.id}
-                  onSelect={handleSelect}
-                  isActive={item.tracks.id === activeTrackId}
+                  onSelect={(id) => setActiveTrackId(id)}
+                  isActive={item.tracks.id === activeTrack?.tracks.id}
                />
             ))}
          </ul>
-         {previewUrl && activeTrack && (
+         {activeTrack && (
             <AudioPlayer
                coverUrl={coverUrl}
-               previewUrl={previewUrl}
                trackSubtitle={artistsName}
+               soundTrackPreview={soundTrackPreview}
                trackTitle={activeTrack.tracks.title}
                onPrev={activeIndex > 0 ? handlePrev : undefined}
                onNext={activeIndex < tracks.length - 1 ? handleNext : undefined}
                onPlayerClose={() => {
-                  setPreviewUrl(null);
+                  setSoundTrackPreview(null);
                   setActiveTrackId(null);
                }}
             />

@@ -1,0 +1,74 @@
+.trackNum {
+   @include label-small;
+
+   color: var(--text-muted);
+}
+
+.trackTitle {
+   @include h5;
+   color: var(--text-primary);
+
+   text-transform: initial;
+   text-align: left;
+}
+
+.trackDuration {
+   @include label-small;
+   color: var(--text-muted);
+
+   text-align: left;
+}
+
+.trackTab {
+   display: grid;
+   grid-template-columns: 0.1fr 1fr 0.1fr;
+   align-items: center;
+   gap: 0.5rem;
+   border-bottom: 1px solid var(--border-grid);
+   padding-block: 1.1rem;
+   width: 100%;
+   transition: background 0.2s ease;
+   padding-inline: 1rem;
+   border-left: 2px solid transparent;
+   position: relative;
+
+   &::before {
+      content: '';
+      display: block;
+      width: 2px;
+      height: 100%;
+      background: $color-accent;
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform 0.4s ease;
+   }
+
+   &:hover {
+      &::before {
+         transform: scaleY(1);
+      }
+      background: var(--bg-primary);
+
+      .trackTitle {
+         transition: color 0.2s ease;
+         color: var(--bg-secondary);
+      }
+   }
+
+   &.active {
+      background: var(--bg-primary);
+      cursor: default;
+      pointer-events: none;
+
+      &::before {
+         transform: scaleY(1);
+      }
+
+      .trackTitle {
+         color: var(--bg-secondary);
+      }
+   }
+}

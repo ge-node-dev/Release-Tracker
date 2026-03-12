@@ -10,21 +10,21 @@ interface AvatarProps {
    size?: 'small' | 'large' | 'medium';
 }
 
-const WIDTHS_BY_SIZE = {
-   small: 36,
+export const AVATAR_WIDTHS_BY_SIZE = {
+   small: 46,
    large: 278,
-   medium: 54,
+   medium: 75,
 } as const;
 
 export const Avatar = ({ avatarUrl, size = 'small' }: AvatarProps) => {
    const image = avatarUrl ? (
       <Image
          alt="avatar"
-         width={WIDTHS_BY_SIZE[size]}
          className={styles.avatarImg}
-         height={WIDTHS_BY_SIZE[size]}
-         sizes={`${WIDTHS_BY_SIZE[size]}px`}
+         width={AVATAR_WIDTHS_BY_SIZE[size]}
+         height={AVATAR_WIDTHS_BY_SIZE[size]}
          src={optimizeCloudinaryUrl(avatarUrl)}
+         sizes={`${AVATAR_WIDTHS_BY_SIZE[size]}px`}
       />
    ) : (
       <UserIcon className={styles.avatarPlaceholder} />

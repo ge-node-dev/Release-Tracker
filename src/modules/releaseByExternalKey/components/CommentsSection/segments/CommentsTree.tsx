@@ -14,6 +14,7 @@ import styles from './CommentsTree.module.scss';
 type CommentsTreeProps = {
    isRoot?: boolean;
    node: CommentNode;
+   authUserId: null | string;
    replyingToCommentId: null | string;
    highlightedCommentId: null | string;
    parentComment?: null | ReleaseComment;
@@ -26,6 +27,7 @@ type CommentsTreeProps = {
 const CommentsTree = ({
    node,
    releaseId,
+   authUserId,
    externalKey,
    isRoot = false,
    replyingToCommentId,
@@ -47,6 +49,7 @@ const CommentsTree = ({
          <CommentItem
             comment={comment}
             isReply={isReply}
+            authUserId={authUserId}
             handleCommentDelete={handleCommentDelete}
             highlightedCommentId={highlightedCommentId}
             parentComment={isReply ? parentComment : null}
@@ -58,7 +61,9 @@ const CommentsTree = ({
                <CommentForm
                   parentId={comment.id}
                   releaseId={releaseId}
+                  disabledOpenBtn={true}
                   externalKey={externalKey}
+                  onCancel={() => setReplyingToCommentId(null)}
                   onSuccess={() => setReplyingToCommentId(null)}
                />
             </div>
@@ -70,6 +75,7 @@ const CommentsTree = ({
                      isRoot={false}
                      node={replyNode}
                      releaseId={releaseId}
+                     authUserId={authUserId}
                      parentComment={comment}
                      externalKey={externalKey}
                      key={replyNode.comment.id}

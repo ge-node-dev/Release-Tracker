@@ -18,16 +18,24 @@ import { useAudioPlayer } from './hooks/useAudioPlayer';
 import styles from './AudioPlayer.module.scss';
 
 type Props = {
-   previewUrl: string;
    onNext?: () => void;
    onPrev?: () => void;
    trackTitle?: string;
    trackSubtitle: string;
    coverUrl?: null | string;
    onPlayerClose: () => void;
+   soundTrackPreview: null | string;
 };
 
-const AudioPlayer = ({ onNext, onPrev, coverUrl, previewUrl, trackTitle, onPlayerClose, trackSubtitle }: Props) => {
+const AudioPlayer = ({
+   onNext,
+   onPrev,
+   coverUrl,
+   trackTitle,
+   onPlayerClose,
+   trackSubtitle,
+   soundTrackPreview,
+}: Props) => {
    const {
       onPlay,
       volume,
@@ -46,7 +54,9 @@ const AudioPlayer = ({ onNext, onPrev, coverUrl, previewUrl, trackTitle, onPlaye
       handleTimeUpdate,
       handleVolumeChange,
       handleLoadedMetadata,
-   } = useAudioPlayer(previewUrl);
+   } = useAudioPlayer(soundTrackPreview);
+
+   if (!soundTrackPreview) return null;
 
    return createPortal(
       <div className={styles.wrapper}>
@@ -54,10 +64,10 @@ const AudioPlayer = ({ onNext, onPrev, coverUrl, previewUrl, trackTitle, onPlaye
             ref={audioRef}
             loop={isLooped}
             onPlay={onPlay}
-            src={previewUrl}
             onEnded={onEnded}
             onPause={onPause}
             onEmptied={onEmptied}
+            src={soundTrackPreview}
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
          />

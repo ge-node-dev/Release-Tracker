@@ -1,6 +1,6 @@
 'use client';
 
-import type { CommentsSectionProps } from '@/modules/releaseByExternalKey/types/releaseTypes';
+import type { CommentsListProps } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
 import { useState } from 'react';
 
@@ -10,7 +10,7 @@ import CommentsTree from './CommentsTree';
 
 import styles from './CommentsList.module.scss';
 
-const CommentList = ({ comments, releaseId, externalKey }: CommentsSectionProps) => {
+const CommentList = ({ comments, releaseId, authUserId, externalKey }: CommentsListProps) => {
    const commentsTree = buildCommentsTree(comments);
    const [highlightedCommentId, setHighlightedCommentId] = useState<null | string>(null);
    const [replyingToCommentId, setReplyingToCommentId] = useState<null | string>(null);
@@ -26,6 +26,7 @@ const CommentList = ({ comments, releaseId, externalKey }: CommentsSectionProps)
                node={node}
                key={node.comment.id}
                releaseId={releaseId}
+               authUserId={authUserId}
                externalKey={externalKey}
                replyingToCommentId={replyingToCommentId}
                highlightedCommentId={highlightedCommentId}

@@ -14,6 +14,7 @@ type CommentItemProps = {
    isReply?: boolean;
    onReply: () => void;
    comment: ReleaseComment;
+   authUserId: null | string;
    highlightedCommentId: null | string;
    parentComment?: null | ReleaseComment;
    setHighlightedCommentId: (id: null | string) => void;
@@ -23,6 +24,7 @@ type CommentItemProps = {
 const CommentItem = ({
    comment,
    onReply,
+   authUserId,
    isReply = false,
    handleCommentDelete,
    highlightedCommentId,
@@ -63,7 +65,7 @@ const CommentItem = ({
                   <span>Reply</span>
                </button>
 
-               <DeleteModal handleDelete={handleCommentDelete} />
+               {authUserId === comment.profiles.id && <DeleteModal handleDelete={handleCommentDelete} />}
             </div>
          </div>
       </article>

@@ -1,6 +1,5 @@
 import CommentsSection from '@/modules/releaseByExternalKey/components/CommentsSection';
-import ReleaseBanner from '@/modules/releaseByExternalKey/components/ReleaseBanner';
-import TrackList from '@/modules/releaseByExternalKey/components/TrackList';
+import ReleaseInfo from '@/modules/releaseByExternalKey/components/ReleaseInfo';
 import { getReleaseByExternalKey } from '@/modules/releaseByExternalKey/services/releaseByExternalKeyServices';
 
 import styles from './ReleasePage.module.scss';
@@ -12,14 +11,9 @@ const ReleasePage = async ({ params }: { params: Promise<Record<string, string>>
    return (
       <div className={styles.pageWrapper}>
          <div className={styles.content}>
-            <ReleaseBanner release={release} />
+            <ReleaseInfo release={release} />
             <CommentsSection releaseId={release.id} comments={release.comments} externalKey={release.external_key} />
          </div>
-         <TrackList
-            coverUrl={release.cover_url}
-            tracks={release.release_tracks}
-            artistsName={release.release_artists.map((artist) => artist.artists.name).join(', ')}
-         />
       </div>
    );
 };

@@ -37,6 +37,12 @@
    }
 }
 
+.activeTextareaBtn {
+   width: max-content;
+   height: 100% !important;
+   justify-self: flex-end;
+}
+
 .bottomContent {
    display: flex;
    justify-content: space-between;
@@ -58,4 +64,10 @@
 
 .submitError {
    color: $color-accent;
+}
+
+.textareaActionButtons {
+   display: flex;
+   gap: 1rem;
+   margin-left: auto;
 }
