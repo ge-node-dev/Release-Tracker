@@ -12,7 +12,13 @@ export const createSupabaseServerClient = async () => {
             return cookieStore.getAll();
          },
          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+            try {
+               cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+            } catch {
+               // Cookies can only be modified in Server Actions or Route Handlers.
+               // Ignore when called from Server Components or Proxy — session refresh
+               // will be handled by Proxy via updateSession.
+            }
          },
       },
    });
