@@ -6,16 +6,16 @@
 
 .trackTitle {
    @include h5;
-   color: var(--text-primary);
 
+   color: var(--text-primary);
    text-transform: initial;
    text-align: left;
 }
 
 .trackDuration {
    @include label-small;
-   color: var(--text-muted);
 
+   color: var(--text-muted);
    text-align: left;
 }
 
@@ -50,6 +50,7 @@
       &::before {
          transform: scaleY(1);
       }
+
       background: var(--bg-primary);
 
       .trackTitle {
