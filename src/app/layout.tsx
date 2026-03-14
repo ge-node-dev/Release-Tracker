@@ -2,9 +2,10 @@ import type { Metadata, Viewport } from 'next';
 
 import '@/shared/styles/globals.scss';
 
-import { ViewTransition } from 'react';
+import { Suspense, ViewTransition } from 'react';
 
 import ThemeProvider from '@/shared/providers/ThemeProvider';
+import { FlashToasterProvider } from '@/shared/ui/FlashToaster';
 import { InterFont, JetBrainsMonoFont, OswaldFont } from '@/shared/utils/integrations/fonts';
 
 export const metadata: Metadata = {
@@ -27,6 +28,9 @@ export default function RootLayout({
          <body className={`${OswaldFont.variable} ${InterFont.variable} ${JetBrainsMonoFont.variable} antialiased`}>
             <ThemeProvider>
                <ViewTransition>{children}</ViewTransition>
+               <Suspense fallback={null}>
+                  <FlashToasterProvider />
+               </Suspense>
             </ThemeProvider>
          </body>
       </html>

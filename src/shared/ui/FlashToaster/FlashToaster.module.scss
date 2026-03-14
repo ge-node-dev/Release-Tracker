@@ -1,0 +1,35 @@
+.toast {
+   @include h5;
+
+   padding: 1rem 1.5rem;
+   align-items: center;
+   background: rgb(52 52 52) !important;
+   color: var(--text-primary) !important;
+   box-shadow: 0 4px 12px rgb(0 0 0 / 100%);
+   width: 400px;
+
+   :global([data-close-button]) {
+      left: unset !important;
+      right: 0 !important;
+      transform: translate(-20%, 20%) !important;
+      width: 20px;
+      height: 20px;
+      font-size: 1.25rem;
+      background: white !important;
+      border: 1px solid var(--border-grid) !important;
+      color: black !important;
+
+      &:hover {
+         scale: 1.2;
+         transition: scale 0.1s ease-in-out;
+      }
+   }
+}
+
+.success {
+   border: 3px solid var(--border-grid) !important;
+}
+
+.error {
+   border: 3px solid $color-accent !important;
+}

@@ -1,5 +1,7 @@
 'use client';
+
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { getTrackPreviewUrl } from '@/modules/releaseByExternalKey/services/releaseByExternalKeyServices';
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
@@ -17,8 +19,12 @@ export const useTrackList = (tracks: ReleaseByExternalKeyType['release_tracks'])
 
       let cancelled = false;
 
-      getTrackPreviewUrl(activeTrackDeezerId).then((url) => {
-         if (!cancelled) setSoundTrackPreview(url);
+      getTrackPreviewUrl(activeTrackDeezerId).then((result) => {
+         if (cancelled) return;
+         if (result.error) {
+            toast.error(result.error);
+         }
+         setSoundTrackPreview(result.url);
       });
 
       return () => {

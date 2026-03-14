@@ -2,6 +2,12 @@
    color: $color-accent;
    margin: 0 auto;
    margin-top: 1rem;
+   text-align: center;
+
+   &[data-align='start'] {
+      margin: 0;
+      text-align: start;
+   }
 }
 
 .disableTopMargin {

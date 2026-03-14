@@ -11,6 +11,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
    value: string;
    error?: string;
    required?: boolean;
+   className?: string;
    placeholder?: string;
    icon?: React.ElementType;
    type?: 'text' | 'email' | 'password';
@@ -21,6 +22,7 @@ const Input = ({
    error,
    label,
    value,
+   className,
    icon: Icon,
    placeholder,
    type = 'text',
@@ -38,7 +40,7 @@ const Input = ({
 
    return (
       <>
-         <div className={styles.inputWrapper}>
+         <div className={`${styles.inputWrapper} ${className}`}>
             <label htmlFor={id}>
                {label}
                {required && <span className={styles.required}>*</span>}

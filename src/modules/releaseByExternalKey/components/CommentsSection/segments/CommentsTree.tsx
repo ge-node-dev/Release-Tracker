@@ -39,9 +39,9 @@ const CommentsTree = ({
    const { comment, replies } = node;
    const isReply = !!(typeof comment.parent_id === 'object' && comment.parent_id);
 
-   const handleCommentDelete = async () => {
+   const handleCommentDelete = async (): Promise<boolean> => {
       const result = await deleteComment(comment.id, externalKey);
-      return result;
+      return result.success;
    };
 
    return (

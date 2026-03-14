@@ -7,6 +7,7 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { setFlash } from '@/shared/ui/FlashToaster';
 import { ROUTES } from '@/shared/utils/constants';
 import { getAuthenticatedUser } from '@/shared/utils/data/getAuthenticatedUser';
 import { isUsernameAlreadyExist } from '@/shared/utils/data/isUsernameAlreadyExist';
@@ -32,22 +33,27 @@ export const updateProfileData = async ({
    email: string;
    userId: string;
    username: string;
-}) => {
+}): Promise<{ error: string }> => {
    const supabase = await createSupabaseServerClient();
 
    if (await isUsernameAlreadyExist(username)) {
+      await setFlash({ type: 'error', message: 'This username is already in use' });
       return { error: 'This username is already in use' };
    }
 
    const { error } = await supabase.from('profiles').update({ email, username }).eq('id', userId);
    revalidatePath(ROUTES.PROFILE);
-   return { error: error?.message ?? '' };
+
+   if (error) {
+      await setFlash({ type: 'error', message: error.message ?? 'Failed to update username. Please try again.' });
+      return { error: error.message ?? 'Failed to update username. Please try again.' };
+   }
+
+   await setFlash({ type: 'success', message: 'Username updated successfully' });
+   return { error: '' };
 };
 
-export const updateProfileAvatar = async (
-   file: File,
-   userId: string,
-): Promise<{ error: string; success?: boolean }> => {
+export const updateProfileAvatar = async (file: File, userId: string): Promise<void> => {
    const supabase = await createSupabaseServerClient();
    const { credentials, CLOUDINARY_URL } = getCloudinaryCredentials();
 
@@ -63,26 +69,40 @@ export const updateProfileAvatar = async (
       headers: { Authorization: `Basic ${credentials}` },
    });
 
+   const errorMessage = 'Error uploading avatar. Please try again.';
+
    if (!res.ok) {
       const data = await res.json().catch(() => null);
-      return { error: data?.error?.message };
+      await setFlash({ type: 'error', message: data?.error?.message ?? errorMessage });
+      return;
    }
 
    const { secure_url } = await res.json();
    const { error } = await supabase.from('profiles').update({ avatar_url: secure_url }).eq('id', userId);
 
-   if (error) return { error: error.message };
+   if (error) {
+      await setFlash({ type: 'error', message: error.message ?? errorMessage });
+      return;
+   }
 
    revalidatePath(ROUTES.PROFILE);
-   return { error: '', success: true };
+   await setFlash({ type: 'success', message: 'Avatar updated successfully' });
 };
 
 export const submitResetPasswordMail = async (email: string) => {
    const supabase = await createSupabaseServerClient();
+
    const origin = (await headers()).get('origin');
    const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${origin}${ROUTES.RESET_PASSWORD}`,
    });
+
+   if (error) {
+      await setFlash({ type: 'error', message: error.message });
+   } else {
+      await setFlash({ type: 'success', message: 'Password reset email sent' });
+   }
+
    return { error: error?.message ?? '' };
 };
 

@@ -14,14 +14,13 @@ import { getCroppedImg } from '@/shared/utils/data/getCroppedImg';
 import styles from './AvatarCropModal.module.scss';
 
 interface AvatarCropModalProps {
-   error: boolean;
    imageSrc: string;
    isUploading: boolean;
    onCancel: () => void;
    onConfirm: (blob: Blob) => void;
 }
 
-const AvatarCropModal = ({ error, imageSrc, onCancel, onConfirm, isUploading }: AvatarCropModalProps) => {
+const AvatarCropModal = ({ imageSrc, onCancel, onConfirm, isUploading }: AvatarCropModalProps) => {
    const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
    const [zoom, setZoom] = useState(1);
    const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -77,7 +76,6 @@ const AvatarCropModal = ({ error, imageSrc, onCancel, onConfirm, isUploading }: 
                {isUploading ? 'Uploading...' : 'Save'}
             </ActionButton>
          </div>
-         {error && <FormErrorText error={'Error uploading avatar. Please try again.'} />}
       </Modal>
    );
 };

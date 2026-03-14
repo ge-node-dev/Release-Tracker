@@ -7,6 +7,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { updateProfileData } from '@/modules/profile/services/profileActions';
 import { ROUTES } from '@/shared/utils/constants';
 import { isUsernameAlreadyExist } from '@/shared/utils/data/isUsernameAlreadyExist';
+import { setFlash } from '@/shared/ui/FlashToaster';
 
 export type FormState = {
    error: string;
@@ -31,6 +32,7 @@ export const createUserAccount = async (_: FormState, formData: FormData): Promi
    });
 
    if (error) {
+      await setFlash({ type: 'error', message: error.message });
       return { email, success: false, error: error.message };
    }
 

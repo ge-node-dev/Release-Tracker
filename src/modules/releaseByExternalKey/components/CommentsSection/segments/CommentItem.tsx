@@ -17,8 +17,8 @@ type CommentItemProps = {
    authUserId: null | string;
    highlightedCommentId: null | string;
    parentComment?: null | ReleaseComment;
+   handleCommentDelete: () => Promise<boolean>;
    setHighlightedCommentId: (id: null | string) => void;
-   handleCommentDelete: () => Promise<{ success?: boolean; error?: null | string }>;
 };
 
 const CommentItem = ({

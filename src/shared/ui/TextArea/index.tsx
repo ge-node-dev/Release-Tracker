@@ -8,24 +8,18 @@ import styles from './TextArea.module.scss';
 
 const TEXT_AREA_LIMIT = 1000;
 
-export type OnSendResult = { error?: string };
-
 export type TextAreaProps = {
    disabled?: boolean;
    placeholder?: string;
-   error?: null | string;
    onCancel?: () => void;
    disabledOpenBtn: boolean;
-   onErrorClear?: () => void;
-   onSend?: (content: string) => void | Promise<void | OnSendResult>;
+   onSend?: (content: string) => void | Promise<boolean>;
 };
 
 const TextArea = ({
    onSend,
    disabled,
    onCancel,
-   error = null,
-   onErrorClear,
    disabledOpenBtn = false,
    placeholder = 'Write something',
 }: TextAreaProps) => {
@@ -37,7 +31,6 @@ const TextArea = ({
    const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
       const newValue = event.target.value.slice(0, TEXT_AREA_LIMIT);
       setValue(newValue);
-      onErrorClear?.();
       const el = textareaRef.current;
       if (!el) return;
       el.style.height = 'auto';
@@ -49,9 +42,9 @@ const TextArea = ({
       if (!trimmed || !onSend) return;
       setIsSubmitting(true);
       try {
-         const result = await onSend(trimmed);
+         const isSuccessSend = await onSend(trimmed);
 
-         if (!result?.error) {
+         if (isSuccessSend) {
             setValue('');
             setIsOpen(disabledOpenBtn);
             const el = textareaRef.current;
@@ -82,7 +75,6 @@ const TextArea = ({
                   disabled={disabled ?? isSubmitting}
                />
                <div className={styles.bottomContent}>
-                  {error && <p className={styles.submitError}>{error}</p>}
                   <span>{`${value.length}/${TEXT_AREA_LIMIT}`}</span>
                </div>
                <div className={styles.textareaActionButtons}>
@@ -93,7 +85,6 @@ const TextArea = ({
                      onClick={() => {
                         setValue('');
                         setIsOpen(false);
-                        onErrorClear?.();
                         onCancel?.();
                      }}
                   >

@@ -4,29 +4,27 @@ import { useState } from 'react';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
 import Modal from '@/shared/ui/Modal';
 
-import FormErrorText from '../FormErrorText';
 import { DeleteIcon } from '../Icons';
 
 import styles from './DeleteModal.module.scss';
 
-const DeleteModal = ({
-   handleDelete,
-}: {
-   handleDelete: () => Promise<{ success?: boolean; error?: null | string }>;
-}) => {
+const DeleteModal = ({ handleDelete }: { handleDelete: () => Promise<boolean> }) => {
    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-   const [deletedCommentError, setDeletedCommentError] = useState<null | string>(null);
    const [isLoading, setIsLoading] = useState(false);
 
    const handleDeleteConfirm = async () => {
-      setIsLoading(true);
-      setDeletedCommentError(null);
-      const result = await handleDelete();
-      setIsLoading(false);
-      if (result.success) {
-         setIsDeleteModalOpen(false);
-      } else {
-         setDeletedCommentError(result.error ?? null);
+      try {
+         setIsLoading(true);
+
+         const isSuccessDelete = await handleDelete();
+
+         if (isSuccessDelete) {
+            setIsDeleteModalOpen(false);
+         }
+      } catch (error) {
+         console.error(error);
+      } finally {
+         setIsLoading(false);
       }
    };
 
@@ -41,7 +39,6 @@ const DeleteModal = ({
                disableClose={isLoading}
                onClose={() => {
                   setIsDeleteModalOpen(false);
-                  setDeletedCommentError(null);
                }}
             >
                <span>Delete comment</span>
@@ -66,7 +63,6 @@ const DeleteModal = ({
                      {isLoading ? 'Deleting...' : 'Delete'}
                   </ActionButton>
                </div>
-               {deletedCommentError && <FormErrorText disableTopMargin={true} error={deletedCommentError} />}
             </Modal>
          )}
       </>

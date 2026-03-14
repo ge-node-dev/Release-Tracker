@@ -3,22 +3,22 @@
 import { revalidatePath } from 'next/cache';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { setFlash } from '@/shared/ui/FlashToaster';
 import { getAuthenticatedUser } from '@/shared/utils/data/getAuthenticatedUser';
-
-export type SubmitCommentResult = { error?: string };
 
 export const submitComment = async (
    releaseId: string,
    content: string,
    externalKey: string,
    parentId?: null | string,
-): Promise<SubmitCommentResult> => {
+): Promise<{ success: boolean }> => {
    const trimmed = content.trim();
 
    const user = await getAuthenticatedUser();
 
    if (!user) {
-      return { error: 'You must be signed in to comment' };
+      await setFlash({ type: 'error', message: 'You must be signed in to comment' });
+      return { success: false };
    }
 
    const supabase = await createSupabaseServerClient();
@@ -32,23 +32,26 @@ export const submitComment = async (
    const { error } = await supabase.from('comments').insert(insert);
 
    if (error) {
-      return { error: error.message };
+      await setFlash({ type: 'error', message: error.message });
+      return { success: false };
    }
 
+   await setFlash({ type: 'success', message: 'Comment added successfully' });
    revalidatePath(`/release/${externalKey}`);
-   return {};
+
+   return { success: true };
 };
 
-export const deleteComment = async (
-   commentId: string,
-   externalKey: string,
-): Promise<{ success: boolean; error: null | string }> => {
+export const deleteComment = async (commentId: string, externalKey: string): Promise<{ success: boolean }> => {
    const supabase = await createSupabaseServerClient();
 
    const { error } = await supabase.from('comments').delete().eq('id', commentId);
    if (error) {
-      return { success: false, error: error.message };
+      await setFlash({ type: 'error', message: error.message });
+      return { success: false };
    }
+
+   await setFlash({ type: 'success', message: 'Comment deleted successfully' });
    revalidatePath(`/release/${externalKey}`);
-   return { error: null, success: true };
+   return { success: true };
 };

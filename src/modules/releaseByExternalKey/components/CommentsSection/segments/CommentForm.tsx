@@ -25,28 +25,23 @@ const CommentForm = ({
    disabledOpenBtn = false,
 }: CommentFormProps) => {
    const router = useRouter();
-   const [error, setError] = useState<null | string>(null);
 
    const handleSend = async (content: string) => {
-      setError(null);
       const result = await submitComment(releaseId, content, externalKey, parentId);
 
-      if (result.error) {
-         setError(result.error);
-         return { error: result.error };
+      if (result.success) {
+         onSuccess?.();
+         router.refresh();
       }
-      onSuccess?.();
-      router.refresh();
-      return { success: true };
+
+      return result.success;
    };
 
    return (
       <TextArea
-         error={error}
          onCancel={onCancel}
          onSend={handleSend}
          disabledOpenBtn={disabledOpenBtn}
-         onErrorClear={() => setError(null)}
          placeholder={parentId ? 'Write a reply…' : 'Write a comment…'}
       />
    );

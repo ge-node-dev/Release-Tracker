@@ -10,7 +10,7 @@
 }
 
 @mixin page-paddings {
-   padding-top: 90px;
+   padding-top: 76px;
    padding-inline: 16px;
 
    @include breakpoint('mobile') {

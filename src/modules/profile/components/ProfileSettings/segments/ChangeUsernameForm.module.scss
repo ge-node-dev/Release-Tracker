@@ -1,0 +1,11 @@
+.changeUsernameInput {
+   input {
+      background: var(--border-grid);
+   }
+}
+
+.actionButtons {
+   display: flex;
+   gap: 0.75rem;
+   margin-top: 0.5rem;
+}

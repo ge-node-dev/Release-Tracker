@@ -1,7 +1,19 @@
 import styles from './FormErrorText.module.scss';
 
-const FormErrorText = ({ error, disableTopMargin = false }: { error: string; disableTopMargin?: boolean }) => {
-   return <p className={`${styles.error} ${disableTopMargin ? styles.disableTopMargin : ''}`}>{error}</p>;
+const FormErrorText = ({
+   error,
+   align = 'center',
+   disableTopMargin = false,
+}: {
+   error: string;
+   align?: 'start' | 'center';
+   disableTopMargin?: boolean;
+}) => {
+   return (
+      <p data-align={align} className={`${styles.error} ${disableTopMargin ? styles.disableTopMargin : ''}`}>
+         {error}
+      </p>
+   );
 };
 
 export default FormErrorText;

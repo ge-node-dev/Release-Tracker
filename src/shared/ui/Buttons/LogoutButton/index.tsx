@@ -4,8 +4,10 @@ import ActionButton, { type ActionButtonProps } from '@/shared/ui/Buttons/Action
 
 const LogoutButton = ({
    size = 'medium',
+   disabled = false,
    variant = 'primary',
 }: {
+   disabled?: boolean;
    size?: ActionButtonProps['size'];
    variant?: ActionButtonProps['variant'];
 }) => {
@@ -13,6 +15,7 @@ const LogoutButton = ({
       <ActionButton
          size={size}
          variant={variant}
+         disabled={disabled}
          onClick={async () => {
             try {
                await logoutUserAccount();

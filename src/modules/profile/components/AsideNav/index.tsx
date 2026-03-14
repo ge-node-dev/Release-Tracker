@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation';
 import { getProfile } from '@/modules/profile/services/profileActions';
 import { ROUTES } from '@/shared/utils/constants';
 
-import styles from './ProfileInfo.module.scss';
+import styles from './AsideNav.module.scss';
 
-const ProfileInfo = async () => {
+const AsideNav = async () => {
    const data = await getProfile();
    if (!data?.profile) redirect(ROUTES.AUTH);
 
@@ -39,4 +39,4 @@ const ProfileInfo = async () => {
    );
 };
 
-export default ProfileInfo;
+export default AsideNav;
