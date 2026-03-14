@@ -51,6 +51,8 @@
 .trackTitle {
    @include h5;
 
+   max-width: 25vw;
+
    color: var(--text-primary);
    font-weight: 700;
    overflow: hidden;
