@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import AsideNav from '@/modules/profile/components/AsideNav';
+import ProfileAsideNav from '@/modules/profile/components/ProfileAsideNav';
 
 import styles from './Profile.module.scss';
 
@@ -10,7 +10,7 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
          <div className={styles.content}>
             <aside className={styles.sidebar}>
                <Suspense>
-                  <AsideNav />
+                  <ProfileAsideNav />
                </Suspense>
             </aside>
 

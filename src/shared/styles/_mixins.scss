@@ -2,6 +2,12 @@
 @use '@/shared/styles/breakpoints' as *;
 @use '@/shared/styles/typography' as *;
 
+@mixin hover-only {
+   @media (hover: hover) {
+      @content;
+   }
+}
+
 @mixin divider($h: 20px, $m: 8px) {
    width: 1px;
    height: $h;

@@ -45,6 +45,7 @@ const ChangeUsernameForm = ({
 
    return (
       <FormContainer
+         className={styles.changeUsernameForm}
          onSubmit={(e) => {
             e.preventDefault();
             updateProfileUsername(fields.username?.value);

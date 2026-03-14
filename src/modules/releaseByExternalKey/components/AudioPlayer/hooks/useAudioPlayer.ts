@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 export const useAudioPlayer = (soundTrackPreview: null | string) => {
    const audioRef = useRef<HTMLAudioElement>(null);
@@ -9,17 +9,14 @@ export const useAudioPlayer = (soundTrackPreview: null | string) => {
    const prevVolumeRef = useRef(50);
    const [isLooped, setIsLooped] = useState(false);
 
-   useEffect(() => {
-      if (!soundTrackPreview) return;
-
+   const onCanPlay = () => {
       const audio = audioRef.current;
       if (!audio) return;
       audio.volume = volume / 100;
       audio.play().catch((e) => {
          if (e.name !== 'AbortError') console.error(e);
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [soundTrackPreview]);
+   };
 
    const togglePlay = () => {
       const audio = audioRef.current;
@@ -71,6 +68,7 @@ export const useAudioPlayer = (soundTrackPreview: null | string) => {
       isLooped,
       progress,
       isPlaying,
+      onCanPlay,
       handleSeek,
       toggleLoop,
       toggleMute,

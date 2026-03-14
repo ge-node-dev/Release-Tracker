@@ -1,3 +1,10 @@
+:global([data-sonner-toaster][data-y-position='top']) {
+   @media (width <= 767px) {
+      top: calc(82px + env(safe-area-inset-bottom, 0)) !important;
+      bottom: unset !important;
+   }
+}
+
 .toast {
    @include h5;
 

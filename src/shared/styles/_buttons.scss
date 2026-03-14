@@ -27,9 +27,11 @@
    color: var(--text-primary);
    border: 1px solid var(--border-grid);
 
-   &:hover {
-      background-color: var(--bg-raised);
-      color: var(--text-muted);
+   @include hover-only {
+      &:hover {
+         background-color: var(--bg-raised);
+         color: var(--text-muted);
+      }
    }
 }
 
@@ -41,9 +43,11 @@
    border: 1px solid var(--border-grid);
    text-transform: uppercase;
 
-   &:hover {
-      background-color: var(--bg-raised);
-      color: var(--text-muted);
+   @include hover-only {
+      &:hover {
+         background-color: var(--bg-raised);
+         color: var(--text-muted);
+      }
    }
 }
 
@@ -55,9 +59,11 @@
    text-transform: uppercase;
    border: 1px solid var(--border-grid);
 
-   &:hover {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
+   @include hover-only {
+      &:hover {
+         background-color: var(--bg-primary);
+         color: var(--text-primary);
+      }
    }
 }
 

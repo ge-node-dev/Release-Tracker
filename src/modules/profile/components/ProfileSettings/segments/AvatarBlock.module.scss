@@ -5,7 +5,15 @@
    gap: 1rem;
    height: 100%;
    max-width: 350px;
-   padding: 2rem;
+   width: 100%;
+   padding: var(--blocks-padding);
+   margin-block: 1.5rem;
+
+   @include breakpoint('tablet') {
+      margin-block: 0;
+      max-width: unset;
+      width: 100%;
+   }
 }
 
 .avatarFrame {

@@ -16,8 +16,8 @@ const ProfileSettings = ({ profile }: { profile: Database['public']['Tables']['p
 
    const [isLoading, setIsLoading] = useState(false);
 
-   return (
-      <section className={styles.profileSettingsWrapper}>
+   const content = (
+      <>
          <div className={styles.tabInfoWrapper}>
             <p className={styles.subtitle}>Configuration Panel</p>
             <h2 className={styles.title}>Profile</h2>
@@ -44,7 +44,14 @@ const ProfileSettings = ({ profile }: { profile: Database['public']['Tables']['p
                <LogoutButton size="medium" variant="red" disabled={isLoading} />
             </div>
          </div>
-      </section>
+      </>
+   );
+
+   return (
+      <>
+         <section className={styles.wrapperDesktop}>{content}</section>
+         <section className={styles.wrapperMobile}>{content}</section>
+      </>
    );
 };
 

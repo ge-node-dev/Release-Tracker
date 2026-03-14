@@ -1,8 +1,12 @@
 .sidebarContent {
-   display: flex;
-   flex-direction: column;
-   gap: 6rem;
-   flex: 1;
+   display: none;
+
+   @include breakpoint('laptop') {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+      flex: 1;
+   }
 }
 
 .userName {
