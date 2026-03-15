@@ -1,6 +1,10 @@
 import { useRef, useState } from 'react';
 
-export const useAudioPlayer = (soundTrackPreview: null | string) => {
+type UseAudioPlayerParams = {
+   onNext?: () => void;
+};
+
+export const useAudioPlayer = ({ onNext }: UseAudioPlayerParams) => {
    const audioRef = useRef<HTMLAudioElement>(null);
    const [isPlaying, setIsPlaying] = useState(false);
    const [progress, setProgress] = useState(0);
@@ -78,7 +82,10 @@ export const useAudioPlayer = (soundTrackPreview: null | string) => {
       handleLoadedMetadata,
       onEmptied: () => setProgress(0),
       onPlay: () => setIsPlaying(true),
-      onEnded: () => setIsPlaying(false),
+      onEnded: () => {
+         setIsPlaying(false);
+         if (!isLooped && onNext) onNext();
+      },
       onPause: () => setIsPlaying(false),
    };
 };

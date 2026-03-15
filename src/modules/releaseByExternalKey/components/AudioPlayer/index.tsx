@@ -56,7 +56,7 @@ const AudioPlayer = ({
       handleTimeUpdate,
       handleVolumeChange,
       handleLoadedMetadata,
-   } = useAudioPlayer(soundTrackPreview);
+   } = useAudioPlayer({ onNext });
 
    if (!soundTrackPreview) return null;
 
