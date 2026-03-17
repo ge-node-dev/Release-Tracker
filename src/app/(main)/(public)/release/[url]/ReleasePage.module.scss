@@ -1,13 +1,27 @@
 .pageWrapper {
-   display: grid;
-   grid-template-columns: 1fr 380px;
-   height: 100%;
-   overflow: hidden;
+   display: flex;
+   flex-direction: column;
    width: 100%;
-   background: var(--bg-main);
-   padding-bottom: 60px;
-   max-width: 1920px;
-   margin: 0 auto;
+   padding-bottom: 70px;
+
+   &:has([data-player-visible='true']) {
+      padding-bottom: 190px;
+
+      @include breakpoint('desktop') {
+         padding-bottom: 60px;
+      }
+   }
+
+   @include breakpoint('desktop') {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      height: 100%;
+      overflow: hidden;
+      width: 100%;
+      background: var(--bg-main);
+      max-width: 1920px;
+      margin: 0 auto;
+   }
 }
 
 .content {

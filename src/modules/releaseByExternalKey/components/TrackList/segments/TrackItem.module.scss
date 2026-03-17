@@ -60,7 +60,7 @@
    }
 
    &.active {
-      background: var(--bg-primary);
+      background: $color-accent-muted;
       cursor: default;
       pointer-events: none;
 

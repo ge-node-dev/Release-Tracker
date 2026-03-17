@@ -82,10 +82,10 @@ export const useAudioPlayer = ({ onNext }: UseAudioPlayerParams) => {
       handleLoadedMetadata,
       onEmptied: () => setProgress(0),
       onPlay: () => setIsPlaying(true),
+      onPause: () => setIsPlaying(false),
       onEnded: () => {
          setIsPlaying(false);
          if (!isLooped && onNext) onNext();
       },
-      onPause: () => setIsPlaying(false),
    };
 };

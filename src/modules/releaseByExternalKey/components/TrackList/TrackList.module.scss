@@ -1,35 +1,49 @@
 .wrapper {
-   position: fixed;
-   top: 78px;
-   right: 0;
-   display: flex;
-   flex-direction: column;
-   height: 100%;
-   max-height: 88vh;
-   width: 380px;
-   background: var(--bg-main);
-   border-left: 1px solid var(--border-grid);
-   overflow-y: auto;
-   overscroll-behavior: contain;
-   padding-bottom: 75px;
-   scrollbar-width: none;
-   mask-image: linear-gradient(to bottom, black calc(100% - 120px), transparent 100%);
+   display: none;
 
-   &::-webkit-scrollbar {
-      display: none;
+   @include breakpoint('laptop') {
+      display: flex;
+      position: fixed;
+      top: 78px;
+      right: 0;
+      flex-direction: column;
+      height: 100%;
+      max-height: 88vh;
+      width: 380px;
+      background: var(--bg-main);
+      border-left: 1px solid var(--border-grid);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-bottom: 75px;
+      scrollbar-width: none;
+      mask-image: linear-gradient(to bottom, black calc(100% - 120px), transparent 100%);
+
+      &::-webkit-scrollbar {
+         display: none;
+      }
    }
 }
 
-.info {
-   padding-inline: 1rem;
+.inlineWrapper {
    display: flex;
-   justify-content: space-between;
-   padding-block: 1.5rem;
-   align-items: center;
+   flex-direction: column;
+   width: 100%;
+}
 
-   span {
-      @include h4;
+.info {
+   display: none;
 
-      color: var(--text-primary);
+   @include breakpoint('laptop') {
+      display: flex;
+      padding-inline: 1rem;
+      justify-content: space-between;
+      padding-block: 1.5rem;
+      align-items: center;
+
+      span {
+         @include h4;
+
+         color: var(--text-primary);
+      }
    }
 }

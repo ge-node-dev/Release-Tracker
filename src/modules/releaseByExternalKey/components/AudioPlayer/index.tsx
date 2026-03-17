@@ -11,7 +11,6 @@ import {
    RepeatIcon,
    VolumeIcon,
 } from '@/shared/ui/Icons';
-import Portal from '@/shared/ui/Portal';
 import { formatTrackTime } from '@/shared/utils/date/formatTrackTime';
 
 import { useAudioPlayer } from './hooks/useAudioPlayer';
@@ -61,8 +60,8 @@ const AudioPlayer = ({
    if (!soundTrackPreview) return null;
 
    return (
-      <Portal>
-         <div className={styles.wrapper}>
+      <div className={styles.wrapper}>
+         <div className={styles.contentWrapper}>
             <audio
                ref={audioRef}
                loop={isLooped}
@@ -94,40 +93,43 @@ const AudioPlayer = ({
             </div>
 
             <div className={styles.controls}>
-               <div className={styles.controlsButtons}>
-                  <button onClick={onPrev} disabled={!onPrev} aria-label="Previous" className={styles.arrowButton}>
-                     <AudioPlayerArrow />
-                  </button>
-                  <button onClick={togglePlay} className={styles.playButton} aria-label={isPlaying ? 'Pause' : 'Play'}>
-                     {!isPlaying ? <PlayIcon style={{ width: '16px', height: '16px' }} /> : <PauseIcon />}
-                  </button>
-                  <button onClick={onNext} aria-label="Next" disabled={!onNext} className={styles.arrowButton}>
-                     <AudioPlayerArrow style={{ transform: 'rotate(180deg)' }} />
-                  </button>
-                  <button
-                     aria-label="Repeat"
-                     onClick={toggleLoop}
-                     className={`${styles.repeatButton} ${isLooped ? styles.activeLoop : ''}`}
-                  >
-                     <RepeatIcon width={20} height={20} />
-                  </button>
+               <div className={styles.controlsContainer}>
+                  <div className={styles.controlsButtons}>
+                     <button onClick={onPrev} disabled={!onPrev} aria-label="Previous" className={styles.arrowButton}>
+                        <AudioPlayerArrow />
+                     </button>
+                     <button
+                        onClick={togglePlay}
+                        className={styles.playButton}
+                        aria-label={isPlaying ? 'Pause' : 'Play'}
+                     >
+                        {!isPlaying ? <PlayIcon style={{ width: '16px', height: '16px' }} /> : <PauseIcon />}
+                     </button>
+                     <button onClick={onNext} aria-label="Next" disabled={!onNext} className={styles.arrowButton}>
+                        <AudioPlayerArrow style={{ transform: 'rotate(180deg)' }} />
+                     </button>
+                     <button
+                        aria-label="Repeat"
+                        onClick={toggleLoop}
+                        className={`${styles.repeatButton} ${isLooped ? styles.activeLoop : ''}`}
+                     >
+                        <RepeatIcon width={20} height={20} />
+                     </button>
+                  </div>
+                  <div className={styles.progressSection}>
+                     <span className={styles.time}>{formatTrackTime((progress / 100) * duration)}</span>
+                     <input
+                        min={0}
+                        max={100}
+                        type="range"
+                        value={progress}
+                        onChange={handleSeek}
+                        className={styles.progress}
+                        style={{ '--progress': `${progress}%` } as React.CSSProperties}
+                     />
+                     <span className={styles.time}>{formatTrackTime(duration)}</span>
+                  </div>
                </div>
-               <div className={styles.progressSection}>
-                  <span className={styles.time}>{formatTrackTime((progress / 100) * duration)}</span>
-                  <input
-                     min={0}
-                     max={100}
-                     type="range"
-                     value={progress}
-                     onChange={handleSeek}
-                     className={styles.progress}
-                     style={{ '--progress': `${progress}%` } as React.CSSProperties}
-                  />
-                  <span className={styles.time}>{formatTrackTime(duration)}</span>
-               </div>
-            </div>
-
-            <div className={styles.rightSection}>
                <div className={styles.volumeSection}>
                   <button onClick={toggleMute} className={styles.buttonVolume}>
                      {volume === 0 ? <NoVolumeIcon /> : <VolumeIcon />}
@@ -142,12 +144,15 @@ const AudioPlayer = ({
                      style={{ '--volume': `${volume}%` } as React.CSSProperties}
                   />
                </div>
+            </div>
+
+            <div className={styles.rightSection}>
                <button onClick={onPlayerClose} className={styles.closeIcon}>
                   <CloseIcon />
                </button>
             </div>
          </div>
-      </Portal>
+      </div>
    );
 };
 

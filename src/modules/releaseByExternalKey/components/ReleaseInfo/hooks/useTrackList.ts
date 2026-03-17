@@ -14,6 +14,18 @@ export const useTrackList = (tracks: ReleaseByExternalKeyType['release_tracks'])
    const activeTrack = activeIndex >= 0 ? tracks[activeIndex] : null;
    const activeTrackDeezerId = activeIndex >= 0 ? tracks[activeIndex].tracks.deezer_track_id : null;
 
+   const handlePrev = activeIndex > 0 ? () => setActiveTrackId(tracks[activeIndex - 1].tracks.id) : undefined;
+
+   const handleNext =
+      activeIndex >= 0 && activeIndex < tracks.length - 1
+         ? () => setActiveTrackId(tracks[activeIndex + 1].tracks.id)
+         : undefined;
+
+   const handleClose = () => {
+      setSoundTrackPreview(null);
+      setActiveTrackId(null);
+   };
+
    useEffect(() => {
       if (!activeTrackDeezerId) return;
 
@@ -21,10 +33,8 @@ export const useTrackList = (tracks: ReleaseByExternalKeyType['release_tracks'])
 
       getTrackPreviewUrl(activeTrackDeezerId).then((result) => {
          if (cancelled) return;
-         if (result.error) {
-            toast.error(result.error);
-         }
-         setSoundTrackPreview(result.url);
+         if (result.error) toast.error(result.error);
+         else setSoundTrackPreview(result.url);
       });
 
       return () => {
@@ -32,12 +42,13 @@ export const useTrackList = (tracks: ReleaseByExternalKeyType['release_tracks'])
       };
    }, [activeTrackDeezerId]);
 
-   useEffect(() => {
-      return () => {
+   useEffect(
+      () => () => {
          setSoundTrackPreview(null);
          setActiveTrackId(null);
-      };
-   }, []);
+      },
+      [],
+   );
 
-   return { activeTrack, setActiveTrackId, soundTrackPreview, setSoundTrackPreview };
+   return { handleNext, handlePrev, activeTrack, handleClose, setActiveTrackId, soundTrackPreview };
 };

@@ -12,18 +12,33 @@
 
 .wrapper {
    animation: playerAppear 0.3s ease-out;
-   position: fixed;
-   bottom: 0;
-   width: 100%;
-   height: 80px;
-   z-index: 999;
-   display: grid;
-   grid-template-columns: minmax(160px, 1fr) auto minmax(160px, 1fr);
-   align-items: center;
-   gap: 2rem;
-   padding: 0 2rem;
+   position: relative;
+   padding: 0.5rem 1rem;
    background: var(--bg-raised);
    border-top: 2px solid $color-accent;
+
+   @include breakpoint('laptop') {
+      height: 80px;
+      padding: 0;
+      padding: 0.5rem 1rem;
+   }
+}
+
+.contentWrapper {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   width: 100%;
+
+   @include breakpoint('laptop') {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1920px;
+      margin: 0 auto;
+      height: 100%;
+      gap: 2rem;
+   }
 }
 
 .trackInfo {
@@ -31,32 +46,47 @@
    align-items: center;
    gap: 0.75rem;
    min-width: 0;
+   padding-right: 2rem;
+
+   @include breakpoint('laptop') {
+      padding-right: 0;
+      min-width: 250px;
+   }
 }
 
 .trackImage {
    flex-shrink: 0;
-   width: 64px;
-   height: 64px;
+   width: 44px;
+   height: 44px;
    object-fit: cover;
    border: 1px solid var(--border-grid);
    padding: 0.2rem;
+
+   @include breakpoint('laptop') {
+      width: 64px;
+      height: 64px;
+   }
 }
 
 .trackTitlesWrapper {
    display: flex;
    flex-direction: column;
    gap: 0.2rem;
+   min-width: 0;
 }
 
 .trackTitle {
    @include h5;
 
-   max-width: 25vw;
    color: var(--text-primary);
    font-weight: 700;
    overflow: hidden;
    white-space: nowrap;
    text-overflow: ellipsis;
+
+   @include breakpoint('laptop') {
+      max-width: 25vw;
+   }
 }
 
 .trackSubtitle {
@@ -69,17 +99,38 @@
 
 .controls {
    display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap: 2rem;
+   width: 100%;
+   flex: 0;
+}
+
+.controlsContainer {
+   display: flex;
    flex-direction: column;
    align-items: center;
-   gap: 0.4rem;
-   width: 500px;
+   width: 100%;
+   gap: 1rem;
+
+   @include breakpoint('laptop') {
+      width: 520px;
+      gap: 0.4rem;
+   }
 }
 
 .controlsButtons {
    display: flex;
    align-items: center;
-   gap: 1.25rem;
-   margin-left: 20px;
+   justify-content: center;
+   gap: 2rem;
+   margin-left: 50px;
+
+   @include breakpoint('laptop') {
+      justify-content: flex-start;
+      gap: 1.25rem;
+      margin-left: 25px;
+   }
 }
 
 .arrowButton {
@@ -135,10 +186,17 @@
 }
 
 .rightSection {
+   position: absolute;
+   top: 0.75rem;
+   right: 1rem;
    display: flex;
    align-items: center;
    gap: 1rem;
    min-width: 0;
+
+   @include breakpoint('laptop') {
+      position: static;
+   }
 }
 
 .progressSection {
@@ -197,11 +255,14 @@
 }
 
 .volumeSection {
-   flex-shrink: 0;
-   display: flex;
-   align-items: center;
-   gap: 1rem;
-   margin-left: 3rem;
+   display: none;
+
+   @include breakpoint('laptop') {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+   }
 }
 
 .buttonVolume {
@@ -222,9 +283,12 @@
 .closeIcon {
    width: 18px;
    height: 18px;
-   margin-left: auto;
    color: var(--text-muted);
    transition: color 0.15s ease;
+
+   @include breakpoint('laptop') {
+      margin-left: auto;
+   }
 
    &:hover {
       color: var(--text-primary);

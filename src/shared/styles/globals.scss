@@ -106,6 +106,32 @@ table {
    border-spacing: 0;
 }
 
+* {
+   scrollbar-width: thin;
+   scrollbar-color: var(--text-muted) transparent;
+}
+
+::-webkit-scrollbar {
+   width: 4px;
+   height: 4px;
+}
+
+::-webkit-scrollbar-track {
+   background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+   background: var(--border-grid);
+   border-radius: 0;
+}
+
+::-webkit-scrollbar-button:start,
+::-webkit-scrollbar-button:end {
+   display: none;
+   width: 0;
+   height: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
    *,
    *::before,
