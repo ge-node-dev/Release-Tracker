@@ -1,12 +1,9 @@
-import { cacheLife, cacheTag } from 'next/cache';
 import Link from 'next/link';
 
 import { getPaginationCount } from '@/modules/release/services/releaseServices';
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
-import { SearchParams } from '@/shared/types';
 import { ArrowIcon as UiArrowIcon } from '@/shared/ui/Icons';
-import { CACHE_1W, RELEASES_CACHE_TAG } from '@/shared/utils/constants';
-import { buildHrefWithParam, getVisiblePages } from '@/shared/utils/data/pagination';
+import { buildPageHref, getVisiblePages } from '@/shared/utils/data/pagination';
 
 import styles from './Pagination.module.scss';
 
@@ -16,7 +13,6 @@ interface PaginationProps {
    currentPage: number;
    maxVisiblePages?: number;
    currentPeriod: ReleasePeriod;
-   searchParams: Awaited<SearchParams>;
 }
 
 const ArrowIcon = ({ rotate }: { rotate?: string }) => (
@@ -31,12 +27,7 @@ const ArrowIcon = ({ rotate }: { rotate?: string }) => (
    />
 );
 
-const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisiblePages = 3 }: PaginationProps) => {
-   'use cache';
-   cacheLife(CACHE_1W);
-   cacheTag(`releases-count-${currentPeriod}-${currentPage}`);
-   cacheTag(RELEASES_CACHE_TAG);
-
+const Pagination = async ({ currentPage, currentPeriod, maxVisiblePages = 3 }: PaginationProps) => {
    const { totalPages } = await getPaginationCount(currentPeriod);
    if (!totalPages || totalPages < 2) return null;
 
@@ -44,7 +35,7 @@ const Pagination = async ({ currentPage, searchParams, currentPeriod, maxVisible
    const isLastPage = currentPage === totalPages;
    const visiblePages = getVisiblePages(currentPage, totalPages, maxVisiblePages);
 
-   const navigateTo = (page: number) => buildHrefWithParam(searchParams, 'page', page, 1);
+   const navigateTo = (page: number) => buildPageHref(currentPeriod, page);
 
    return (
       <div className={styles.pagination}>
