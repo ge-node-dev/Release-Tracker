@@ -1,7 +1,7 @@
 import HomePageBuilder from '@/app/(main)/(public)/HomePageBuilder';
 
-const ThisMonthPage = () => {
+const ThisMonthFirstPage = () => {
    return <HomePageBuilder page={1} period={'this_month'} />;
 };
 
-export default ThisMonthPage;
+export default ThisMonthFirstPage;

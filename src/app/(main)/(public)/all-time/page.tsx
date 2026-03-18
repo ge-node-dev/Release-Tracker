@@ -1,7 +1,7 @@
 import HomePageBuilder from '@/app/(main)/(public)/HomePageBuilder';
 
-const AllTimePage = () => {
+const AllTimeFirstPage = () => {
    return <HomePageBuilder page={1} period={'all_time'} />;
 };
 
-export default AllTimePage;
+export default AllTimeFirstPage;
