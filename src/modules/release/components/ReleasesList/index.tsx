@@ -1,20 +1,18 @@
-import { SearchParams } from '@/shared/types';
+import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 import Pagination from '@/shared/ui/Pagination';
 import ReleaseCard from '@/shared/ui/ReleaseCard';
 
-import { getReleasesList } from '../../services/releaseServices';
+import { getReleasesList, getReleasesListFirstPage } from '../../services/releaseServices';
 
 import styles from './ReleasesList.module.scss';
 
-const ReleasesList = async ({ searchParams }: { searchParams: Awaited<SearchParams> }) => {
-   const { page, period } = searchParams;
-   const currentPage = Number(page) || 1;
-   const currentPeriod = period || 'this_week';
+interface Props {
+   page: number;
+   period: ReleasePeriod;
+}
 
-   const { data } = await getReleasesList({
-      page: currentPage,
-      period: currentPeriod,
-   });
+const ReleasesList = async ({ page, period }: Props) => {
+   const { data } = page === 1 ? await getReleasesListFirstPage(period) : await getReleasesList({ page, period });
 
    return (
       <section className={styles.wrapper}>
@@ -23,7 +21,7 @@ const ReleasesList = async ({ searchParams }: { searchParams: Awaited<SearchPara
                <ReleaseCard key={release.id} release={release} />
             ))}
          </div>
-         <Pagination currentPage={currentPage} searchParams={searchParams} currentPeriod={currentPeriod} />
+         <Pagination currentPage={page} currentPeriod={period} />
       </section>
    );
 };

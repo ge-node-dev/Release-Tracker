@@ -7,12 +7,16 @@ import { getReleaseDateRange } from '@/shared/utils/date/getReleaseDateRange';
 
 import { RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
 
-export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
+export const getReleasesListFirstPage = async (period: ReleasePeriod) => {
    'use cache';
    cacheLife(CACHE_1W);
-   cacheTag(`releases-page-${page}`);
+   cacheTag(`releases-first-page-${period}`);
    cacheTag(RELEASES_CACHE_TAG);
 
+   return await getReleasesList({ period, page: 1 });
+};
+
+export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    const supabase = createSupabaseStaticClient();
 
    const limit = RELEASES_PERIODS_LIMITS[period];
@@ -67,6 +71,11 @@ export const getReleaseOfTheWeek = async () => {
 };
 
 export const getPaginationCount = async (period: ReleasePeriod) => {
+   'use cache';
+   cacheLife(CACHE_1W);
+   cacheTag(`releases-count-${period}`);
+   cacheTag(RELEASES_CACHE_TAG);
+
    const supabase = createSupabaseStaticClient();
 
    let totalCountQuery = supabase.from('releases').select('id', { head: true, count: 'exact' });

@@ -1,4 +1,10 @@
-import { SearchParams } from '@/shared/types';
+import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
+
+const BASE_PATHS: Record<ReleasePeriod, string> = {
+   this_week: '/',
+   all_time: '/all-time',
+   this_month: '/this-month',
+};
 
 export const getVisiblePages = (currentPage: number, totalPages: number, maxVisiblePages: number) => {
    if (totalPages <= maxVisiblePages) {
@@ -28,27 +34,9 @@ export const getVisiblePages = (currentPage: number, totalPages: number, maxVisi
    return pages;
 };
 
-export const buildHrefWithParam = (
-   searchParams: Awaited<SearchParams>,
-   key: string,
-   value: string | number,
-   defaultValue?: string | number,
-) => {
-   const params = new URLSearchParams(searchParams);
+export const buildPageHref = (period: ReleasePeriod, page: number): string => {
+   const basePath = BASE_PATHS[period];
 
-   const shouldDelete = value === defaultValue;
-
-   if (shouldDelete) {
-      params.delete(key);
-   } else {
-      if (key !== 'page' && params.has('page')) {
-         params.set('page', '1');
-      }
-
-      params.set(key, String(value));
-   }
-
-   const query = params.toString();
-
-   return query ? `?${query}` : '/';
+   if (page <= 1) return basePath;
+   return basePath === '/' ? `/${page}` : `${basePath}/${page}`;
 };
