@@ -2,15 +2,22 @@ import type { Metadata, Viewport } from 'next';
 
 import '@/shared/styles/globals.scss';
 
-import { Suspense, ViewTransition } from 'react';
+import { Suspense } from 'react';
 
 import ThemeProvider from '@/shared/providers/ThemeProvider';
 import { FlashToasterProvider } from '@/shared/ui/FlashToaster';
 import { InterFont, JetBrainsMonoFont, OswaldFont } from '@/shared/utils/integrations/fonts';
 
 export const metadata: Metadata = {
-   title: 'Release Tracker',
-   description: 'Release Tracker',
+   openGraph: {
+      type: 'website',
+      siteName: 'Release Tracker',
+   },
+   title: {
+      default: 'Release Tracker',
+      template: '%s | Release Tracker',
+   },
+   description: 'Discover and track music releases. Browse the latest albums and EPs from your favourite artists.',
 };
 
 export const viewport: Viewport = {
@@ -27,7 +34,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning={true}>
          <body className={`${OswaldFont.variable} ${InterFont.variable} ${JetBrainsMonoFont.variable} antialiased`}>
             <ThemeProvider>
-               <ViewTransition>{children}</ViewTransition>
+               {children}
                <Suspense fallback={null}>
                   <FlashToasterProvider />
                </Suspense>

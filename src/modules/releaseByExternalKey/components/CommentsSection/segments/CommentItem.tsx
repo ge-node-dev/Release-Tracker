@@ -39,7 +39,7 @@ const CommentItem = ({
       <article
          className={`${isReply ? styles.commentItemReply : styles.commentItem} ${isHighlighted ? styles.highlighted : ''}`}
       >
-         <Avatar size="small" avatarUrl={avatar_url} />
+         <Avatar size="small" alt={username} avatarUrl={avatar_url} />
          <div className={styles.commentBody}>
             <header className={styles.commentHeader}>
                <Link href={`/profile/${username}`} className={styles.commentAuthor}>

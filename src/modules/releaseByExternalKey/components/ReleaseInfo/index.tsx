@@ -31,7 +31,7 @@ const ReleaseInfo = ({ release }: { release: ReleaseByExternalKeyType }) => {
                   alt={release.title}
                   src={release.cover_url}
                   className={styles.bannerImage}
-                  sizes="(max-width: 1279px) 400px, 500px"
+                  sizes="(max-width: 479px) 350px, (max-width: 1023px) 400px, 500px"
                />
             )}
             <div className={styles.textWrapper}>

@@ -1,3 +1,5 @@
+import { ViewTransition } from 'react';
+
 import Header from '@/modules/layout/components/Header';
 
 export default function MainLayout({
@@ -9,8 +11,10 @@ export default function MainLayout({
 }>) {
    return (
       <>
-         <Header />
-         {children}
+         <ViewTransition>
+            <Header />
+            {children}
+         </ViewTransition>
          {authModal}
       </>
    );

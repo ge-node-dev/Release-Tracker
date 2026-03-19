@@ -69,6 +69,7 @@ const TextArea = ({
                <textarea
                   value={value}
                   ref={textareaRef}
+                  aria-label={placeholder}
                   placeholder={placeholder}
                   onChange={onChangeHandler}
                   className={styles.textarea}

@@ -1,6 +1,10 @@
+import type { Metadata } from 'next';
+
 import AuthContent from '@/modules/auth/components/AuthContent';
 
 import styles from './AuthPage.module.scss';
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const AuthPage = () => {
    return (

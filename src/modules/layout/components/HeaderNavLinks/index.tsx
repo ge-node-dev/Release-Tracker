@@ -34,7 +34,11 @@ const HeaderNavLinks = ({ profile }: { profile: null | Database['public']['Table
             active={isAuthenticated && path === ROUTES.PROFILE}
             href={isAuthenticated ? ROUTES.PROFILE : ROUTES.AUTH}
          >
-            {profile?.avatar_url ? <Avatar size="small" avatarUrl={profile.avatar_url} /> : <UserIcon />}
+            {profile?.avatar_url ? (
+               <Avatar size="small" alt={profile.username} avatarUrl={profile.avatar_url} />
+            ) : (
+               <UserIcon />
+            )}
          </LinkButton>
       </nav>
    );

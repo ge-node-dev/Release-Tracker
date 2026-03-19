@@ -10,7 +10,7 @@ const Accordion = ({ children }: { children: React.ReactNode }) => {
 
    return (
       <div className={styles.wrapper}>
-         <div className={styles.handle} onClick={() => setAccordionOpen((prev) => !prev)}>
+         <button className={styles.handle} onClick={() => setAccordionOpen((prev) => !prev)}>
             <h4>Tracklist</h4>
             <ArrowIcon
                width={20}
@@ -18,7 +18,7 @@ const Accordion = ({ children }: { children: React.ReactNode }) => {
                className={styles.handleIcon}
                style={{ transform: accordionOpen ? 'rotate(-90deg)' : 'rotate(90deg)' }}
             />
-         </div>
+         </button>
 
          <div data-open={accordionOpen} className={styles.content}>
             <div className={styles.contentInner}>{children}</div>

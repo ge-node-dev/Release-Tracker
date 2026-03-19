@@ -1,0 +1,21 @@
+.wrapper {
+   @include page-paddings;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 80vh;
+   gap: 1rem;
+   text-align: center;
+}
+
+.title {
+   @include h2;
+}
+
+.description {
+   @include h4;
+
+   margin-bottom: 1rem;
+}

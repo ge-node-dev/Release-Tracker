@@ -25,7 +25,7 @@ const CommentsSection = async ({ comments, releaseId, externalKey }: CommentsSec
          )}
          {profile && (
             <div className={styles.commentWrapper}>
-               <Avatar size="small" avatarUrl={profile?.avatar_url || null} />
+               <Avatar size="small" alt={profile.username} avatarUrl={profile?.avatar_url || null} />
                <CommentForm releaseId={releaseId} disabledOpenBtn={false} externalKey={externalKey} />
             </div>
          )}

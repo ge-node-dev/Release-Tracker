@@ -29,6 +29,7 @@
 html {
    scroll-behavior: smooth;
    text-size-adjust: 100%;
+   touch-action: manipulation;
 
    // FIXME: scrollbar bug then modal is open
    // scrollbar-gutter: stable;

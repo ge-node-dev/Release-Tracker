@@ -6,6 +6,7 @@ import { optimizeCloudinaryUrl } from '@/shared/utils/integrations/cloudinary';
 import styles from './Avatar.module.scss';
 
 interface AvatarProps {
+   alt?: string;
    avatarUrl: null | string;
    size?: 'small' | 'large' | 'medium';
 }
@@ -16,10 +17,10 @@ export const AVATAR_WIDTHS_BY_SIZE = {
    medium: 75,
 } as const;
 
-export const Avatar = ({ avatarUrl, size = 'small' }: AvatarProps) => {
+export const Avatar = ({ avatarUrl, alt = 'avatar', size = 'small' }: AvatarProps) => {
    const image = avatarUrl ? (
       <Image
-         alt="avatar"
+         alt={alt}
          className={styles.avatarImg}
          width={AVATAR_WIDTHS_BY_SIZE[size]}
          height={AVATAR_WIDTHS_BY_SIZE[size]}

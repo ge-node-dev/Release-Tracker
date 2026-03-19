@@ -38,6 +38,12 @@
 }
 
 .absoluteTitle {
+   display: none;
+
+   @include breakpoint('laptop') {
+      display: block;
+   }
+
    position: absolute;
    font-size: 12rem;
    letter-spacing: -0.1rem;
@@ -87,15 +93,15 @@
    z-index: 1;
    order: -1;
    flex-direction: column;
+   align-items: center;
 
-   @include breakpoint('mobile') {
-      flex-direction: row;
-      align-items: center;
+   @include breakpoint('laptop') {
+      align-items: flex-start;
    }
 
    @include breakpoint('desktop') {
+      flex-direction: row;
       flex-direction: column;
-      align-items: flex-start;
       order: 1;
    }
 }
@@ -105,7 +111,7 @@
 
    color: var(--text-primary);
    font-weight: 700;
-   line-height: 0.9;
+   line-height: 1;
    text-transform: uppercase;
 }
 

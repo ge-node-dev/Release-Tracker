@@ -68,10 +68,10 @@ const ReleaseOfTheWeek = async () => {
                      height={500}
                      src={cover_url}
                      priority={true}
+                     sizes={'500px'}
                      loading={'eager'}
                      draggable={false}
                      alt={'Release cover'}
-                     sizes={'500px, 300px'}
                      className={styles.coverImage}
                   />
                </Link>

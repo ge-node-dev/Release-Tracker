@@ -47,7 +47,7 @@ const Modal = ({ children, disableClose, onClose: onCloseProp }: ModalProps) => 
             className={styles.backdrop}
             onClick={!disableClose ? onClose : undefined}
             onKeyDown={(e) => {
-               if (e.key === 'Enter' || e.key === ' ') onClose();
+               if (!disableClose && (e.key === 'Enter' || e.key === ' ')) onClose();
             }}
          />
          <div className={styles.overlay}>
