@@ -38,9 +38,11 @@
       color 0.15s ease,
       text-decoration 0.15s ease;
 
-   &:hover {
-      text-decoration: underline;
-      color: var(--text-primary);
+   @include hover-only {
+      &:hover {
+         text-decoration: underline;
+         color: var(--text-primary);
+      }
    }
 }
 
@@ -51,8 +53,10 @@
    cursor: default;
    transition: color 0.15s ease;
 
-   &:hover {
-      color: $color-accent;
+   @include hover-only {
+      &:hover {
+         color: $color-accent;
+      }
    }
 }
 
@@ -107,11 +111,13 @@
       @include label-small;
    }
 
-   &:hover {
-      color: $color-accent;
-
-      span {
+   @include hover-only {
+      &:hover {
          color: $color-accent;
+
+         span {
+            color: $color-accent;
+         }
       }
    }
 }

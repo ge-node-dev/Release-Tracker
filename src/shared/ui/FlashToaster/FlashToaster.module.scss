@@ -26,9 +26,11 @@
       border: 1px solid var(--border-grid) !important;
       color: black !important;
 
-      &:hover {
-         scale: 1.2;
-         transition: scale 0.1s ease-in-out;
+      @include hover-only {
+         &:hover {
+            scale: 1.2;
+            transition: scale 0.1s ease-in-out;
+         }
       }
    }
 }

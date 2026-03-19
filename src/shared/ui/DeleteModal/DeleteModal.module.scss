@@ -11,7 +11,9 @@
    transition: color 0.15s ease;
    padding: 0;
 
-   &:hover {
-      color: $color-accent;
+   @include hover-only {
+      &:hover {
+         color: $color-accent;
+      }
    }
 }

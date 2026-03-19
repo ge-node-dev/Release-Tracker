@@ -65,8 +65,10 @@
    height: auto;
    transition: all 0.2s ease-in;
 
-   &:hover {
-      color: $color-accent;
-      cursor: pointer;
+   @include hover-only {
+      &:hover {
+         color: $color-accent;
+         cursor: pointer;
+      }
    }
 }

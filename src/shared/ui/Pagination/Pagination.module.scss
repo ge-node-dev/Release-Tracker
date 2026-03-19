@@ -54,15 +54,19 @@
          background: $color-accent;
       }
 
-      &:hover {
-         color: $color-accent;
-         background: $color-accent-muted;
+      @include hover-only {
+         &:hover {
+            color: $color-accent;
+            background: $color-accent-muted;
+         }
       }
    }
 
-   &:hover {
-      color: var(--text-primary);
-      background: var(--bg-primary);
+   @include hover-only {
+      &:hover {
+         color: var(--text-primary);
+         background: var(--bg-primary);
+      }
    }
 }
 
@@ -77,8 +81,10 @@
    cursor: pointer;
    transition: background 0.2s;
 
-   &:hover {
-      background: var(--bg-primary);
+   @include hover-only {
+      &:hover {
+         background: var(--bg-primary);
+      }
    }
 
    &.disabled {

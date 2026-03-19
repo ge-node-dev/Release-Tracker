@@ -66,9 +66,11 @@
    align-items: center;
    justify-content: center;
 
-   &:hover {
-      .coverContainer {
-         transform: rotateX(8deg) rotateY(-8deg) translateY(-8px);
+   @include hover-only {
+      &:hover {
+         .coverContainer {
+            transform: rotateX(8deg) rotateY(-8deg) translateY(-8px);
+         }
       }
    }
 }
@@ -98,8 +100,10 @@
       transition: filter 0.2s ease-in-out;
    }
 
-   &:hover svg {
-      filter: brightness(0) invert(1);
+   @include hover-only {
+      &:hover svg {
+         filter: brightness(0) invert(1);
+      }
    }
 }
 

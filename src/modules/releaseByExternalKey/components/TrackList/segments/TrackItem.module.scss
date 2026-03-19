@@ -48,16 +48,18 @@
       transition: transform 0.4s ease;
    }
 
-   &:hover {
-      &::before {
-         transform: scaleY(1);
-      }
+   @include hover-only {
+      &:hover {
+         &::before {
+            transform: scaleY(1);
+         }
 
-      background: var(--bg-primary);
+         background: var(--bg-primary);
 
-      .trackTitle {
-         transition: color 0.2s ease;
-         color: var(--bg-secondary);
+         .trackTitle {
+            transition: color 0.2s ease;
+            color: var(--bg-secondary);
+         }
       }
    }
 

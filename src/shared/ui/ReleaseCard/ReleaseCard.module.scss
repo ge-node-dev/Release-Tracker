@@ -21,8 +21,10 @@
    transition: opacity 0.2s ease;
    z-index: 2;
 
-   .card:hover & {
-      opacity: 0.7;
+   @include hover-only {
+      .card:hover & {
+         opacity: 0.7;
+      }
    }
 }
 
@@ -35,9 +37,11 @@
    background-position: center;
    background-size: cover;
 
-   .card:hover & {
-      filter: grayscale(0%) brightness(1);
-      transform: scale(1.04);
+   @include hover-only {
+      .card:hover & {
+         filter: grayscale(0%) brightness(1);
+         transform: scale(1.04);
+      }
    }
 }
 
@@ -52,9 +56,11 @@
    z-index: 3;
    pointer-events: none;
 
-   .card:hover & {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
+   @include hover-only {
+      .card:hover & {
+         opacity: 1;
+         transform: translate(-50%, -50%) scale(1);
+      }
    }
 }
 
@@ -76,9 +82,11 @@
       transition: height 0.3s ease;
    }
 
-   .card:hover & {
-      &::before {
-         height: 100%;
+   @include hover-only {
+      .card:hover & {
+         &::before {
+            height: 100%;
+         }
       }
    }
 }
