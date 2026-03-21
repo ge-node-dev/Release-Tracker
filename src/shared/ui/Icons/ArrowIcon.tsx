@@ -11,7 +11,13 @@ export const ArrowIcon = (props: SVGProps<SVGSVGElement>) => (
       {...props}
    >
       <g strokeWidth="0" id="SVGRepo_bgCarrier" />
-      <g stroke="currentColor" strokeWidth="1.056" strokeLinecap="round" strokeLinejoin="round" id="SVGRepo_tracerCarrier" />
+      <g
+         strokeWidth="1.056"
+         stroke="currentColor"
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         id="SVGRepo_tracerCarrier"
+      />
       <g id="SVGRepo_iconCarrier">
          <g id="layer1" transform="rotate(45 1254.793 524.438)">
             <path
@@ -19,9 +25,9 @@ export const ArrowIcon = (props: SVGProps<SVGSVGElement>) => (
                d="M15.464 1044.409v-1.997h-9v-9h-2v11z"
                style={{
                   fillOpacity: 1,
-                  fill: 'currentColor',
                   strokeOpacity: 1,
                   fillRule: 'evenodd',
+                  fill: 'currentColor',
                   strokeWidth: 0.00016,
                   strokeLinecap: 'butt',
                   strokeLinejoin: 'miter',

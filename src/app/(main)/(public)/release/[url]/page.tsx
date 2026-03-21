@@ -1,10 +1,25 @@
 import type { Metadata } from 'next';
 
+import { Suspense } from 'react';
+
 import CommentsSection from '@/modules/releaseByExternalKey/components/CommentsSection';
 import ReleaseInfo from '@/modules/releaseByExternalKey/components/ReleaseInfo';
 import { getReleaseByExternalKey } from '@/modules/releaseByExternalKey/services/releaseByExternalKeyServices';
 
 import styles from './ReleasePage.module.scss';
+
+export const unstable_instant = {
+   prefetch: 'static',
+   samples: [
+      {
+         params: { url: 'sample' },
+         cookies: [
+            { value: null, name: 'flash' },
+            { value: null, name: 'flashtrig' },
+         ],
+      },
+   ],
+};
 
 export const generateMetadata = async ({ params }: { params: Promise<Record<string, string>> }): Promise<Metadata> => {
    const { url } = await params;
@@ -40,4 +55,12 @@ const ReleasePage = async ({ params }: { params: Promise<Record<string, string>>
    );
 };
 
-export default ReleasePage;
+const ReleasePageWithSuspense = ({ params }: { params: Promise<Record<string, string>> }) => {
+   return (
+      <Suspense fallback={null}>
+         <ReleasePage params={params} />
+      </Suspense>
+   );
+};
+
+export default ReleasePageWithSuspense;

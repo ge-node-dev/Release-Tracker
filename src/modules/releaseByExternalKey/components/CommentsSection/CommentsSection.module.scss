@@ -1,9 +1,10 @@
 .wrapper {
-   padding: 2rem;
    border-top: 2px solid $color-accent;
    display: flex;
    margin-top: 4rem;
    flex-direction: column;
+   @include page-paddings;
+   padding-block: 2rem;
 }
 
 .sectionTitle {

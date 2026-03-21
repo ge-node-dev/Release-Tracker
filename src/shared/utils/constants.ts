@@ -1,9 +1,6 @@
-const tenMinutesInSeconds = 60 * 10;
-const weekInSeconds = 3600 * 24 * 7;
-
-export const CACHE_10MIN = { stale: tenMinutesInSeconds, revalidate: tenMinutesInSeconds };
-export const CACHE_12H = { stale: 3600 * 12, revalidate: 4000 * 12 };
-export const CACHE_1W = { stale: weekInSeconds, revalidate: weekInSeconds };
+export const CACHE_10MIN = { stale: 600, expire: 3600, revalidate: 600 };
+export const CACHE_12H = { stale: 43200, expire: 86400, revalidate: 43200 };
+export const CACHE_1W = { stale: 604800, expire: 2592000, revalidate: 604800 };
 
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 

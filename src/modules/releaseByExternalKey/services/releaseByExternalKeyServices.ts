@@ -1,28 +1,11 @@
-'use server';
+import { cache } from 'react';
 
-import { cacheLife } from 'next/cache';
-
-import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { CACHE_10MIN } from '@/shared/utils/constants';
+import { createSupabaseStaticClient } from '@/lib/supabase/client';
 
 import { RELEASE_BY_EXTERNAL_KEY_QUERY } from './query';
 
-export type GetTrackPreviewResult = { error?: string; url: null | string };
-
-export const getTrackPreviewUrl = async (trackId: string | number): Promise<GetTrackPreviewResult> => {
-   'use cache';
-   cacheLife(CACHE_10MIN);
-
-   const res = await fetch(`https://api.deezer.com/track/${trackId}`);
-   const track = await res.json();
-   if (track.error) {
-      return { url: null, error: 'Error while playing track. Please try again later.' };
-   }
-   return { url: track.preview ?? null };
-};
-
-export const getReleaseByExternalKey = async (externalKey: string) => {
-   const supabase = await createSupabaseServerClient();
+export const getReleaseByExternalKey = cache(async (externalKey: string) => {
+   const supabase = createSupabaseStaticClient();
 
    const { data, error } = await supabase
       .from('releases')
@@ -41,4 +24,4 @@ export const getReleaseByExternalKey = async (externalKey: string) => {
    }
 
    return data;
-};
+});

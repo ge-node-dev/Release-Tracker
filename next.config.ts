@@ -4,8 +4,11 @@ const nextConfig: NextConfig = {
    reactCompiler: true,
    output: 'standalone',
    cacheComponents: true,
+   logging: {
+      browserToTerminal: true,
+   },
    experimental: {
-      viewTransition: true,
+      instantNavigationDevToolsToggle: true,
    },
    sassOptions: {
       prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *; @use "@/shared/styles/_breakpoints.scss" as *; @use "@/shared/styles/_typography.scss" as *;`,
@@ -41,10 +44,6 @@ const nextConfig: NextConfig = {
                   value: 'max-age=63072000; includeSubDomains; preload',
                },
                {
-                  value: '1; mode=block',
-                  key: 'X-XSS-Protection',
-               },
-               {
                   value: 'SAMEORIGIN',
                   key: 'X-Frame-Options',
                },
@@ -58,7 +57,7 @@ const nextConfig: NextConfig = {
                },
                {
                   key: 'Permissions-Policy',
-                  value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+                  value: 'camera=(), microphone=(), geolocation=()',
                },
                {
                   key: 'Content-Security-Policy',

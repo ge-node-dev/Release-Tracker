@@ -3,19 +3,20 @@ import { Suspense } from 'react';
 import ThemeToggle from '@/shared/ui/ThemeToggle/ThemeToggle';
 
 import HeaderData from '../HeaderData';
+import HeaderNavLinksSkeleton from '../HeaderNavLinks/HeaderNavLinksSkeleton';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
    return (
-      <Suspense fallback={null}>
-         <header className={styles.header}>
-            <div className={styles.wrapper}>
+      <header className={styles.header}>
+         <div className={styles.wrapper}>
+            <Suspense fallback={<HeaderNavLinksSkeleton />}>
                <HeaderData />
-               <ThemeToggle />
-            </div>
-         </header>
-      </Suspense>
+            </Suspense>
+            <ThemeToggle />
+         </div>
+      </header>
    );
 };
 

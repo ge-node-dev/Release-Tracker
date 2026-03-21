@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { getReleaseOfTheWeek } from '@/modules/release/services/releaseServices';
@@ -9,6 +10,63 @@ import LinkButton from '@/shared/ui/Buttons/LinkButton';
 import { PlayIcon } from '@/shared/ui/Icons';
 
 import styles from './ReleaseOfTheWeek.module.scss';
+
+const ReleaseOfTheWeekCoverFallback = ({ cover_url, releaseHref }: { cover_url: string; releaseHref: string }) => {
+   return (
+      <div className={styles.coverScene}>
+         <div className={styles.coverContainer}>
+            <Link href={releaseHref} aria-label={'To release'}>
+               <Image
+                  width={500}
+                  height={500}
+                  src={cover_url}
+                  priority={true}
+                  sizes={'500px'}
+                  loading={'eager'}
+                  draggable={false}
+                  alt={'Release cover'}
+                  className={styles.coverImage}
+               />
+            </Link>
+         </div>
+      </div>
+   );
+};
+
+const ReleaseOfTheWeekCoverWithGlow = async ({
+   cover_url,
+   releaseHref,
+}: {
+   cover_url: string;
+   releaseHref: string;
+}) => {
+   const imageBuffer = await fetch(cover_url).then((res) => res.arrayBuffer());
+   const glowColor = await getGlowColorFromImage(Buffer.from(imageBuffer));
+   const glowStyle = {
+      background: `radial-gradient(circle, ${glowColor} 5%, transparent 90%)`,
+   };
+
+   return (
+      <div className={styles.coverScene}>
+         <div className={styles.coverContainer}>
+            <div style={glowStyle} className={styles.glow} />
+            <Link href={releaseHref} aria-label={'To release'}>
+               <Image
+                  width={500}
+                  height={500}
+                  src={cover_url}
+                  priority={true}
+                  sizes={'500px'}
+                  loading={'eager'}
+                  draggable={false}
+                  alt={'Release cover'}
+                  className={styles.coverImage}
+               />
+            </Link>
+         </div>
+      </div>
+   );
+};
 
 const ReleaseOfTheWeek = async () => {
    const releaseOfTheWeek = await getReleaseOfTheWeek();
@@ -24,12 +82,6 @@ const ReleaseOfTheWeek = async () => {
    if (!cover_url) {
       throw new Error('No image URL provided');
    }
-
-   const imageBuffer = await fetch(cover_url).then((res) => res.arrayBuffer());
-   const glowColor = await getGlowColorFromImage(Buffer.from(imageBuffer));
-   const glowStyle = {
-      background: `radial-gradient(circle, ${glowColor} 5%, transparent 90%)`,
-   };
 
    const releaseHref = `/release/${external_key}`;
 
@@ -59,24 +111,9 @@ const ReleaseOfTheWeek = async () => {
                <span>Listen now</span>
             </LinkButton>
          </div>
-         <div className={styles.coverScene}>
-            <div className={styles.coverContainer}>
-               <div style={glowStyle} className={styles.glow} />
-               <Link href={releaseHref} aria-label={'To release'}>
-                  <Image
-                     width={500}
-                     height={500}
-                     src={cover_url}
-                     priority={true}
-                     sizes={'500px'}
-                     loading={'eager'}
-                     draggable={false}
-                     alt={'Release cover'}
-                     className={styles.coverImage}
-                  />
-               </Link>
-            </div>
-         </div>
+         <Suspense fallback={<ReleaseOfTheWeekCoverFallback cover_url={cover_url} releaseHref={releaseHref} />}>
+            <ReleaseOfTheWeekCoverWithGlow cover_url={cover_url} releaseHref={releaseHref} />
+         </Suspense>
       </section>
    );
 };

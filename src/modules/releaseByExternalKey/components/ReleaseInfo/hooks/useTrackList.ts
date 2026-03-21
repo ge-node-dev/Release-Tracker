@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { getTrackPreviewUrl } from '@/modules/releaseByExternalKey/services/releaseByExternalKeyServices';
+import { getTrackPreviewUrl } from '@/modules/releaseByExternalKey/services/trackActions';
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
 export const useTrackList = (tracks: ReleaseByExternalKeyType['release_tracks']) => {
