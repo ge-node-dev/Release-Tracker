@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const nextConfig: NextConfig = {
    reactCompiler: true,
    cacheComponents: true,
@@ -59,15 +61,17 @@ const nextConfig: NextConfig = {
                   key: 'Content-Security-Policy',
                   value: [
                      "default-src 'self'",
-                     "script-src 'self' 'unsafe-eval' 'unsafe-inline' blob:",
+                     `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
                      "style-src 'self' 'unsafe-inline'",
                      "img-src 'self' data: https: blob:",
                      "font-src 'self' data:",
+                     "object-src 'none'",
                      "connect-src 'self' https://*.supabase.co",
                      "media-src 'self' https://cdnt-preview.dzcdn.net",
                      "frame-ancestors 'self'",
                      "base-uri 'self'",
                      "form-action 'self'",
+                     'upgrade-insecure-requests',
                   ].join('; '),
                },
             ],

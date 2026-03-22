@@ -41,6 +41,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
    const [formState, setFormState] = useState<FormState>({ error: '', success: false });
    const [isPending, setIsPending] = useState(false);
    const router = useRouter();
+
    const { fields, isFormValid, updateField } = useFormValidation(formType);
 
    const { email: formEmail, error: formError, success: formSuccess } = formState;
@@ -60,7 +61,6 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
          if (result?.success) {
             if (isRegisterForm) return onSuccessRegister?.();
             router.refresh();
-            router.back();
          }
       } catch (error) {
          setFormState({ success: false, error: error instanceof Error ? error.message : 'An error occurred' });

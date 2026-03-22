@@ -3,10 +3,15 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { validateUrlSearchParams } from '@/shared/utils/browser/validateUrlSearchParams';
 
 import { ROUTES } from './shared/utils/constants';
-import { getAuthenticatedUser } from './shared/utils/data/getAuthenticatedUser';
+
+const hasSupabaseAuthCookie = (request: NextRequest): boolean => {
+   return request.cookies
+      .getAll()
+      .some((cookie) => cookie.name.startsWith('sb-') && cookie.name.includes('auth-token'));
+};
 
 export const proxy = async (request: NextRequest) => {
-   const { pathname, searchParams } = request.nextUrl;
+   const { pathname, searchParams } = await request.nextUrl;
 
    if (searchParams.size > 0) {
       const validatedSearchParams = validateUrlSearchParams(searchParams);
@@ -22,9 +27,7 @@ export const proxy = async (request: NextRequest) => {
    const isProfileRoute = pathname.startsWith(ROUTES.PROFILE);
 
    if (isAuthRoute || isProfileRoute) {
-      const user = await getAuthenticatedUser();
-
-      const isAuthenticated = Boolean(user);
+      const isAuthenticated = hasSupabaseAuthCookie(request);
 
       if (isProfileRoute && !isAuthenticated) {
          const redirectUrl = new URL(ROUTES.AUTH, request.url);
@@ -42,5 +45,13 @@ export const proxy = async (request: NextRequest) => {
 };
 
 export const config = {
-   matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+   matcher: [
+      {
+         source: '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+         missing: [
+            { type: 'header', key: 'next-router-prefetch' },
+            { key: 'purpose', type: 'header', value: 'prefetch' },
+         ],
+      },
+   ],
 };

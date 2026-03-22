@@ -1,9 +1,10 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { setFlash } from '@/shared/ui/FlashToaster';
+import { RELEASES_CACHE_TAG } from '@/shared/utils/constants';
 import { getAuthenticatedUser } from '@/shared/utils/data/getAuthenticatedUser';
 
 export const submitComment = async (
@@ -37,6 +38,7 @@ export const submitComment = async (
    }
 
    await setFlash({ type: 'success', message: 'Comment added successfully' });
+   updateTag(RELEASES_CACHE_TAG);
    revalidatePath(`/release/${externalKey}`);
 
    return { success: true };
@@ -52,6 +54,7 @@ export const deleteComment = async (commentId: string, externalKey: string): Pro
    }
 
    await setFlash({ type: 'success', message: 'Comment deleted successfully' });
+   updateTag(RELEASES_CACHE_TAG);
    revalidatePath(`/release/${externalKey}`);
    return { success: true };
 };

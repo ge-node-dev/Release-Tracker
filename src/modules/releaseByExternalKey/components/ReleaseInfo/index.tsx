@@ -27,7 +27,6 @@ const ReleaseInfo = ({ release }: { release: ReleaseByExternalKeyType }) => {
                   height={400}
                   quality={100}
                   priority={true}
-                  loading="eager"
                   alt={release.title}
                   src={release.cover_url}
                   className={styles.bannerImage}
