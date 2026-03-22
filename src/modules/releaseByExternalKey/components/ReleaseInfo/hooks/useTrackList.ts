@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 import {
    type GetTrackPreviewResult,
    getTrackPreviewUrl,
 } from '@/modules/releaseByExternalKey/services/trackPreviewAction';
+import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
 export const useTrackList = (tracks: ReleaseByExternalKeyType['release_tracks']) => {
    const [activeTrackId, setActiveTrackId] = useState<null | string>(null);
