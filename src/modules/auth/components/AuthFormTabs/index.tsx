@@ -5,12 +5,12 @@ import Tabs from '@/shared/ui/Tabs';
 import { FormStatus } from '../AuthContent';
 
 interface AuthFormTabsProps {
-   isLoginTab: boolean;
+   activeTab: 'login' | 'register' | 'forgotPassword';
    formStatus: FormStatus;
-   setActiveTab: (tab: 'login' | 'register') => void;
+   setActiveTab: (tab: 'login' | 'register' | 'forgotPassword') => void;
 }
 
-const AuthFormTabs = ({ formStatus, isLoginTab, setActiveTab }: AuthFormTabsProps) => {
+const AuthFormTabs = ({ formStatus, activeTab, setActiveTab }: AuthFormTabsProps) => {
    if (formStatus.isSuccess) return null;
 
    return (
@@ -18,14 +18,14 @@ const AuthFormTabs = ({ formStatus, isLoginTab, setActiveTab }: AuthFormTabsProp
          <ActionButton
             disabled={formStatus.isPending}
             onClick={() => setActiveTab('login')}
-            variant={isLoginTab ? 'secondary' : 'primary'}
+            variant={activeTab === 'login' ? 'secondary' : 'primary'}
          >
             Login
          </ActionButton>
          <ActionButton
             disabled={formStatus.isPending}
             onClick={() => setActiveTab('register')}
-            variant={!isLoginTab ? 'secondary' : 'primary'}
+            variant={activeTab === 'register' ? 'secondary' : 'primary'}
          >
             Register
          </ActionButton>

@@ -15,8 +15,8 @@ export interface AuthFormConfig {
    headerText: string;
    submitLabel: string;
    headerSubText: string;
-   formType: 'loginForm' | 'registerForm';
-   submitAction: 'loginRequest' | 'registerRequest';
+   formType: 'loginForm' | 'registerForm' | 'forgotPasswordForm';
+   submitAction: 'loginRequest' | 'registerRequest' | 'forgotPasswordRequest';
    fields: {
       id: string;
       name: string;
@@ -25,6 +25,7 @@ export interface AuthFormConfig {
       autoComplete?: string;
       icon?: React.ElementType;
       type: 'text' | 'email' | 'password';
+      showForgotPasswordButton?: boolean;
    }[];
 }
 
@@ -32,11 +33,13 @@ interface AuthFormProps {
    config: AuthFormConfig;
    onSuccessRegister?: () => void;
    onFormPending: (pending: boolean) => void;
+   setActiveTab?: (tab: 'login' | 'register' | 'forgotPassword') => void;
 }
 
-const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) => {
+const AuthForm = ({ config, onFormPending, onSuccessRegister, setActiveTab }: AuthFormProps) => {
    const { formType, headerText, submitLabel, submitAction, headerSubText, fields: configFields } = config;
    const isRegisterForm = formType === 'registerForm';
+   const isForgotPasswordForm = formType === 'forgotPasswordForm';
 
    const [formState, setFormState] = useState<FormState>({ error: '', success: false });
    const [isPending, setIsPending] = useState(false);
@@ -60,7 +63,7 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
 
          if (result?.success) {
             if (isRegisterForm) return onSuccessRegister?.();
-            router.refresh();
+            if (!isForgotPasswordForm) router.refresh();
          }
       } catch (error) {
          setFormState({ success: false, error: error instanceof Error ? error.message : 'An error occurred' });
@@ -77,6 +80,18 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
             <p className={styles.secondaryText}>
                We sent a verification link to <strong>{formEmail ?? fields.email?.value}</strong>.<br />
                Please check your inbox and click the link to confirm your account.
+            </p>
+         </div>
+      );
+   }
+
+   if (formSuccess && isForgotPasswordForm) {
+      return (
+         <div className={styles.successRegisterWrapper}>
+            <p className={styles.mainText}>Check your email</p>
+            <p className={styles.secondaryText}>
+               We sent a password reset link to <strong>{formEmail ?? fields.email?.value}</strong>.<br />
+               Please check your inbox and click the link to reset your password.
             </p>
          </div>
       );
@@ -107,6 +122,16 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister }: AuthFormProps) =
                   }}
                />
             ))}
+            {formType === 'loginForm' && (
+               <button
+                  type="button"
+                  onClick={() => setActiveTab?.('forgotPassword')}
+                  className={styles.forgotPasswordButton}
+                  aria-label="Forgot password"
+               >
+                  Forgot password?
+               </button>
+            )}
             {formError && <p className={styles.error}>{formError}</p>}
             <ActionButton
                type="submit"

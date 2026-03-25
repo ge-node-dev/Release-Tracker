@@ -14,6 +14,7 @@
 
 .secondaryText {
    @include h5;
+   line-height: 1.5;
 
    text-align: center;
    color: var(--text-muted);
@@ -38,4 +39,25 @@
    gap: 1.5rem;
    flex-direction: column;
    margin-bottom: 1rem;
+}
+
+.forgotPasswordButton {
+   font-family: var(--font-inter);
+   color: var(--text-muted);
+   cursor: pointer;
+   font-size: 0.875rem;
+   font-weight: 400;
+   text-align: right;
+   margin-left: auto;
+   padding-bottom: 1px;
+   transition: all 0.15s ease-in;
+   margin-bottom: 0.5rem;
+
+   @include hover-only {
+      &:hover {
+         text-decoration: underline;
+         text-underline-offset: 0.25em;
+         color: var(--text-primary);
+      }
+   }
 }

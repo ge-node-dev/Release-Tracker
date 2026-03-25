@@ -1,5 +1,14 @@
 import { useRef, useState } from 'react';
 
+const VOLUME_STORAGE_KEY = 'player-volume';
+
+const getStoredVolume = (): number => {
+   const stored = localStorage.getItem(VOLUME_STORAGE_KEY);
+   if (stored === null) return 50;
+   const parsed = Number(stored);
+   return Number.isFinite(parsed) ? Math.min(100, Math.max(0, parsed)) : 50;
+};
+
 type UseAudioPlayerParams = {
    onNext?: () => void;
 };
@@ -9,8 +18,8 @@ export const useAudioPlayer = ({ onNext }: UseAudioPlayerParams) => {
    const [isPlaying, setIsPlaying] = useState(false);
    const [progress, setProgress] = useState(0);
    const [duration, setDuration] = useState(0);
-   const [volume, setVolume] = useState(50);
-   const prevVolumeRef = useRef(50);
+   const [volume, setVolume] = useState(getStoredVolume);
+   const prevVolumeRef = useRef(volume);
    const [isLooped, setIsLooped] = useState(false);
 
    const onCanPlay = () => {
@@ -54,6 +63,7 @@ export const useAudioPlayer = ({ onNext }: UseAudioPlayerParams) => {
       const value = Number(e.target.value);
       if (value > 0) prevVolumeRef.current = value;
       setVolume(value);
+      localStorage.setItem(VOLUME_STORAGE_KEY, String(value));
       if (audioRef.current) audioRef.current.volume = value / 100;
    };
 

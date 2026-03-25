@@ -71,6 +71,25 @@ export const logoutUserAccount = async () => {
    revalidatePath('/');
 };
 
+export const forgotPassword = async (formData: FormData): Promise<FormState> => {
+   const email = formData.get('email')?.toString().trim() ?? '';
+
+   if (!email) {
+      return { success: false, error: 'Email is required' };
+   }
+
+   const supabase = await createSupabaseServerClient();
+   const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/reset-password`,
+   });
+
+   if (error) {
+      return { success: false, error: error.message };
+   }
+
+   return { email, error: '', success: true };
+};
+
 export const validateCodeForResetPassword = async (code: string): Promise<{ error: string }> => {
    const supabase = await createSupabaseServerClient();
    const { error } = await supabase.auth.exchangeCodeForSession(code);

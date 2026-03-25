@@ -7,6 +7,7 @@ import Modal from '@/shared/ui/Modal';
 
 import AuthForm from '../AuthForm';
 import AuthFormTabs from '../AuthFormTabs';
+import { forgotPasswordConfig } from '../../utils/forgotPasswordConfig';
 
 export type FormStatus = {
    isPending: boolean;
@@ -18,10 +19,8 @@ const SUCCESS_STATUS: FormStatus = { isSuccess: true, isPending: false };
 const IDLE_STATUS: FormStatus = { isPending: false, isSuccess: false };
 
 const AuthContent = ({ isModalWrapper }: { isModalWrapper: boolean }) => {
-   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
+   const [activeTab, setActiveTab] = useState<'login' | 'register' | 'forgotPassword'>('login');
    const [formStatus, setFormStatus] = useState<FormStatus>(IDLE_STATUS);
-
-   const isLoginTab = activeTab === 'login';
 
    const handlePending = (pending: boolean) => {
       setFormStatus(pending ? PENDING_STATUS : IDLE_STATUS);
@@ -35,17 +34,21 @@ const AuthContent = ({ isModalWrapper }: { isModalWrapper: boolean }) => {
 
    return (
       <ModalWrapper {...(isModalWrapper ? { disableClose: formStatus.isPending } : {})}>
-         <AuthFormTabs isLoginTab={isLoginTab} formStatus={formStatus} setActiveTab={setActiveTab} />
+         <AuthFormTabs activeTab={activeTab} formStatus={formStatus} setActiveTab={setActiveTab} />
 
-         {activeTab === 'login' ? (
-            <AuthForm key={activeTab} config={loginConfig} onFormPending={handlePending} />
-         ) : (
+         {activeTab === 'login' && (
+            <AuthForm key={activeTab} config={loginConfig} onFormPending={handlePending} setActiveTab={setActiveTab} />
+         )}
+         {activeTab === 'register' && (
             <AuthForm
                key={activeTab}
                config={registerConfig}
                onFormPending={handlePending}
                onSuccessRegister={handleSuccessRegister}
             />
+         )}
+         {activeTab === 'forgotPassword' && (
+            <AuthForm key={activeTab} config={forgotPasswordConfig} onFormPending={handlePending} />
          )}
       </ModalWrapper>
    );

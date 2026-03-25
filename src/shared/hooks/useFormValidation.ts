@@ -15,6 +15,7 @@ const FORM_FIELDS = {
    updateUsernameForm: ['username'],
    resetPasswordForm: ['password', 'confirmPassword'],
    registerForm: ['username', 'email', 'password', 'confirmPassword'],
+   forgotPasswordForm: ['email'],
 } as const;
 
 const VALIDATORS: Record<string, Validator> = {

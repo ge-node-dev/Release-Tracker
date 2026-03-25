@@ -1,9 +1,13 @@
-import { FormState } from '@/modules/auth/services/authActions';
+import { forgotPassword, FormState } from '@/modules/auth/services/authActions';
 
 export const submitAuthForm = async (
-   action: 'loginRequest' | 'registerRequest',
+   action: 'loginRequest' | 'registerRequest' | 'forgotPasswordRequest',
    formData: FormData,
 ): Promise<FormState> => {
+   if (action === 'forgotPasswordRequest') {
+      return forgotPassword(formData);
+   }
+
    const endpoint = action === 'loginRequest' ? '/api/auth/login' : '/api/auth/register';
 
    const response = await fetch(endpoint, {

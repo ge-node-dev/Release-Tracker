@@ -25,6 +25,7 @@ export const loginConfig: AuthFormConfig = {
          icon: PasswordIcon,
          placeholder: 'password',
          autoComplete: 'current-password',
+         showForgotPasswordButton: true,
       },
    ],
 } as const;
