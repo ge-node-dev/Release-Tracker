@@ -1,0 +1,18 @@
+{
+   "hooks": {
+      "PostToolUse": [
+         {
+            "matcher": "Bash",
+            "hooks": [
+               {
+                  "type": "agent",
+                  "prompt": "Check if the Bash command in $ARGUMENTS was a `git commit` command. If it was NOT a git commit — do nothing, return immediately.\n\nIf it WAS a git commit:\n1. Run `git diff HEAD~1 --name-only` to see which files changed in the last commit.\n2. Read the current AGENTS.md file.\n3. Check if any changes affect the project structure, architecture, routes, modules, shared UI components, environment variables, key dependencies, or other sections documented in AGENTS.md.\n4. If AGENTS.md needs updates — edit it to reflect the changes. Keep the existing format and style.\n5. If AGENTS.md is already accurate — do nothing, return immediately.\n6. If you made changes to AGENTS.md — run `git add AGENTS.md` and then `git commit -m \"docs: update AGENTS.md\"`.\n\nIMPORTANT:\n- Only update sections that are actually affected by the changes.\n- Do NOT rewrite the entire file — make minimal, targeted edits.\n- Do NOT add new sections unless the changes clearly require it.\n- Do NOT update the file if the changes are purely cosmetic (styling, formatting, minor bug fixes).\n- The docs commit must ONLY include AGENTS.md — never stage other files.",
+                  "model": "claude-opus-4-6",
+                  "timeout": 120,
+                  "statusMessage": "Checking if AGENTS.md needs updating..."
+               }
+            ]
+         }
+      ]
+   }
+}
