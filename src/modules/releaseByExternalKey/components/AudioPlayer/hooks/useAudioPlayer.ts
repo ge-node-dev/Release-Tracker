@@ -18,7 +18,7 @@ export const useAudioPlayer = ({ onNext }: UseAudioPlayerParams) => {
    const [isPlaying, setIsPlaying] = useState(false);
    const [progress, setProgress] = useState(0);
    const [duration, setDuration] = useState(0);
-   const [volume, setVolume] = useState(getStoredVolume);
+   const [volume, setVolume] = useState(() => getStoredVolume());
    const prevVolumeRef = useRef(volume);
    const [isLooped, setIsLooped] = useState(false);
 
