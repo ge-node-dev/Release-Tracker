@@ -5,12 +5,12 @@ import Tabs from '@/shared/ui/Tabs';
 import { FormStatus } from '../AuthContent';
 
 interface AuthFormTabsProps {
-   activeTab: 'login' | 'register' | 'forgotPassword';
    formStatus: FormStatus;
+   activeTab: 'login' | 'register' | 'forgotPassword';
    setActiveTab: (tab: 'login' | 'register' | 'forgotPassword') => void;
 }
 
-const AuthFormTabs = ({ formStatus, activeTab, setActiveTab }: AuthFormTabsProps) => {
+const AuthFormTabs = ({ activeTab, formStatus, setActiveTab }: AuthFormTabsProps) => {
    if (formStatus.isSuccess) return null;
 
    return (

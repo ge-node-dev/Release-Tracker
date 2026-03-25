@@ -11,11 +11,11 @@ interface FieldState {
 type Validator = (value: string, form?: FormFields) => string;
 
 const FORM_FIELDS = {
+   forgotPasswordForm: ['email'],
    loginForm: ['email', 'password'],
    updateUsernameForm: ['username'],
    resetPasswordForm: ['password', 'confirmPassword'],
    registerForm: ['username', 'email', 'password', 'confirmPassword'],
-   forgotPasswordForm: ['email'],
 } as const;
 
 const VALIDATORS: Record<string, Validator> = {

@@ -4,8 +4,8 @@ import { EmailIcon } from '@/shared/ui/Icons';
 export const forgotPasswordConfig: AuthFormConfig = {
    submitLabel: 'Reset Password',
    formType: 'forgotPasswordForm',
-   submitAction: 'forgotPasswordRequest',
    headerText: 'Forgot your password?',
+   submitAction: 'forgotPasswordRequest',
    headerSubText: 'Enter your email to reset your password',
    fields: [
       {

@@ -5,9 +5,9 @@ import { loginConfig } from '@/modules/auth/utils/loginFormConfig';
 import { registerConfig } from '@/modules/auth/utils/registerFormConfig';
 import Modal from '@/shared/ui/Modal';
 
+import { forgotPasswordConfig } from '../../utils/forgotPasswordConfig';
 import AuthForm from '../AuthForm';
 import AuthFormTabs from '../AuthFormTabs';
-import { forgotPasswordConfig } from '../../utils/forgotPasswordConfig';
 
 export type FormStatus = {
    isPending: boolean;
@@ -37,7 +37,7 @@ const AuthContent = ({ isModalWrapper }: { isModalWrapper: boolean }) => {
          <AuthFormTabs activeTab={activeTab} formStatus={formStatus} setActiveTab={setActiveTab} />
 
          {activeTab === 'login' && (
-            <AuthForm key={activeTab} config={loginConfig} onFormPending={handlePending} setActiveTab={setActiveTab} />
+            <AuthForm key={activeTab} config={loginConfig} setActiveTab={setActiveTab} onFormPending={handlePending} />
          )}
          {activeTab === 'register' && (
             <AuthForm

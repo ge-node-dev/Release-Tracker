@@ -24,8 +24,8 @@ export interface AuthFormConfig {
       placeholder: string;
       autoComplete?: string;
       icon?: React.ElementType;
-      type: 'text' | 'email' | 'password';
       showForgotPasswordButton?: boolean;
+      type: 'text' | 'email' | 'password';
    }[];
 }
 
@@ -36,7 +36,7 @@ interface AuthFormProps {
    setActiveTab?: (tab: 'login' | 'register' | 'forgotPassword') => void;
 }
 
-const AuthForm = ({ config, onFormPending, onSuccessRegister, setActiveTab }: AuthFormProps) => {
+const AuthForm = ({ config, setActiveTab, onFormPending, onSuccessRegister }: AuthFormProps) => {
    const { formType, headerText, submitLabel, submitAction, headerSubText, fields: configFields } = config;
    const isRegisterForm = formType === 'registerForm';
    const isForgotPasswordForm = formType === 'forgotPasswordForm';
@@ -125,9 +125,9 @@ const AuthForm = ({ config, onFormPending, onSuccessRegister, setActiveTab }: Au
             {formType === 'loginForm' && (
                <button
                   type="button"
-                  onClick={() => setActiveTab?.('forgotPassword')}
-                  className={styles.forgotPasswordButton}
                   aria-label="Forgot password"
+                  className={styles.forgotPasswordButton}
+                  onClick={() => setActiveTab?.('forgotPassword')}
                >
                   Forgot password?
                </button>
