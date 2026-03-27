@@ -9,7 +9,14 @@
    justify-content: space-between;
    border-bottom: 1px solid var(--border-grid);
 
+   @include breakpoint('narrow') {
+      flex-direction: column;
+      align-items: start;
+   }
+
    @include breakpoint('laptop') {
+      flex-direction: row;
+      align-items: center;
       margin-bottom: 3rem;
    }
 }
@@ -20,10 +27,39 @@
    margin-bottom: 0.5rem;
 }
 
+.link {
+   font-size: clamp(14px, 2vw, 1rem);
+   text-transform: uppercase;
+   text-decoration: none;
+   letter-spacing: 0.1em;
+   padding-bottom: 4px;
+   color: var(--text-muted);
+   transition: color 0.3s;
+
+   @include hover-only {
+      &:hover:not(.active) {
+         color: #fff;
+      }
+   }
+}
+
+.active {
+   color: $color-accent;
+   border-bottom: 1px solid $color-accent;
+}
+
 .tabsContainer {
    width: fit-content;
    display: flex;
    align-items: center;
    align-self: flex-end;
    gap: 10px;
+
+   @include breakpoint('narrow') {
+      align-self: flex-start;
+   }
+
+   @include breakpoint('laptop') {
+      align-self: flex-end;
+   }
 }

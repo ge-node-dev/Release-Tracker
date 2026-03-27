@@ -1,10 +1,26 @@
-.divider {
-   @include divider;
-}
-
 .nav {
    display: flex;
    align-items: center;
-   gap: 4px;
+   gap: 32px;
    flex: 1;
+}
+
+.navLink {
+   font-weight: 700;
+   font-size: 1rem;
+   text-transform: uppercase;
+   letter-spacing: 0.05rem;
+   text-decoration: none;
+   transition: color 0.3s ease;
+   color: var(--text-muted);
+
+   @include hover-only {
+      &:hover {
+         color: #fff;
+      }
+   }
+}
+
+.active {
+   color: $color-accent;
 }

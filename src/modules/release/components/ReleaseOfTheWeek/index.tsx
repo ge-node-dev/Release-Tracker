@@ -3,10 +3,8 @@ import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 
 import { getReleaseOfTheWeek } from '@/modules/release/services/releaseServices';
-import { getGlowColorFromImage } from '@/modules/release/utils/color';
 import { Badge } from '@/shared/ui/Badge';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
-import { PlayIcon } from '@/shared/ui/Icons';
 
 import styles from './ReleaseOfTheWeek.module.scss';
 
@@ -19,62 +17,54 @@ const ReleaseOfTheWeek = async () => {
 
    const { title, cover_url, external_key, release_genres, release_artists } = releaseOfTheWeek;
 
-   const artists = release_artists?.map(({ artists }) => artists.name).join(', ');
+   const artists = release_artists?.map(({ artists }) => artists.name).join(' // ');
 
    if (!cover_url) {
       throw new Error('No image URL provided');
    }
 
-   const imageBuffer = await fetch(cover_url).then((res) => res.arrayBuffer());
-   const glowColor = await getGlowColorFromImage(Buffer.from(imageBuffer));
-   const glowStyle = {
-      background: `radial-gradient(circle, ${glowColor} 5%, transparent 90%)`,
-   };
-
    const releaseHref = `/release/${external_key}`;
 
    return (
       <section className={styles.grid}>
-         <div className={styles.infoContainer}>
-            <Badge>
-               <span>RELEASE OF THE WEEK</span>
-            </Badge>
-            <h1 className={styles.title}>{`${title.toUpperCase()}`}</h1>
-            <h3 className={styles.artist}>{artists}</h3>
-            <div className={styles.genres}>
-               {release_genres?.map(({ genres }) => (
-                  <Badge key={genres.id}>
-                     <span>{genres.title}</span>
-                  </Badge>
-               ))}
-            </div>
-            <LinkButton
-               size="large"
-               href={releaseHref}
-               variant="secondary"
-               ariaLabel={'Listen now'}
-               className={styles.listenNowBtn}
-            >
-               <PlayIcon width={24} height={24} />
-               <span>Listen now</span>
-            </LinkButton>
+         <div className={styles.coverContainer}>
+            <Link href={releaseHref} aria-label={'To release of the week'}>
+               <Image
+                  width={650}
+                  height={650}
+                  src={cover_url}
+                  priority={true}
+                  loading={'eager'}
+                  draggable={false}
+                  alt={'Release cover'}
+                  sizes={'600px, 300px'}
+                  className={styles.coverImage}
+               />
+            </Link>
          </div>
-         <div className={styles.coverScene}>
-            <div className={styles.coverContainer}>
-               <div style={glowStyle} className={styles.glow} />
-               <Link href={releaseHref} aria-label={'To release'}>
-                  <Image
-                     width={500}
-                     height={500}
-                     src={cover_url}
-                     priority={true}
-                     sizes={'500px'}
-                     loading={'eager'}
-                     draggable={false}
-                     alt={'Release cover'}
-                     className={styles.coverImage}
-                  />
-               </Link>
+         <div className={styles.infoContainer}>
+            <div className={styles.info}>
+               <span className={styles.absoluteTitle}>{title}</span>
+               <span className={styles.releaseOfTheWeek}>RELEASE OF THE WEEK</span>
+               <h1 className={styles.title}>{title}</h1>
+               <h3 className={styles.artist}>{artists}</h3>
+               <div className={styles.genres}>
+                  {release_genres?.map(({ genres }) => (
+                     <Badge key={genres.id}>
+                        <span>{genres.title}</span>
+                     </Badge>
+                  ))}
+               </div>
+
+               <LinkButton
+                  size="large"
+                  variant="red"
+                  href={releaseHref}
+                  ariaLabel={'Listen now'}
+                  className={styles.listenNowBtn}
+               >
+                  <span>Listen now</span>
+               </LinkButton>
             </div>
          </div>
       </section>

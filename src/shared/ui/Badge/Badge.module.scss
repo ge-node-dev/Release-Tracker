@@ -1,9 +1,9 @@
 .badge {
-   background-color: #373637;
-   border-radius: 100px;
    padding: 4px 16px;
    width: fit-content;
-   border: 1px solid var(--bg-primary);
+   border: 1px solid var(--text-muted);
+   color: var(--text-muted);
+   text-transform: uppercase;
    display: flex;
    align-items: center;
 }
