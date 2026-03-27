@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 
+import HeaderNavLinks from '@/modules/layout/components/HeaderNavLinks';
+import HeaderProfile from '@/modules/layout/components/HeaderProfile';
 import ThemeToggle from '@/shared/ui/ThemeToggle/ThemeToggle';
-
-import HeaderData from '../HeaderData';
 
 import styles from './Header.module.scss';
 
@@ -11,8 +11,11 @@ const Header = () => {
       <Suspense fallback={null}>
          <header className={styles.header}>
             <div className={styles.wrapper}>
-               <HeaderData />
-               <ThemeToggle />
+               <HeaderNavLinks />
+               <div className={styles.controls}>
+                  <ThemeToggle />
+                  <HeaderProfile />
+               </div>
             </div>
          </header>
       </Suspense>
