@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { setFlash } from '@/shared/ui/FlashToaster';
 import { ROUTES } from '@/shared/utils/constants';
@@ -14,6 +15,25 @@ import { isUsernameAlreadyExist } from '@/shared/utils/data/isUsernameAlreadyExi
 import { getCloudinaryCredentials } from '@/shared/utils/integrations/cloudinary';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
+
+export const saveProfileAfterRegistration = async ({
+   email,
+   userId,
+   username,
+}: {
+   email: string;
+   userId: string;
+   username: string;
+}): Promise<{ error: string }> => {
+   const admin = createSupabaseAdminClient();
+   const { error } = await admin.from('profiles').upsert({ email, username, id: userId }, { onConflict: 'id' });
+
+   if (error) {
+      return { error: error.message ?? 'Failed to save profile' };
+   }
+
+   return { error: '' };
+};
 
 export const getProfile = async (): Promise<{ profile: null | Profile }> => {
    const supabase = await createSupabaseServerClient();
