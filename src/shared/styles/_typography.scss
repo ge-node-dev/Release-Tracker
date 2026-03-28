@@ -19,7 +19,7 @@
 @mixin h1 {
    @include font-oswald(600);
 
-   font-size: clamp(1.8rem, 5.5vw, 8rem);
+   font-size: clamp(1.8rem, 12vw, 12rem);
    line-height: 0.9;
    text-transform: uppercase;
    overflow-wrap: break-word;
@@ -127,7 +127,7 @@
 @mixin label-medium {
    @include font-inter(700);
 
-   font-size: 0.7rem;
+   font-size: 0.8rem;
    text-transform: uppercase;
    letter-spacing: 0.1em;
    color: $color-accent;

@@ -11,7 +11,7 @@ const HomePageBuilder = ({ page, period }: { page: number; period: ReleasePeriod
    return (
       <main className="mainContainer">
          <Suspense fallback={<Loading />}>
-            <ReleaseOfTheWeek />
+            {page === 1 && <ReleaseOfTheWeek />}
             <PeriodTabs currentPeriod={period} />
             <ReleasesList page={page} period={period} />
          </Suspense>
