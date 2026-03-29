@@ -43,5 +43,9 @@ release_tracks (
   )
 ),
 ${COMMENT_FRAGMENT},
-${GENRE_FRAGMENT}
+${GENRE_FRAGMENT},
+release_ratings (
+  id,
+  rating
+)
 ` as const;

@@ -6,7 +6,7 @@
       "dev": "next dev",
       "build": "next build",
       "start": "next start",
-      "db:export-types": "npx supabase gen types typescript --linked --schema public > supabase/types/database.ts",
+      "db:export-types": "npx supabase gen types typescript --local --schema public > supabase/types/database.ts",
       "db:pull": "npx supabase db pull --schema public",
       "db:dump": "npx supabase db reset && npx supabase db dump -f mock_data.sql --data-only --schema public && psql postgresql://postgres:postgres@localhost:54322/postgres -f mock_data.sql",
       "db:create-migration": "npx supabase db diff --use-migra --schema public -f",
@@ -16,6 +16,7 @@
       "lint:styles": "stylelint \"**/*.{scss,sass,css}\" --fix",
       "test:queries": "tsx --env-file=.env.local src/tests/releaseServices.test.ts",
       "test:auth": "tsx --env-file=.env.local src/tests/authServices.test.ts",
+      "test:ratings": "tsx --env-file=.env.local src/tests/ratingServices.test.ts",
       "prepare": "husky"
    },
    "dependencies": {

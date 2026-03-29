@@ -5,6 +5,7 @@ import type { Database } from '@db/types/database.ts';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { cache } from 'react';
 
 import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
@@ -35,7 +36,7 @@ export const saveProfileAfterRegistration = async ({
    return { error: '' };
 };
 
-export const getProfile = async (): Promise<{ profile: null | Profile }> => {
+export const getProfile = cache(async (): Promise<{ profile: null | Profile }> => {
    const supabase = await createSupabaseServerClient();
    const user = await getAuthenticatedUser();
 
@@ -43,7 +44,7 @@ export const getProfile = async (): Promise<{ profile: null | Profile }> => {
 
    const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
    return { profile };
-};
+});
 
 export const updateProfileData = async ({
    email,

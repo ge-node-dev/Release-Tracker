@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { getProfile } from '@/modules/profile/services/profileActions';
 import CommentsSection from '@/modules/releaseByExternalKey/components/CommentsSection';
 import ReleaseInfo from '@/modules/releaseByExternalKey/components/ReleaseInfo';
 import { getReleaseByExternalKey } from '@/modules/releaseByExternalKey/services/releaseByExternalKeyServices';
@@ -28,13 +29,18 @@ export const generateMetadata = async ({ params }: { params: Promise<Record<stri
 
 const ReleasePage = async ({ params }: { params: Promise<Record<string, string>> }) => {
    const { url } = await params;
-   const release = await getReleaseByExternalKey(url);
+   const [release, { profile: userProfile }] = await Promise.all([getReleaseByExternalKey(url), getProfile()]);
 
    return (
       <div className={styles.pageWrapper}>
          <div className={styles.content}>
-            <ReleaseInfo release={release} />
-            <CommentsSection releaseId={release.id} comments={release.comments} externalKey={release.external_key} />
+            <ReleaseInfo release={release} userProfile={userProfile} />
+            <CommentsSection
+               releaseId={release.id}
+               userProfile={userProfile}
+               comments={release.comments}
+               externalKey={release.external_key}
+            />
          </div>
       </div>
    );

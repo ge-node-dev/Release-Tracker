@@ -8,7 +8,7 @@
 .toast {
    @include h5;
 
-   padding: 1rem 1.5rem;
+   padding: 1.5rem 1rem 1.5rem 0.5rem;
    align-items: center;
    background: rgb(52 52 52) !important;
    color: var(--text-primary) !important;

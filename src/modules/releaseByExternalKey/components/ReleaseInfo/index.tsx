@@ -1,16 +1,29 @@
 'use client';
+import type { Profile } from '@/modules/profile/types/profileTypes';
+
 import Image from 'next/image';
 
+import AlbumRating from '@/modules/releaseByExternalKey/components/AlbumRating';
 import AudioPlayer from '@/modules/releaseByExternalKey/components/AudioPlayer';
 import TrackList from '@/modules/releaseByExternalKey/components/TrackList';
 import { ReleaseByExternalKeyType } from '@/modules/releaseByExternalKey/types/releaseTypes';
 import Accordion from '@/shared/ui/Accordion';
+import ActionButton from '@/shared/ui/Buttons/ActionButton';
+import { formatReleaseDate } from '@/shared/utils/date/formatReleaseDate';
 
 import { useTrackList } from './hooks/useTrackList';
 
 import styles from './ReleaseInfo.module.scss';
 
-const ReleaseInfo = ({ release }: { release: ReleaseByExternalKeyType }) => {
+const StartListeningButton = ({ onClick, className }: { className?: string; onClick?: () => void }) => {
+   return (
+      <ActionButton size="large" variant="red" onClick={onClick} className={className}>
+         Start Listening
+      </ActionButton>
+   );
+};
+
+const ReleaseInfo = ({ release, userProfile }: { userProfile: Profile; release: ReleaseByExternalKeyType }) => {
    const tracks = release.release_tracks;
    const { handleNext, handlePrev, activeTrack, handleClose, setActiveTrackId, soundTrackPreview } =
       useTrackList(tracks);
@@ -27,15 +40,34 @@ const ReleaseInfo = ({ release }: { release: ReleaseByExternalKeyType }) => {
                   height={400}
                   quality={100}
                   priority={true}
+                  draggable={false}
                   alt={release.title}
                   src={release.cover_url}
                   className={styles.bannerImage}
                   sizes="(max-width: 479px) 350px, (max-width: 1023px) 400px, 500px"
                />
             )}
-            <div className={styles.textWrapper}>
+            <StartListeningButton
+               className={styles.startListeningButtonMobile}
+               onClick={() => setActiveTrackId(tracks[0].tracks.id)}
+            />
+            <div className={styles.infoWrapper}>
+               <span className={styles.releaseDate}>
+                  {`Release date `}
+                  <time dateTime={release.release_date}>{`// ${formatReleaseDate(release.release_date)}`}</time>
+               </span>
                <h1 className={styles.title}>{release.title}</h1>
                <h3 className={styles.artists}>{artistsName}</h3>
+               <AlbumRating
+                  releaseId={release.id}
+                  userProfile={userProfile}
+                  rating={release.release_ratings}
+                  releaseExternalKey={release.external_key}
+               />
+               <StartListeningButton
+                  className={styles.startListeningButtonDesktop}
+                  onClick={() => setActiveTrackId(tracks[0].tracks.id)}
+               />
             </div>
          </div>
 

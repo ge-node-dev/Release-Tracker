@@ -110,14 +110,21 @@ export type Database = {
       Views: {
          [_ in never]: never;
       };
-      Enums: {
-         [_ in never]: never;
-      };
-      Functions: {
-         [_ in never]: never;
-      };
       CompositeTypes: {
          [_ in never]: never;
+      };
+      Enums: {
+         activity_type: 'rating' | 'comment';
+      };
+      Functions: {
+         check_rating_cooldown: {
+            Args: { p_user_id: string; p_release_id: string };
+            Returns: {
+               can_rate: boolean;
+               last_rated_at: string;
+               cooldown_until: string;
+            }[];
+         };
       };
       Tables: {
          genres: {
@@ -198,36 +205,6 @@ export type Database = {
                updated_at?: null | string;
             };
          };
-         track_genres: {
-            Row: {
-               genre_id: string;
-               track_id: string;
-            };
-            Insert: {
-               genre_id: string;
-               track_id: string;
-            };
-            Update: {
-               genre_id?: string;
-               track_id?: string;
-            };
-            Relationships: [
-               {
-                  isOneToOne: false;
-                  columns: ['genre_id'];
-                  referencedColumns: ['id'];
-                  referencedRelation: 'genres';
-                  foreignKeyName: 'track_genres_genre_id_fkey';
-               },
-               {
-                  isOneToOne: false;
-                  columns: ['track_id'];
-                  referencedColumns: ['id'];
-                  referencedRelation: 'tracks';
-                  foreignKeyName: 'track_genres_track_id_fkey';
-               },
-            ];
-         };
          track_artists: {
             Row: {
                track_id: string;
@@ -255,36 +232,6 @@ export type Database = {
                   referencedColumns: ['id'];
                   referencedRelation: 'tracks';
                   foreignKeyName: 'track_artists_track_id_fkey';
-               },
-            ];
-         };
-         artists_genres: {
-            Row: {
-               genre_id: string;
-               artist_id: string;
-            };
-            Insert: {
-               genre_id: string;
-               artist_id: string;
-            };
-            Update: {
-               genre_id?: string;
-               artist_id?: string;
-            };
-            Relationships: [
-               {
-                  isOneToOne: false;
-                  columns: ['artist_id'];
-                  referencedColumns: ['id'];
-                  referencedRelation: 'artists';
-                  foreignKeyName: 'artist_genres_artist_id_fkey';
-               },
-               {
-                  isOneToOne: false;
-                  columns: ['genre_id'];
-                  referencedColumns: ['id'];
-                  referencedRelation: 'genres';
-                  foreignKeyName: 'artist_genres_genre_id_fkey';
                },
             ];
          };
@@ -450,6 +397,48 @@ export type Database = {
                cover_url?: null | string;
             };
          };
+         release_ratings: {
+            Row: {
+               id: string;
+               rating: number;
+               user_id: string;
+               created_at: string;
+               release_id: string;
+               updated_at: string;
+            };
+            Insert: {
+               id?: string;
+               rating?: number;
+               user_id: string;
+               release_id: string;
+               created_at?: string;
+               updated_at?: string;
+            };
+            Update: {
+               id?: string;
+               rating?: number;
+               user_id?: string;
+               created_at?: string;
+               release_id?: string;
+               updated_at?: string;
+            };
+            Relationships: [
+               {
+                  isOneToOne: false;
+                  columns: ['release_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'releases';
+                  foreignKeyName: 'release_ratings_release_id_fkey';
+               },
+               {
+                  isOneToOne: false;
+                  columns: ['user_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'profiles';
+                  foreignKeyName: 'release_ratings_user_id_fkey';
+               },
+            ];
+         };
          comments: {
             Row: {
                id: string;
@@ -505,6 +494,65 @@ export type Database = {
                },
             ];
          };
+         user_activity: {
+            Row: {
+               id: string;
+               user_id: string;
+               created_at: string;
+               rating_id: null | string;
+               comment_id: null | string;
+               release_id: null | string;
+               activity_type: Database['public']['Enums']['activity_type'];
+            };
+            Insert: {
+               id?: string;
+               user_id: string;
+               created_at?: string;
+               rating_id?: null | string;
+               comment_id?: null | string;
+               release_id?: null | string;
+               activity_type: Database['public']['Enums']['activity_type'];
+            };
+            Update: {
+               id?: string;
+               user_id?: string;
+               created_at?: string;
+               rating_id?: null | string;
+               comment_id?: null | string;
+               release_id?: null | string;
+               activity_type?: Database['public']['Enums']['activity_type'];
+            };
+            Relationships: [
+               {
+                  isOneToOne: false;
+                  columns: ['comment_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'comments';
+                  foreignKeyName: 'user_activity_comment_id_fkey';
+               },
+               {
+                  isOneToOne: false;
+                  columns: ['rating_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'release_ratings';
+                  foreignKeyName: 'user_activity_rating_id_fkey';
+               },
+               {
+                  isOneToOne: false;
+                  columns: ['release_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'releases';
+                  foreignKeyName: 'user_activity_release_id_fkey';
+               },
+               {
+                  isOneToOne: false;
+                  columns: ['user_id'];
+                  referencedColumns: ['id'];
+                  referencedRelation: 'profiles';
+                  foreignKeyName: 'user_activity_user_id_fkey';
+               },
+            ];
+         };
       };
    };
 };
@@ -515,6 +563,8 @@ type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
 
 export const Constants = {
    public: {
-      Enums: {},
+      Enums: {
+         activity_type: ['comment', 'rating'],
+      },
    },
 } as const;

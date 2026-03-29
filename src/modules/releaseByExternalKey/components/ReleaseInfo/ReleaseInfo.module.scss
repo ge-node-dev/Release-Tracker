@@ -29,7 +29,6 @@
    @include breakpoint('desktop') {
       padding-block: 5rem 3rem;
       gap: 2rem;
-      min-height: 650px;
       flex-direction: row;
    }
 
@@ -88,13 +87,14 @@
    }
 }
 
-.textWrapper {
+.infoWrapper {
    display: flex;
    gap: 1rem;
    z-index: 1;
    order: -1;
    flex-direction: column;
    align-items: center;
+   height: 100%;
 
    @include breakpoint('laptop') {
       align-items: flex-start;
@@ -114,6 +114,15 @@
    font-weight: 700;
    line-height: 1;
    text-transform: uppercase;
+   text-align: center;
+
+   @include breakpoint('laptop') {
+      text-align: left;
+   }
+
+   @include breakpoint('desktop') {
+      margin-top: 0.5rem;
+   }
 }
 
 .bottomBar {
@@ -137,4 +146,38 @@
 
    color: var(--text-muted);
    margin-left: 0.3rem;
+}
+
+.releaseDate {
+   @include h5;
+
+   color: $color-accent;
+   margin-left: 0.3rem;
+
+   time {
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      text-transform: inherit;
+      letter-spacing: inherit;
+      font-family: inherit;
+      color: var(--text-primary);
+   }
+}
+
+.startListeningButtonDesktop {
+   display: none;
+
+   @include breakpoint('desktop') {
+      margin-top: auto;
+      display: block;
+   }
+}
+
+.startListeningButtonMobile {
+   display: block;
+
+   @include breakpoint('desktop') {
+      display: none;
+   }
 }

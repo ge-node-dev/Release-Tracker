@@ -1,8 +1,10 @@
+import { SVGProps } from 'react';
+
 const SUCCESS_GREEN = '#45b970';
 const ERROR_RED = '#c00';
 
-export const SuccessIcon = () => (
-   <svg width="20" fill="none" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+export const SuccessIcon = (props: SVGProps<SVGSVGElement>) => (
+   <svg width="20" fill="none" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" {...props}>
       <circle r="8" cx="10" cy="10" fill={SUCCESS_GREEN} />
       <path
          fill="black"
@@ -13,8 +15,8 @@ export const SuccessIcon = () => (
    </svg>
 );
 
-export const ErrorIcon = () => (
-   <svg width="20" fill="none" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+export const ErrorIcon = (props: SVGProps<SVGSVGElement>) => (
+   <svg width="20" fill="none" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" {...props}>
       <circle r="8" cx="10" cy="10" fill={ERROR_RED} />
       <path
          fill="#fff"

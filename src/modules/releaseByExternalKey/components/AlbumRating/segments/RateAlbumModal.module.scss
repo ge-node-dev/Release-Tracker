@@ -1,0 +1,123 @@
+.root {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   width: 100%;
+}
+
+.title {
+   @include h4;
+
+   margin: 0;
+   text-align: center;
+
+   @include breakpoint('tablet') {
+      text-align: left;
+   }
+}
+
+.hint {
+   @include font-mono(500);
+
+   margin: 0;
+   font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+   color: var(--text-muted);
+   text-align: center;
+   line-height: 1.3;
+
+   @include breakpoint('tablet') {
+      text-align: left;
+   }
+}
+
+.selectionHint {
+   @include font-mono(500);
+
+   margin: 0;
+   font-size: 0.75rem;
+
+   // color: $color-accent;
+   text-align: center;
+
+   @include breakpoint('tablet') {
+      text-align: left;
+   }
+}
+
+.starRow {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 0.2rem;
+
+   @include breakpoint('tablet') {
+      justify-content: flex-start;
+      gap: 0.5rem;
+   }
+}
+
+.starSlot {
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 30px;
+   height: 30px;
+   padding: 0;
+   border: 1px solid var(--border-grid);
+   margin: 0;
+   cursor: pointer;
+   background: var(--bg-raised);
+   border-radius: 2px;
+   font: inherit;
+   color: inherit;
+   transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+
+   @include hover-only {
+      &:hover {
+         border-color: $color-accent;
+      }
+   }
+
+   &[data-on='true'] {
+      border-color: $color-accent;
+      background: $color-accent-muted;
+   }
+}
+
+.starVisual {
+   position: relative;
+   display: block;
+   width: 100%;
+   height: 100%;
+   pointer-events: none;
+}
+
+.starEmpty {
+   width: 100%;
+   height: 100%;
+   color: var(--text-muted);
+   opacity: 0.35;
+}
+
+.starFilled {
+   position: absolute;
+   inset: 0;
+   width: 100%;
+   height: 100%;
+   color: $color-accent;
+}
+
+.actions {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   margin-top: 0.25rem;
+
+   @include breakpoint('mobile') {
+      flex-flow: row wrap;
+      align-items: center;
+   }
+}

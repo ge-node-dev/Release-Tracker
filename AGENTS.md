@@ -124,6 +124,30 @@ Cache tag: `RELEASES_CACHE_TAG`. External invalidation via `POST /api/revalidate
 - Auth modal via intercepted routes: `(main)/@authModal/(.)auth/`
 - Password reset via `/reset-password`
 
+### Album ratings
+
+Release detail pages support **album ratings** (scale **0–10**, integer). Logged-in users rate via the `AlbumRating` block inside `ReleaseInfo`; guests see a sign-in link.
+
+**Data (Supabase)**
+
+- `release_ratings` — one row per user per release (`UNIQUE (user_id, release_id)`): `rating`, `created_at`, `updated_at`.
+- `user_activity` — optional feed-style linkage (`activity_type`: `rating` | `comment`) with references to `release_ratings` / `comments` / `releases`.
+- RPC `check_rating_cooldown(p_user_id, p_release_id)` — returns `can_rate`, `last_rated_at`, `cooldown_until`. Cooldown is **24 hours** from the **last rating action**: `GREATEST(created_at, updated_at)` on the user’s row (so changing a rating updates the window; inserts and updates share the same rule).
+
+**Server**
+
+- `src/modules/releaseByExternalKey/services/ratingServices.ts` — server actions: `submitRating` (cooldown check → insert or update → flash + `revalidatePath` for `/release/[url]`), `checkRatingCooldown`, `getUserRating`.
+- Cooldown violations and DB errors use `setFlash` (`FlashToaster`) with an error message; success uses a success flash.
+
+**Client UI**
+
+- `modules/releaseByExternalKey/components/AlbumRating/` — average score, vote count, progress bar vs. 10, **Rate this album** (opens `Modal` + `segments/RateAlbumModal` star picker). On successful submit the modal closes; on failure it stays open so the user can retry.
+- `ReleaseInfo` is a client component; the release **page** loads `getProfile()` (wrapped in `cache` from `react`) and `getReleaseByExternalKey()` in parallel and passes `userProfile` into `ReleaseInfo` and `CommentsSection` so profile is fetched once per request.
+
+**Query**
+
+- `getReleaseByExternalKey` / `RELEASE_QUERY` includes `release_ratings ( id, rating )` for aggregates on the server-rendered release.
+
 ## Module Structure
 
 Each module in `src/modules/<feature>/` follows:
@@ -178,7 +202,7 @@ Server Components by default. `'use client'` only when needed for event handlers
 
 ## Shared UI Components
 
-`src/shared/ui/`: Accordion, Avatar, AvatarCropModal, Badge, Buttons (ActionButton, LogoutButton), DeleteModal, FlashToaster, FormContainer, FormErrorText, Icons, Input, Modal, Pagination, Portal, ReleaseCard, SkeletonWrapper, Tabs, TextArea, ThemeToggle
+`src/shared/ui/`: Accordion, Avatar, AvatarCropModal, Badge, Buttons (ActionButton, LogoutButton), DeleteModal, FlashToaster, FormContainer, FormErrorText, Icons (includes `StarIcon` for ratings), Input, Modal, Pagination, Portal, ReleaseCard, SkeletonWrapper, Tabs, TextArea, ThemeToggle
 
 ## Code Conventions
 

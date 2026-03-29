@@ -17,3 +17,4 @@ export { ReplyIcon } from './ReplyIcon';
 export { DeleteIcon } from './DeleteIcon';
 export { SettingsIcon } from './SettingsIcon';
 export { FeedIcon } from './FeedIcon';
+export { StarIcon } from './StarIcon';

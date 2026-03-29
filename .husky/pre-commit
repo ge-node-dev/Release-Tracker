@@ -25,4 +25,7 @@ npm run test:queries || { echo -e "${RED}❌ Database test failed${NC}"; exit 1;
 echo -e "\n${BLUE}🔹 Running authorization tests...${NC}\n"
 npm run test:auth || { echo -e "${RED}❌ Authorization test failed${NC}"; exit 1; }
 
+echo -e "\n${BLUE}🔹 Running release rating tests...${NC}\n"
+npm run test:ratings || { echo -e "${RED}❌ Release rating test failed${NC}"; exit 1; }
+
 echo -e "\n${GREEN}✅ Pre-commit completed successfully!${NC}\n"

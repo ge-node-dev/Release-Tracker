@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 const VOLUME_STORAGE_KEY = 'player-volume';
 
 const getStoredVolume = (): number => {
+   if (typeof window === 'undefined') return 50;
    const stored = localStorage.getItem(VOLUME_STORAGE_KEY);
    if (stored === null) return 50;
    const parsed = Number(stored);
