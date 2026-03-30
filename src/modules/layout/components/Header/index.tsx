@@ -3,23 +3,22 @@ import { Suspense } from 'react';
 import HeaderNavLinks from '@/modules/layout/components/HeaderNavLinks';
 import HeaderProfile from '@/modules/layout/components/HeaderProfile';
 import ThemeToggle from '@/shared/ui/ThemeToggle/ThemeToggle';
-import { UnassignedUser } from '@/shared/ui/UnassignedUser/UnassignedUser';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
    return (
-      <header className={styles.header}>
-         <div className={styles.wrapper}>
-            <HeaderNavLinks />
-            <div className={styles.controls}>
-               <ThemeToggle />
-               <Suspense fallback={<UnassignedUser />}>
+      <Suspense fallback={null}>
+         <header className={styles.header}>
+            <div className={styles.wrapper}>
+               <HeaderNavLinks />
+               <div className={styles.controls}>
+                  <ThemeToggle />
                   <HeaderProfile />
-               </Suspense>
+               </div>
             </div>
-         </div>
-      </header>
+         </header>
+      </Suspense>
    );
 };
 
