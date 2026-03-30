@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import HeaderNavLinks from '@/modules/layout/components/HeaderNavLinks';
 import HeaderProfile from '@/modules/layout/components/HeaderProfile';
 import ThemeToggle from '@/shared/ui/ThemeToggle/ThemeToggle';
+import { UnassignedUser } from '@/shared/ui/UnassignedUser/UnassignedUser';
 
 import styles from './Header.module.scss';
 
@@ -13,7 +14,7 @@ const Header = () => {
             <HeaderNavLinks />
             <div className={styles.controls}>
                <ThemeToggle />
-               <Suspense fallback={null}>
+               <Suspense fallback={<UnassignedUser />}>
                   <HeaderProfile />
                </Suspense>
             </div>
