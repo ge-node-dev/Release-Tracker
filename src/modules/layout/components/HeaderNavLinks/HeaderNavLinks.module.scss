@@ -16,7 +16,7 @@
 
    @include hover-only {
       &:hover {
-         color: #fff;
+         color: var(--text-primary);
       }
    }
 }

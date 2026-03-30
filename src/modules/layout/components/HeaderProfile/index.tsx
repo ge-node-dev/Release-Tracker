@@ -1,13 +1,11 @@
 import Link from 'next/link';
 
 import { getProfile } from '@/modules/profile/services/profileActions';
+import { AVATAR_WIDTHS_BY_SIZE, ROUTES } from '@/shared/constants';
 import { Avatar } from '@/shared/ui/Avatar';
 import { UserIcon } from '@/shared/ui/Icons';
-import { ROUTES } from '@/shared/utils/constants';
 
 import styles from './HeaderProfile.module.scss';
-
-const Icon = () => <UserIcon width={14} height={14} aria-label="User" />;
 
 const HeaderProfile = async () => {
    const { profile } = await getProfile();
@@ -20,9 +18,13 @@ const HeaderProfile = async () => {
          href={isAuthenticated ? ROUTES.PROFILE : ROUTES.AUTH}
       >
          {profile?.avatar_url ? (
-            <Avatar size="small" alt={profile.username} avatarUrl={profile.avatar_url} />
+            <Avatar size="extraSmall" alt={profile.username} avatarUrl={profile.avatar_url} />
          ) : (
-            <Icon />
+            <UserIcon
+               aria-label="User"
+               width={AVATAR_WIDTHS_BY_SIZE.extraSmall}
+               height={AVATAR_WIDTHS_BY_SIZE.extraSmall}
+            />
          )}
       </Link>
    );

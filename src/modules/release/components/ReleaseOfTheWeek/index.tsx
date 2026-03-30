@@ -11,9 +11,7 @@ import styles from './ReleaseOfTheWeek.module.scss';
 const ReleaseOfTheWeek = async () => {
    const releaseOfTheWeek = await getReleaseOfTheWeek();
 
-   if (!releaseOfTheWeek) {
-      throw new Error('Failed to get release of the week');
-   }
+   if (!releaseOfTheWeek) return null;
 
    const { title, cover_url, external_key, release_genres, release_artists } = releaseOfTheWeek;
 
@@ -37,8 +35,12 @@ const ReleaseOfTheWeek = async () => {
                   loading={'eager'}
                   draggable={false}
                   alt={'Release cover'}
-                  sizes={'600px, 300px'}
                   className={styles.coverImage}
+                  sizes="(min-width: 1440px) 650px,
+          (min-width: 1024px) 45vw,
+          (min-width: 768px) 80vw,
+          (min-width: 480px) 90vw,
+          100vw"
                />
             </Link>
          </div>
@@ -46,7 +48,7 @@ const ReleaseOfTheWeek = async () => {
             <div className={styles.info}>
                <span className={styles.absoluteTitle}>{title}</span>
                <span className={styles.releaseOfTheWeek}>RELEASE OF THE WEEK</span>
-               <h1 className={styles.title}>{title}</h1>
+               <h1 className={styles.title}>title</h1>
                <h3 className={styles.artist}>{artists}</h3>
                <div className={styles.genres}>
                   {release_genres?.map(({ genres }) => (
@@ -74,15 +76,40 @@ const ReleaseOfTheWeek = async () => {
 export const ReleaseOfTheWeekSkeleton = () => {
    return (
       <section className={styles.grid}>
-         <div className={styles.infoContainer}>
-            <Skeleton height={32} width={180} />
-            <Skeleton height={82} width={'90%'} />
-            <Skeleton height={36} width={'40%'} />
-            <Skeleton height={32} width={150} className={styles.genres} />
-            <Skeleton width={200} height={'4rem'} style={{ borderRadius: '30px' }} />
+         <div className={styles.coverContainer}>
+            <div
+               className={styles.coverImage}
+               style={{
+                  padding: 0,
+                  width: '100%',
+                  border: 'none',
+                  aspectRatio: '1 / 1',
+               }}
+            >
+               <Skeleton height="100%" containerClassName={styles.coverSkeleton} />
+            </div>
          </div>
-         <div className={styles.coverSkeleton}>
-            <Skeleton width={'100%'} height={'100%'} borderRadius={'30px'} />
+
+         <div className={styles.infoContainer}>
+            <div className={styles.info}>
+               <Skeleton width={200} height="1rem" />
+               {/*Title*/}
+               <div>
+                  <Skeleton width="85%" height="clamp(1.8rem, 10vw, 8rem)" />
+               </div>
+               {/*Artists*/}
+               <div>
+                  <Skeleton width="60%" height="clamp(1.6rem, 3vw, 3rem)" />
+               </div>
+               {/*Genres*/}
+               <div className={styles.genres}>
+                  <Skeleton width={90} height={32} />
+               </div>
+               {/*Button*/}
+               <div className={styles.listenNowBtn}>
+                  <Skeleton width={220} height={55} />
+               </div>
+            </div>
          </div>
       </section>
    );

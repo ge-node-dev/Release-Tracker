@@ -2,7 +2,7 @@
 
 import { cacheLife } from 'next/cache';
 
-import { CACHE_10MIN } from '@/shared/utils/constants';
+import { CACHE_10MIN } from '@/shared/constants';
 
 export type GetTrackPreviewResult = { error?: string; url: null | string };
 

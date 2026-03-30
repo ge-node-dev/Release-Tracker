@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { validateUrlSearchParams } from '@/shared/utils/browser/validateUrlSearchParams';
 
-import { ROUTES } from './shared/utils/constants';
+import { ROUTES } from './shared/constants';
 
 const hasSupabaseAuthCookie = (request: NextRequest): boolean => {
    return request.cookies

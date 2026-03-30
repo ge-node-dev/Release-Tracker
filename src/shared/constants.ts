@@ -11,3 +11,10 @@ export const ROUTES = {
    PROFILE: '/profile',
    RESET_PASSWORD: '/reset-password',
 };
+
+export const AVATAR_WIDTHS_BY_SIZE = {
+   small: 46,
+   large: 278,
+   medium: 75,
+   extraSmall: 22,
+} as const;

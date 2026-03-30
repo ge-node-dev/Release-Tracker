@@ -4,9 +4,10 @@ import { revalidatePath } from 'next/cache';
 
 import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { updateProfileData } from '@/modules/profile/services/profileActions';
+import { ROUTES } from '@/shared/constants';
 import { saveProfileAfterRegistration } from '@/modules/profile/services/profileActions';
 import { setFlash } from '@/shared/ui/FlashToaster';
-import { ROUTES } from '@/shared/utils/constants';
 import { isUsernameAlreadyExist } from '@/shared/utils/data/isUsernameAlreadyExist';
 
 export type FormState = {

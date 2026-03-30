@@ -8,17 +8,17 @@ import styles from './Header.module.scss';
 
 const Header = () => {
    return (
-      <Suspense fallback={null}>
-         <header className={styles.header}>
-            <div className={styles.wrapper}>
-               <HeaderNavLinks />
-               <div className={styles.controls}>
-                  <ThemeToggle />
+      <header className={styles.header}>
+         <div className={styles.wrapper}>
+            <HeaderNavLinks />
+            <div className={styles.controls}>
+               <ThemeToggle />
+               <Suspense fallback={null}>
                   <HeaderProfile />
-               </div>
+               </Suspense>
             </div>
-         </header>
-      </Suspense>
+         </div>
+      </header>
    );
 };
 

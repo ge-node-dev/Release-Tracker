@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import { AVATAR_WIDTHS_BY_SIZE } from '@/shared/constants';
 import { UserIcon } from '@/shared/ui/Icons';
 import { optimizeCloudinaryUrl } from '@/shared/utils/integrations/cloudinary';
 
@@ -8,14 +9,8 @@ import styles from './Avatar.module.scss';
 interface AvatarProps {
    alt?: string;
    avatarUrl: null | string;
-   size?: 'small' | 'large' | 'medium';
+   size?: keyof typeof AVATAR_WIDTHS_BY_SIZE;
 }
-
-export const AVATAR_WIDTHS_BY_SIZE = {
-   small: 46,
-   large: 278,
-   medium: 75,
-} as const;
 
 export const Avatar = ({ avatarUrl, alt = 'avatar', size = 'small' }: AvatarProps) => {
    const image = avatarUrl ? (
