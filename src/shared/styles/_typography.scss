@@ -19,8 +19,8 @@
 @mixin h1 {
    @include font-oswald(600);
 
-   font-size: clamp(1.8rem, 12vw, 12rem);
-   line-height: 0.9;
+   font-size: clamp(1.8rem, 8vw, 9rem);
+   line-height: 1;
    text-transform: uppercase;
    overflow-wrap: break-word;
    letter-spacing: -0.03em;
