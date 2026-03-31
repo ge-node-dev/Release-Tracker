@@ -13,6 +13,7 @@ const HeaderProfile = async () => {
 
    return (
       <Link
+         scroll={false}
          className={styles.profileButton}
          aria-label={isAuthenticated ? 'Profile' : 'Login'}
          href={isAuthenticated ? ROUTES.PROFILE : ROUTES.AUTH}

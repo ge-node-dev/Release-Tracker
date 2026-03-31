@@ -48,7 +48,7 @@ const ReleaseOfTheWeek = async () => {
             <div className={styles.info}>
                <span className={styles.absoluteTitle}>{title}</span>
                <span className={styles.releaseOfTheWeek}>RELEASE OF THE WEEK</span>
-               <h1 className={styles.title}>title</h1>
+               <h1 className={styles.title}>{title}</h1>
                <h3 className={styles.artist}>{artists}</h3>
                <div className={styles.genres}>
                   {release_genres?.map(({ genres }) => (

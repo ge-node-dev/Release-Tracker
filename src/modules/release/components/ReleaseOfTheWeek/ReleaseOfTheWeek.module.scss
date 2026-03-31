@@ -148,6 +148,10 @@
       width: 100%;
    }
 
+   @include breakpoint('tablet') {
+      width: 35%;
+   }
+
    @include breakpoint('laptop') {
       width: fit-content;
    }
