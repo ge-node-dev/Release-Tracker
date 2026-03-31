@@ -1,10 +1,9 @@
 'use server';
 
-import { revalidatePath, updateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { setFlash } from '@/shared/ui/FlashToaster';
-import { RELEASES_CACHE_TAG } from '@/shared/utils/constants';
 import { getAuthenticatedUser } from '@/shared/utils/data/getAuthenticatedUser';
 
 import { RatingCooldown } from '../types/ratingTypes';

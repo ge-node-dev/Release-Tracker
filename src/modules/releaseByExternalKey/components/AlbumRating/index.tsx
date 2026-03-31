@@ -3,11 +3,11 @@
 import { useState } from 'react';
 
 import { Profile } from '@/modules/profile/types/profileTypes';
+import { ROUTES } from '@/shared/constants';
 import ActionButton from '@/shared/ui/Buttons/ActionButton';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
 import { StarIcon } from '@/shared/ui/Icons';
 import Modal from '@/shared/ui/Modal';
-import { ROUTES } from '@/shared/utils/constants';
 
 import { submitRating } from '../../services/ratingServices';
 import { ReleaseRating } from '../../types/ratingTypes';
