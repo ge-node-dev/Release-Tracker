@@ -6,7 +6,7 @@ export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 import ProfileSettings from '@/modules/profile/components/ProfileSettings';
 import { getProfile } from '@/modules/profile/services/profileActions';
-import { ROUTES } from '@/shared/utils/constants';
+import { ROUTES } from '@/shared/constants';
 
 const ProfilePage = async () => {
    const data = await getProfile();

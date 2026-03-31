@@ -5,7 +5,6 @@ export { EyeOnIcon } from './EyeOnIcon';
 export { PasswordIcon } from './PasswordIcon';
 export { PlayIcon } from './PlayIcon';
 export { PlayCircleIcon } from './PlayCircleIcon';
-export { UserCircleIcon } from './UserCircleIcon';
 export { UserIcon } from './UserIcon';
 export { AudioPlayerArrow } from './AudioPlayerArrow';
 export { PauseIcon } from './PauseIcon';

@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 
 import { getProfile } from '@/modules/profile/services/profileActions';
+import { ROUTES } from '@/shared/constants';
 import { FeedIcon, SettingsIcon } from '@/shared/ui/Icons';
-import { ROUTES } from '@/shared/utils/constants';
 
 import DesktopView from './segments/DesktopView';
 import MobileView from './segments/MobileView';

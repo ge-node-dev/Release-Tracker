@@ -9,8 +9,8 @@ import { cache } from 'react';
 
 import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { ROUTES } from '@/shared/constants';
 import { setFlash } from '@/shared/ui/FlashToaster';
-import { ROUTES } from '@/shared/utils/constants';
 import { getAuthenticatedUser } from '@/shared/utils/data/getAuthenticatedUser';
 import { isUsernameAlreadyExist } from '@/shared/utils/data/isUsernameAlreadyExist';
 import { getCloudinaryCredentials } from '@/shared/utils/integrations/cloudinary';

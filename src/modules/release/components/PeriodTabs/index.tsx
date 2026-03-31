@@ -1,5 +1,6 @@
+import Link from 'next/link';
+
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
-import LinkButton from '@/shared/ui/Buttons/LinkButton';
 import { buildPageHref } from '@/shared/utils/data/pagination';
 
 import styles from './PeriodTabs.module.scss';
@@ -12,15 +13,14 @@ const PeriodTabs = ({ currentPeriod }: { currentPeriod: ReleasePeriod }) => {
          <h3 className={styles.title}>New Releases</h3>
          <div className={styles.tabsContainer}>
             {periods.map((period) => (
-               <LinkButton
+               <Link
                   key={period}
-                  size="medium"
-                  ariaLabel={`Period-${period}`}
+                  aria-label={period}
                   href={buildPageHref(period, 1)}
-                  active={period === currentPeriod}
+                  className={`${styles.link} ${period === currentPeriod ? styles.active : ''}`}
                >
                   {period.replace('_', ' ')}
-               </LinkButton>
+               </Link>
             ))}
          </div>
       </section>

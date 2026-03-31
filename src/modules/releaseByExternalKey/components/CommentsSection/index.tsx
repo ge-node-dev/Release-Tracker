@@ -1,8 +1,8 @@
 import type { CommentsSectionProps } from '@/modules/releaseByExternalKey/types/releaseTypes';
 
+import { ROUTES } from '@/shared/constants';
 import { Avatar } from '@/shared/ui/Avatar';
 import LinkButton from '@/shared/ui/Buttons/LinkButton';
-import { ROUTES } from '@/shared/utils/constants';
 
 import CommentForm from './segments/CommentForm';
 import CommentList from './segments/CommentsList';

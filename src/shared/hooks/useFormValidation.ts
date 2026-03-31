@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { EMAIL_REGEX } from '../utils/constants';
+import { EMAIL_REGEX } from '../constants';
 
 type FormFields = Record<string, FieldState>;
 

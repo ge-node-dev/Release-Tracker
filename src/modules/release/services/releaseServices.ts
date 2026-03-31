@@ -2,7 +2,7 @@ import { cacheLife, cacheTag } from 'next/cache';
 
 import { createSupabaseStaticClient } from '@/lib/supabase/client';
 import { ReleasePeriod, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
-import { CACHE_12H, CACHE_1W, RELEASES_CACHE_TAG } from '@/shared/utils/constants';
+import { CACHE_12H, CACHE_1W, RELEASES_CACHE_TAG } from '@/shared/constants';
 import { getReleaseDateRange } from '@/shared/utils/date/getReleaseDateRange';
 
 import { RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
