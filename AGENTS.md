@@ -20,15 +20,18 @@ yarn build                  # Production build
 yarn lint                   # ESLint (TS/TSX) with auto-fix, zero warnings allowed
 yarn lint:styles            # Stylelint (SCSS/CSS) with auto-fix
 yarn format                 # Prettier format all TS/JS files
-yarn test:queries           # Run Supabase query tests (requires .env.local)
-yarn test:auth              # Run Supabase auth tests (requires .env.local)
+yarn test:queries           # Run Supabase query tests (local DB, .env.development.local)
+yarn test:auth              # Run Supabase auth tests (local DB)
+yarn test:ratings           # Run rating/cooldown tests (local DB)
 
-# Database (requires Supabase CLI)
-yarn db:export-types        # Export Supabase DB types to supabase/types/database.ts
+# Database (requires Supabase CLI + Docker)
+supabase start              # Boot the local stack; prints URL and keys
+yarn db:sync                # Pull prod catalog, reset local DB, run seeds
+yarn db:reset               # Reset local DB from migrations + seeds (no network)
+yarn db:export-types        # Export local DB types to supabase/types/database.ts
 yarn db:pull                # Pull schema from remote Supabase
-yarn db:push                # Push local schema to remote
+yarn db:push                # Push local migrations to remote
 yarn db:create-migration    # Create migration from schema diff
-yarn db:dump                # Reset local DB and re-import mock_data.sql
 ```
 
 ## Project Structure
@@ -223,10 +226,48 @@ Server Components by default. `'use client'` only when needed for event handlers
 
 ## Environment Variables
 
-Required in `.env.local`:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-- `REVALIDATION_SECRET`
+See `.env.example`. Supabase is reached through server-side variables only — there are no
+`NEXT_PUBLIC_SUPABASE_*` variables, so switching environments needs no rebuild and one Docker
+image can be promoted between them.
+
+`.env.local` — production:
+- `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_DB_URL` — Postgres connection string, read only by `yarn db:sync`
+- `REVALIDATION_SECRET`, `CLOUDINARY_URL`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
+- `NEXT_PUBLIC_SITE_URL`
+
+`.env.development.local` — local Docker stack. Next.js loads it ahead of `.env.local` under
+`yarn dev`, so `yarn dev` and every `test:*` script hit the local DB while production builds
+keep using `.env.local`.
+
+## Local Database Workflow
+
+Each developer runs their own Postgres in Docker; there is no shared staging project. Schema
+comes from `supabase/migrations`, catalog data from prod, users from a committed seed.
+
+```bash
+supabase start   # once per machine
+yarn db:sync     # prod catalog -> local DB, then migrations + seeds
+```
+
+`yarn db:sync` dumps only catalog tables (releases, artists, tracks, genres and the join
+tables). `profiles`, `comments`, `release_ratings` and `user_activity` are excluded, and the
+script aborts if a user table shows up in the dump — prod PII never lands on a dev machine.
+
+Seeds load in the order declared under `[db.seed]` in `config.toml`:
+`seeds/catalog_data.sql` (generated, gitignored) then `seeds/users.sql` (committed).
+`seeds/users.sql` creates `admin@local.dev`, `user@local.dev` and `critic@local.dev`,
+all with password `password123`. Because the `on_auth_user_created` trigger already inserts
+the `profiles` row, the seed updates profiles instead of inserting them.
+
+Schema changes go through migrations only — never edit a remote DB by hand:
+
+```bash
+yarn db:create-migration <name>   # diff local changes into a migration
+yarn db:reset                     # verify it applies from scratch
+yarn db:export-types              # regenerate database.ts, commit with the migration
+yarn db:push                      # apply to prod after merge
+```
 
 ## Key Dependencies
 
