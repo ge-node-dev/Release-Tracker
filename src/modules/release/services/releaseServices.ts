@@ -2,21 +2,16 @@ import { cacheLife, cacheTag } from 'next/cache';
 
 import { createSupabaseStaticClient } from '@/lib/supabase/client';
 import { ReleasePeriod, ReleaseQueryParams, RELEASES_PERIODS_LIMITS } from '@/modules/release/types/releaseTypes';
-import { CACHE_12H, CACHE_1W, RELEASES_CACHE_TAG } from '@/shared/constants';
-import { getReleaseDateRange } from '@/shared/utils/date/getReleaseDateRange';
+import { getReleaseDateRange } from '@/modules/release/utils/getReleaseDateRange';
+import { RELEASES_CACHE_TAG } from '@/shared/constants';
 
 import { RELEASES_OF_THE_WEEK_QUERY, RELEASES_QUERY } from './query';
 
-export const getReleasesListFirstPage = async (period: ReleasePeriod) => {
+export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    'use cache';
-   cacheLife(CACHE_1W);
-   cacheTag(`releases-first-page-${period}`);
+   cacheLife('hours');
    cacheTag(RELEASES_CACHE_TAG);
 
-   return await getReleasesList({ period, page: 1 });
-};
-
-export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: ReleaseQueryParams) => {
    const supabase = createSupabaseStaticClient();
 
    const limit = RELEASES_PERIODS_LIMITS[period];
@@ -49,7 +44,7 @@ export const getReleasesList = async ({ period, page = 1, sortOrder = 'desc' }: 
 
 export const getReleaseOfTheWeek = async () => {
    'use cache';
-   cacheLife(CACHE_12H);
+   cacheLife('hours');
    cacheTag(RELEASES_CACHE_TAG);
 
    const supabase = createSupabaseStaticClient();
@@ -73,8 +68,7 @@ export const getReleaseOfTheWeek = async () => {
 
 export const getPaginationCount = async (period: ReleasePeriod) => {
    'use cache';
-   cacheLife(CACHE_1W);
-   cacheTag(`releases-count-${period}`);
+   cacheLife('hours');
    cacheTag(RELEASES_CACHE_TAG);
 
    const supabase = createSupabaseStaticClient();

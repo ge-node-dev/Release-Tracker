@@ -1,4 +1,6 @@
 'use client';
+import { useRouter } from 'next/navigation';
+
 import { logoutUserAccount } from '@/modules/auth/services/authActions';
 import ActionButton, { type ActionButtonProps } from '@/shared/ui/Buttons/ActionButton';
 
@@ -11,6 +13,8 @@ const LogoutButton = ({
    size?: ActionButtonProps['size'];
    variant?: ActionButtonProps['variant'];
 }) => {
+   const router = useRouter();
+
    return (
       <ActionButton
          size={size}
@@ -20,7 +24,7 @@ const LogoutButton = ({
             try {
                await logoutUserAccount();
             } finally {
-               window.location.href = '/';
+               router.push('/');
             }
          }}
       >

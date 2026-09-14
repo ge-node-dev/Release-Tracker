@@ -1,8 +1,9 @@
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
+import { buildPageHref } from '@/modules/release/utils/buildPageHref';
 import Pagination from '@/shared/ui/Pagination';
 import ReleaseCard from '@/shared/ui/ReleaseCard';
 
-import { getReleasesList, getReleasesListFirstPage } from '../../services/releaseServices';
+import { getPaginationCount, getReleasesList } from '../../services/releaseServices';
 
 import styles from './ReleasesList.module.scss';
 
@@ -12,7 +13,10 @@ interface Props {
 }
 
 const ReleasesList = async ({ page, period }: Props) => {
-   const { data } = page === 1 ? await getReleasesListFirstPage(period) : await getReleasesList({ page, period });
+   const [{ data }, { totalPages }] = await Promise.all([
+      getReleasesList({ page, period }),
+      getPaginationCount(period),
+   ]);
 
    return (
       <section className={styles.wrapper}>
@@ -21,7 +25,11 @@ const ReleasesList = async ({ page, period }: Props) => {
                <ReleaseCard key={release.id} release={release} />
             ))}
          </div>
-         <Pagination currentPage={page} currentPeriod={period} />
+         <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            buildHref={(targetPage) => buildPageHref(period, targetPage)}
+         />
       </section>
    );
 };
