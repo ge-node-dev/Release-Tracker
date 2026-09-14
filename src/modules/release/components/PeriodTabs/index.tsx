@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
-import { buildPageHref } from '@/shared/utils/data/pagination';
+import { buildPageHref } from '@/modules/release/utils/buildPageHref';
 
 import styles from './PeriodTabs.module.scss';
 

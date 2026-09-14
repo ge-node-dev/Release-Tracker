@@ -107,10 +107,9 @@ src/
 
 Service functions use Next.js `'use cache'` directive with `cacheLife` and `cacheTag` (from `next/cache`).
 
-Cache presets in `src/shared/utils/constants.ts`:
-- `CACHE_10MIN` — stale: 600s, expire: 3600s, revalidate: 600s
-- `CACHE_12H` — stale: 43200s, expire: 86400s, revalidate: 43200s
-- `CACHE_1W` — stale: 604800s, expire: 2592000s, revalidate: 604800s
+Release listings use Next's built-in `'hours'` profile (stale 5min / revalidate 1h / expire 1d).
+Custom presets live in `src/shared/constants.ts`:
+- `CACHE_10MIN` — stale: 300s, expire: 3600s, revalidate: 600s
 
 Cache tag: `RELEASES_CACHE_TAG`. External invalidation via `POST /api/revalidateByTag` (requires `Authorization: <REVALIDATION_SECRET>` header).
 
@@ -219,7 +218,6 @@ Server Components by default. `'use client'` only when needed for event handlers
 ## Next.js Config
 
 - React Compiler: `reactCompiler: true`
-- Standalone output: `output: 'standalone'`
 - Cache Components: `cacheComponents: true`
 - Security headers: HSTS, X-Frame-Options (SAMEORIGIN), CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 - Remote images: `cdn-images.dzcdn.net`, `cdnt-preview.dzcdn.net`, `res.cloudinary.com`
@@ -227,8 +225,7 @@ Server Components by default. `'use client'` only when needed for event handlers
 ## Environment Variables
 
 See `.env.example`. Supabase is reached through server-side variables only — there are no
-`NEXT_PUBLIC_SUPABASE_*` variables, so switching environments needs no rebuild and one Docker
-image can be promoted between them.
+`NEXT_PUBLIC_SUPABASE_*` variables, so switching environments needs no rebuild.
 
 `.env.local` — production:
 - `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`

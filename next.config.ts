@@ -5,9 +5,6 @@ const isDev = process.env.NODE_ENV === 'development';
 const nextConfig: NextConfig = {
    reactCompiler: true,
    cacheComponents: true,
-   experimental: {
-      instantNavigationDevToolsToggle: true,
-   },
    sassOptions: {
       prependData: `@use "@/shared/styles/_mixins.scss" as *; @use "@/shared/styles/_variables.scss" as *; @use "@/shared/styles/_breakpoints.scss" as *; @use "@/shared/styles/_typography.scss" as *;`,
    },

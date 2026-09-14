@@ -1,18 +1,17 @@
 import Link from 'next/link';
 
-import { getPaginationCount } from '@/modules/release/services/releaseServices';
-import { ReleasePeriod } from '@/modules/release/types/releaseTypes';
 import { ArrowIcon as UiArrowIcon } from '@/shared/ui/Icons';
-import { buildPageHref, getVisiblePages } from '@/shared/utils/data/pagination';
+import { getVisiblePages } from '@/shared/utils/data/pagination';
 
 import styles from './Pagination.module.scss';
 
 const ARROW_ICON_SIZE = 18;
 
 interface PaginationProps {
+   totalPages: number;
    currentPage: number;
    maxVisiblePages?: number;
-   currentPeriod: ReleasePeriod;
+   buildHref: (page: number) => string;
 }
 
 const ArrowIcon = ({ rotate }: { rotate?: string }) => (
@@ -27,21 +26,18 @@ const ArrowIcon = ({ rotate }: { rotate?: string }) => (
    />
 );
 
-const Pagination = async ({ currentPage, currentPeriod, maxVisiblePages = 3 }: PaginationProps) => {
-   const { totalPages } = await getPaginationCount(currentPeriod);
+const Pagination = ({ buildHref, totalPages, currentPage, maxVisiblePages = 3 }: PaginationProps) => {
    if (!totalPages || totalPages < 2) return null;
 
    const isFirstPage = currentPage === 1;
    const isLastPage = currentPage === totalPages;
    const visiblePages = getVisiblePages(currentPage, totalPages, maxVisiblePages);
 
-   const navigateTo = (page: number) => buildPageHref(currentPeriod, page);
-
    return (
       <div className={styles.pagination}>
          <Link
             prefetch={false}
-            href={navigateTo(currentPage - 1)}
+            href={buildHref(currentPage - 1)}
             className={`${styles.arrowLink} ${isFirstPage ? styles.disabled : ''}`}
          >
             <ArrowIcon />
@@ -56,7 +52,7 @@ const Pagination = async ({ currentPage, currentPeriod, maxVisiblePages = 3 }: P
                <Link
                   key={page}
                   prefetch={false}
-                  href={navigateTo(+page)}
+                  href={buildHref(+page)}
                   className={`${styles.paginationLink} ${page === currentPage ? styles.active : ''}`}
                >
                   {page}
@@ -66,7 +62,7 @@ const Pagination = async ({ currentPage, currentPeriod, maxVisiblePages = 3 }: P
 
          <Link
             prefetch={false}
-            href={navigateTo(currentPage + 1)}
+            href={buildHref(currentPage + 1)}
             className={`${styles.arrowLink} ${isLastPage ? styles.disabled : ''}`}
          >
             <ArrowIcon rotate="180deg" />
