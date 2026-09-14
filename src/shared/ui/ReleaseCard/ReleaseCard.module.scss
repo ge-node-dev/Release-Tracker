@@ -93,6 +93,11 @@
 
 .cardTitle {
    @include h4;
+
+   display: -webkit-box;
+   overflow: hidden;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
 }
 
 .cardBottom {
@@ -111,7 +116,11 @@
 .cardArtistsNames {
    @include h5;
 
+   display: -webkit-box;
+   overflow: hidden;
    color: var(--text-primary);
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
 }
 
 .cardDate {

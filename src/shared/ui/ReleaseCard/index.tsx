@@ -9,8 +9,15 @@ import { formatReleaseDate } from '@/shared/utils/date/formatReleaseDate';
 
 import styles from './ReleaseCard.module.scss';
 
+const MAX_VISIBLE_ARTISTS = 5;
+
 const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
-   const artistsNames = release.release_artists?.map((artist) => artist.artists.name).join(', ');
+   const artists = release.release_artists ?? [];
+   const artistsNames = artists
+      .slice(0, MAX_VISIBLE_ARTISTS)
+      .map((artist) => artist.artists.name)
+      .join(', ');
+   const hiddenArtistsCount = artists.length - MAX_VISIBLE_ARTISTS;
 
    return (
       <Link prefetch={false} className={styles.card} href={`/release/${release.external_key}`}>
@@ -29,7 +36,9 @@ const ReleaseCard = ({ release }: { release: ReleaseWithArtists }) => {
          <div className={styles.cardInfo}>
             <h4 className={styles.cardTitle}>{release.title}</h4>
             <div className={styles.cardBottom}>
-               <p className={styles.cardArtistsNames}>{artistsNames}</p>
+               <p className={styles.cardArtistsNames}>
+                  {hiddenArtistsCount > 0 ? `${artistsNames} +${hiddenArtistsCount}` : artistsNames}
+               </p>
                <p className={styles.cardDate}>{formatReleaseDate(release.release_date)}</p>
             </div>
          </div>
